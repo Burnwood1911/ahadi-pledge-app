@@ -5,6 +5,7 @@ import 'package:ahadi_pledge/screens/pledge_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class Pledges extends StatefulWidget {
@@ -38,7 +39,12 @@ class _PledgesState extends State<Pledges> {
           ),
           body: Obx(() => pledgeController.isLoading.value
               ? Center(
-                  child: CircularProgressIndicator(),
+                  child: LoadingIndicator(
+                      indicatorType: Indicator.ballClipRotatePulse,
+                      colors: [Colors.blue],
+                      strokeWidth: 3,
+                      backgroundColor: Colors.white,
+                      pathBackgroundColor: Colors.white),
                 )
               : ListView.separated(
                   itemCount: pledgeController.pledges.length,

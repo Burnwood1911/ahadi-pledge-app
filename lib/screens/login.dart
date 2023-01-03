@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({super.key});
@@ -29,15 +30,22 @@ class AuthScreenWidget extends StatefulWidget {
 }
 
 class AuthScreenWidgetState extends State<AuthScreenWidget> {
-  AuthController authController = Get.find();
-  final communityController = Get.find<CommunityController>();
+  final AuthController authController = Get.find<AuthController>();
+  final CommunityController communityController =
+      Get.find<CommunityController>();
 
   @override
   Widget build(BuildContext context) {
     return Obx(() => authController.isLoading.value
         ? Scaffold(
+            backgroundColor: Colors.white,
             body: Center(
-              child: CircularProgressIndicator(),
+              child: LoadingIndicator(
+                  indicatorType: Indicator.ballClipRotatePulse,
+                  colors: [Colors.blue],
+                  strokeWidth: 3,
+                  backgroundColor: Colors.white,
+                  pathBackgroundColor: Colors.white),
             ),
           )
         : DefaultTabController(

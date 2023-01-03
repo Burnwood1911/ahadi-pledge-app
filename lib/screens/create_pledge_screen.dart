@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 
 class CreatePledge extends StatefulWidget {
   const CreatePledge({super.key});
@@ -56,7 +57,12 @@ class _CreatePledgeState extends State<CreatePledge> {
         ),
         body: Obx((() => pledgeController.isLoading.value
             ? Center(
-                child: CircularProgressIndicator(),
+                child: LoadingIndicator(
+                    indicatorType: Indicator.ballClipRotatePulse,
+                    colors: [Colors.blue],
+                    strokeWidth: 3,
+                    backgroundColor: Colors.white,
+                    pathBackgroundColor: Colors.white),
               )
             : Padding(
                 padding: const EdgeInsets.all(16.0),
