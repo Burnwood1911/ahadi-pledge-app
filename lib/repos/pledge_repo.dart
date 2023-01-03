@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:ahadi_pledge/api/pledge_form.dart';
-import 'package:ahadi_pledge/models/community.dart';
 import 'package:ahadi_pledge/models/pledge.dart';
 import 'package:ahadi_pledge/models/pledge_purposes.dart';
 import 'package:ahadi_pledge/models/pledge_types.dart';

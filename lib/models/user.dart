@@ -72,8 +72,8 @@ class User {
         "date_of_birth":
             "${dateOfBirth!.year.toString().padLeft(4, '0')}-${dateOfBirth!.month.toString().padLeft(2, '0')}-${dateOfBirth!.day.toString().padLeft(2, '0')}",
         "gender": gender,
-        "created_at": createdAt?.toIso8601String() ?? null,
-        "updated_at": updatedAt?.toIso8601String() ?? null,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
         "status": status,
         "role": role,
       };

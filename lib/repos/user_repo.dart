@@ -1,12 +1,7 @@
 import 'dart:convert';
-import 'dart:io';
-
 import 'package:ahadi_pledge/models/user.dart';
 import 'package:ahadi_pledge/network/dio_client.dart';
-import 'package:ahadi_pledge/network/dio_exception.dart';
 import 'package:dio/dio.dart';
-
-import 'package:get_storage/get_storage.dart';
 
 class UserRepository {
   final DioClient dio;
