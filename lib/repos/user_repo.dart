@@ -36,4 +36,24 @@ class UserRepository {
       throw Exception({"error": e.toString(), "stacktrace": e.stackTrace});
     }
   }
+
+  Future<bool> changePassword(String oldPassword, String newPassword) async {
+    Map<String, dynamic> data = {
+      "oldPassword": oldPassword,
+      "newPassword": newPassword,
+    };
+    try {
+      var response = await dio.post("/user/password", data: jsonEncode(data));
+
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } on DioError catch (e) {
+      throw Exception({"error": e.message});
+    } on TypeError catch (e) {
+      throw Exception({"error": e.toString(), "stacktrace": e.stackTrace});
+    }
+  }
 }

@@ -1,10 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:ahadi_pledge/controllers/auth_controller.dart';
+import 'package:ahadi_pledge/screens/change_password.dart';
 import 'package:ahadi_pledge/screens/edit_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:google_fonts/google_fonts.dart';
 
 class SettingsScreen extends GetView<AuthController> {
@@ -66,6 +66,7 @@ class SettingsScreen extends GetView<AuthController> {
                     title: Text("Edit Profile"),
                     trailing: Icon(Icons.arrow_forward)),
                 ListTile(
+                    onTap: () => Get.to(() => ChangePasswordScreen()),
                     leading: Icon(Icons.lock),
                     title: Text("Change Password"),
                     trailing: Icon(Icons.arrow_forward)),

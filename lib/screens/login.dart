@@ -329,6 +329,18 @@ class _SignUpPageState extends State<_SignUpPage> {
           ),
         ));
   }
+
+  @override
+  void dispose() {
+    fname.dispose();
+    mname.dispose();
+    lname.dispose();
+    phone.dispose();
+    birth.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 }
 
 class _SignInPage extends StatefulWidget {
@@ -406,5 +418,12 @@ class _SignInPageState extends State<_SignInPage> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _passwordController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 }

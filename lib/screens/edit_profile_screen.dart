@@ -20,6 +20,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final TextEditingController email = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    userController.fetchUser();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -113,5 +119,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               );
       }),
     );
+  }
+
+  @override
+  void dispose() {
+    fname.dispose();
+    mname.dispose();
+    lname.dispose();
+    phone.dispose();
+    email.dispose();
+    super.dispose();
   }
 }

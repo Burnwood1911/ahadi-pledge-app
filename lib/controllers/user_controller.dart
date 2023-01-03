@@ -8,12 +8,6 @@ class UserController extends GetxController {
   RxBool isLoading = false.obs;
   Rx<User> user = User().obs;
 
-  @override
-  void onInit() async {
-    super.onInit();
-    await fetchUser();
-  }
-
   Future<void> fetchUser() async {
     isLoading(true);
     final result = await userRepository.fetchUser();
@@ -27,6 +21,19 @@ class UserController extends GetxController {
     final result =
         await userRepository.updateUser(fname, mname, lname, phone, email);
     user.value = result;
+    isLoading(false);
+  }
+
+  Future<void> changePassword(String oldPassword, String newPassword) async {
+    isLoading(true);
+    final result =
+        await userRepository.changePassword(oldPassword, newPassword);
+
+    if (result) {
+      Get.back();
+    } else {
+      Get.snackbar("Error", "Failed to change password");
+    }
     isLoading(false);
   }
 }
