@@ -42,13 +42,6 @@ class PledgeController extends GetxController {
     isLoading(false);
   }
 
-  Future<void> getJumuiyas() async {
-    isLoading(true);
-    final result = await pledgeRepository.getPledgePurposes();
-    pledgepurposes.value = result.purposes!;
-    isLoading(false);
-  }
-
   Future<void> createPledge(PledgeForm form) async {
     isLoading(true);
     final result = await pledgeRepository.createPledge(form);
