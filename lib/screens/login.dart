@@ -1,7 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-// ignore_for_file: unnecessary_new
-// ignore_for_file: prefer_const_literals_to_create_immutables
-
 import 'package:ahadi_pledge/controllers/auth_controller.dart';
 import 'package:ahadi_pledge/controllers/community_controller.dart';
 import 'package:ahadi_pledge/models/community.dart';
@@ -16,7 +12,7 @@ class AuthScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AuthScreenWidget();
+    return const AuthScreenWidget();
   }
 }
 
@@ -42,7 +38,7 @@ class AuthScreenWidgetState extends State<AuthScreenWidget> {
               initialIndex: 0,
               child: Scaffold(
                 appBar: PreferredSize(
-                  preferredSize: Size.fromHeight(180.0), // here th
+                  preferredSize: const Size.fromHeight(180.0), // here th
 
                   child: AppBar(
                     flexibleSpace: Image.asset(
@@ -50,7 +46,7 @@ class AuthScreenWidgetState extends State<AuthScreenWidget> {
                     ),
                     elevation: 0,
                     backgroundColor: Colors.white,
-                    bottom: TabBar(
+                    bottom: const TabBar(
                       indicatorColor: Colors.blue,
                       tabs: [
                         Tab(
@@ -75,13 +71,13 @@ class AuthScreenWidgetState extends State<AuthScreenWidget> {
                       ListView(
                         children: <Widget>[_SignUpPage(communityController)],
                       ),
-                      ListView(children: <Widget>[_SignInPage()]),
+                      ListView(children: const <Widget>[_SignInPage()]),
                     ],
                   ),
                 ),
               ),
             ),
-        onLoading: Scaffold(
+        onLoading: const Scaffold(
           backgroundColor: Colors.white,
           body: Center(
             child: LoadingIndicator(
@@ -139,8 +135,8 @@ class _SignUpPageState extends State<_SignUpPage> {
                     const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
                 child: TextFormField(
                   controller: fname,
-                  decoration:
-                      InputDecoration(labelText: "First Name", filled: true),
+                  decoration: const InputDecoration(
+                      labelText: "First Name", filled: true),
                 ),
               ),
               Padding(
@@ -148,8 +144,8 @@ class _SignUpPageState extends State<_SignUpPage> {
                     const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
                 child: TextFormField(
                   controller: mname,
-                  decoration:
-                      InputDecoration(labelText: "Middle Name", filled: true),
+                  decoration: const InputDecoration(
+                      labelText: "Middle Name", filled: true),
                 ),
               ),
               Padding(
@@ -157,8 +153,8 @@ class _SignUpPageState extends State<_SignUpPage> {
                     const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
                 child: TextFormField(
                   controller: lname,
-                  decoration:
-                      InputDecoration(labelText: "Last Name", filled: true),
+                  decoration: const InputDecoration(
+                      labelText: "Last Name", filled: true),
                 ),
               ),
               Padding(
@@ -166,7 +162,8 @@ class _SignUpPageState extends State<_SignUpPage> {
                     const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
                 child: TextFormField(
                   controller: phone,
-                  decoration: InputDecoration(labelText: "Phone", filled: true),
+                  decoration:
+                      const InputDecoration(labelText: "Phone", filled: true),
                 ),
               ),
               Padding(
@@ -174,7 +171,8 @@ class _SignUpPageState extends State<_SignUpPage> {
                     const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
                 child: TextFormField(
                   controller: _emailController,
-                  decoration: InputDecoration(labelText: "email", filled: true),
+                  decoration:
+                      const InputDecoration(labelText: "email", filled: true),
                 ),
               ),
               Padding(
@@ -222,7 +220,7 @@ class _SignUpPageState extends State<_SignUpPage> {
                                 value: value.name,
                                 child: Text(
                                   value.name,
-                                  style: TextStyle(color: Colors.black),
+                                  style: const TextStyle(color: Colors.black),
                                 ),
                               );
                             }).toList(),
@@ -240,7 +238,7 @@ class _SignUpPageState extends State<_SignUpPage> {
                         ],
                       ),
                     )
-                  : SizedBox.shrink(),
+                  : const SizedBox.shrink(),
               Padding(
                 padding:
                     const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
@@ -259,7 +257,7 @@ class _SignUpPageState extends State<_SignUpPage> {
                           value: value,
                           child: Text(
                             value,
-                            style: TextStyle(color: Colors.black),
+                            style: const TextStyle(color: Colors.black),
                           ),
                         );
                       }).toList(),
@@ -278,7 +276,7 @@ class _SignUpPageState extends State<_SignUpPage> {
                 child: TextFormField(
                   controller: birth,
                   //editing controller of this TextField
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       icon: Icon(Icons.calendar_today), //icon of text field
                       labelText: "Birth Date" //label text of field
                       ),
@@ -306,7 +304,7 @@ class _SignUpPageState extends State<_SignUpPage> {
               Padding(
                 padding:
                     const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                child: new MaterialButton(
+                child: MaterialButton(
                   minWidth: double.infinity,
                   color: Colors.blue,
                   onPressed: () => {
@@ -322,7 +320,7 @@ class _SignUpPageState extends State<_SignUpPage> {
                         widget.communityController.selectedJumuiyaId.value)
                   },
                   textColor: Colors.white,
-                  child: Text("Register"),
+                  child: const Text("Register"),
                 ),
               ),
             ],
@@ -378,7 +376,8 @@ class _SignInPageState extends State<_SignInPage> {
             padding: const EdgeInsets.only(left: 18.0, right: 18.0, top: 30.0),
             child: TextFormField(
               controller: _loginController,
-              decoration: InputDecoration(labelText: "login", filled: true),
+              decoration:
+                  const InputDecoration(labelText: "login", filled: true),
             ),
           ),
           Padding(
@@ -404,7 +403,7 @@ class _SignInPageState extends State<_SignInPage> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-            child: new MaterialButton(
+            child: MaterialButton(
               minWidth: double.infinity,
               color: Colors.blue,
               onPressed: () {
@@ -412,7 +411,7 @@ class _SignInPageState extends State<_SignInPage> {
                     _loginController.text, _passwordController.text);
               },
               textColor: Colors.white,
-              child: Text("Log In"),
+              child: const Text("Log In"),
             ),
           ),
         ],

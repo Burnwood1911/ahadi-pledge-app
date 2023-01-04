@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:ahadi_pledge/controllers/pledge_controller.dart';
 import 'package:ahadi_pledge/screens/pledge_details_screen.dart';
 import 'package:flutter/material.dart';
@@ -33,12 +31,12 @@ class _PledgesState extends State<Pledges> {
             title: Text(
               "Pledges",
               style: GoogleFonts.poppins(
-                  textStyle: TextStyle(color: Colors.black)),
+                  textStyle: const TextStyle(color: Colors.black)),
             ),
             centerTitle: true,
           ),
           body: Obx(() => pledgeController.isLoading.value
-              ? Center(
+              ? const Center(
                   child: LoadingIndicator(
                       indicatorType: Indicator.ballClipRotatePulse,
                       colors: [Colors.blue],
@@ -48,8 +46,8 @@ class _PledgesState extends State<Pledges> {
                 )
               : ListView.separated(
                   itemCount: pledgeController.pledges.length,
-                  padding: EdgeInsets.all(16),
-                  separatorBuilder: (context, index) => SizedBox(
+                  padding: const EdgeInsets.all(16),
+                  separatorBuilder: (context, index) => const SizedBox(
                     height: 10,
                   ),
                   itemBuilder: (context, index) => GestureDetector(
@@ -63,10 +61,10 @@ class _PledgesState extends State<Pledges> {
                           PageTransitionAnimation.cupertino,
                     ),
                     child: Container(
-                      padding: EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(10),
                             topRight: Radius.circular(10),
                             bottomLeft: Radius.circular(10),
@@ -76,7 +74,8 @@ class _PledgesState extends State<Pledges> {
                             color: Colors.grey.withOpacity(0.5),
                             spreadRadius: 5,
                             blurRadius: 7,
-                            offset: Offset(0, 3), // changes position of shadow
+                            offset: const Offset(
+                                0, 3), // changes position of shadow
                           ),
                         ],
                       ),
@@ -89,8 +88,8 @@ class _PledgesState extends State<Pledges> {
                               Text(
                                 pledgeController.pledges[index].purpose.title,
                                 style: GoogleFonts.poppins(
-                                    textStyle:
-                                        TextStyle(fontWeight: FontWeight.bold)),
+                                    textStyle: const TextStyle(
+                                        fontWeight: FontWeight.bold)),
                               ),
                               Text(
                                 pledgeController.pledges[index].deadline
@@ -98,7 +97,7 @@ class _PledgesState extends State<Pledges> {
                                     .toString()
                                     .split(" ")[0],
                                 style: GoogleFonts.poppins(
-                                    textStyle: TextStyle(
+                                    textStyle: const TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.grey)),
@@ -110,8 +109,8 @@ class _PledgesState extends State<Pledges> {
                               Text(
                                 "${pledgeController.pledges[index].amount}Tsh",
                                 style: GoogleFonts.poppins(
-                                    textStyle:
-                                        TextStyle(fontWeight: FontWeight.bold)),
+                                    textStyle: const TextStyle(
+                                        fontWeight: FontWeight.bold)),
                               ),
                               // Container(
                               //   width: 70,

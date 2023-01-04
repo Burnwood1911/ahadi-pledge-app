@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:ahadi_pledge/api/pledge_form.dart';
 import 'package:ahadi_pledge/controllers/pledge_controller.dart';
 import 'package:ahadi_pledge/models/pledge_purposes.dart';
@@ -47,16 +45,16 @@ class _CreatePledgeState extends State<CreatePledge> {
         appBar: AppBar(
           title: Text(
             "Create Pledge",
-            style:
-                GoogleFonts.poppins(textStyle: TextStyle(color: Colors.black)),
+            style: GoogleFonts.poppins(
+                textStyle: const TextStyle(color: Colors.black)),
           ),
           centerTitle: true,
           elevation: 0,
           backgroundColor: Colors.transparent,
-          iconTheme: IconThemeData(color: Colors.black),
+          iconTheme: const IconThemeData(color: Colors.black),
         ),
         body: Obx((() => pledgeController.isLoading.value
-            ? Center(
+            ? const Center(
                 child: LoadingIndicator(
                     indicatorType: Indicator.ballClipRotatePulse,
                     colors: [Colors.blue],
@@ -95,7 +93,7 @@ class _CreatePledgeState extends State<CreatePledge> {
                         });
                       },
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 8,
                     ),
                     Text(
@@ -115,7 +113,7 @@ class _CreatePledgeState extends State<CreatePledge> {
                           value: value.title,
                           child: Text(
                             value.title,
-                            style: TextStyle(color: Colors.black),
+                            style: const TextStyle(color: Colors.black),
                           ),
                         );
                       }).toList(),
@@ -128,34 +126,34 @@ class _CreatePledgeState extends State<CreatePledge> {
                         });
                       },
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 16,
                     ),
                     TextField(
                       controller: amount,
                       keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Amount',
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 16,
                     ),
                     TextField(
                       controller: description,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Description',
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 16,
                     ),
                     TextField(
                       controller: dateInput,
                       //editing controller of this TextField
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                           icon: Icon(Icons.calendar_today), //icon of text field
                           labelText: "Deadline Date" //label text of field
                           ),
@@ -179,7 +177,7 @@ class _CreatePledgeState extends State<CreatePledge> {
                         } else {}
                       },
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 16,
                     ),
                     SizedBox(
@@ -203,7 +201,7 @@ class _CreatePledgeState extends State<CreatePledge> {
 
                               pledgeController.createPledge(form);
                             }),
-                            child: Text("Create")))
+                            child: const Text("Create")))
                   ],
                 ),
               ))),

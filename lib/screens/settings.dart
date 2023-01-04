@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:ahadi_pledge/controllers/auth_controller.dart';
 import 'package:ahadi_pledge/screens/change_password.dart';
 import 'package:ahadi_pledge/screens/edit_profile_screen.dart';
@@ -18,19 +16,19 @@ class SettingsScreen extends GetView<AuthController> {
           elevation: 0,
           title: Text("Settings",
               style: GoogleFonts.poppins(
-                  textStyle: TextStyle(color: Colors.black))),
+                  textStyle: const TextStyle(color: Colors.black))),
           centerTitle: true,
           backgroundColor: Colors.transparent,
-          iconTheme: IconThemeData(color: Colors.black),
+          iconTheme: const IconThemeData(color: Colors.black),
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
-            Center(
+            const Center(
               child: CircleAvatar(
                 radius: 45,
                 backgroundColor: Colors.black,
@@ -40,43 +38,43 @@ class SettingsScreen extends GetView<AuthController> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
             Text(
               "Alex Paul Rossi",
               style: GoogleFonts.poppins(
-                  textStyle: TextStyle(fontWeight: FontWeight.w600)),
+                  textStyle: const TextStyle(fontWeight: FontWeight.w600)),
             ),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
-            SizedBox(
+            const SizedBox(
               height: 24,
             ),
             Column(
               children: [
-                ListTile(
+                const ListTile(
                     leading: Icon(Icons.language),
                     title: Text("Change Language"),
                     trailing: Icon(Icons.arrow_forward)),
                 ListTile(
-                    onTap: () => Get.to(() => EditProfileScreen()),
-                    leading: Icon(Icons.edit),
-                    title: Text("Edit Profile"),
-                    trailing: Icon(Icons.arrow_forward)),
+                    onTap: () => Get.to(() => const EditProfileScreen()),
+                    leading: const Icon(Icons.edit),
+                    title: const Text("Edit Profile"),
+                    trailing: const Icon(Icons.arrow_forward)),
                 ListTile(
-                    onTap: () => Get.to(() => ChangePasswordScreen()),
-                    leading: Icon(Icons.lock),
-                    title: Text("Change Password"),
-                    trailing: Icon(Icons.arrow_forward)),
+                    onTap: () => Get.to(() => const ChangePasswordScreen()),
+                    leading: const Icon(Icons.lock),
+                    title: const Text("Change Password"),
+                    trailing: const Icon(Icons.arrow_forward)),
                 ListTile(
                     onTap: () {
                       controller.logout();
                     },
-                    leading: Icon(Icons.logout),
-                    title: Text("Logout"),
-                    trailing: Icon(Icons.arrow_forward))
+                    leading: const Icon(Icons.logout),
+                    title: const Text("Logout"),
+                    trailing: const Icon(Icons.arrow_forward))
               ],
             )
           ],
