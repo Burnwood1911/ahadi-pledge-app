@@ -1,5 +1,6 @@
 import 'package:ahadi_pledge/controllers/payment_controller.dart';
 import 'package:ahadi_pledge/controllers/pledge_controller.dart';
+import 'package:ahadi_pledge/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -220,53 +221,67 @@ class MainScreen extends StatelessWidget {
                 const SizedBox(
                   height: 8,
                 ),
-                Column(
-                  children: List.generate(
-                      3,
-                      (index) => Container(
-                            margin: const EdgeInsets.symmetric(vertical: 4),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.payment,
-                                      size: 38,
-                                    ),
-                                    const SizedBox(
-                                      width: 16,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text("Ujenzi",
-                                            style: GoogleFonts.poppins(
-                                                textStyle: const TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: Colors.black))),
-                                        Text(
-                                          "12th Dec 2022",
+                SizedBox(
+                  height: Get.height * 0.30,
+                  child: ListView.builder(
+                      itemCount: paymentController.payments.take(5).length,
+                      itemBuilder: ((context, index) {
+                        final payment = paymentController.payments.reversed
+                            .take(5)
+                            .toList()[index];
+                        return Container(
+                          margin: EdgeInsets.symmetric(vertical: 4),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.payment,
+                                    size: 38,
+                                  ),
+                                  SizedBox(
+                                    width: 16,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                          pledgeController.pledges
+                                              .firstWhere((element) =>
+                                                  element.id ==
+                                                  payment.pledgeId)
+                                              .name!,
                                           style: GoogleFonts.poppins(
-                                              textStyle: const TextStyle(
-                                                  fontSize: 14,
-                                                  color: Colors.grey)),
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-                                Text("500,000Tsh",
-                                    style: GoogleFonts.poppins(
-                                        textStyle: const TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w500)))
-                              ],
-                            ),
-                          )),
+                                              textStyle: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Colors.black))),
+                                      Text(
+                                        payment.createdAt!
+                                            .toLocal()
+                                            .toString()
+                                            .split(" ")[0],
+                                        style: GoogleFonts.poppins(
+                                            textStyle: TextStyle(
+                                                fontSize: 13,
+                                                color: Colors.grey)),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
+                              Text(payment.amount.toString(),
+                                  style: GoogleFonts.poppins(
+                                      textStyle: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500)))
+                            ],
+                          ),
+                        );
+                      })),
                 )
               ],
             )),

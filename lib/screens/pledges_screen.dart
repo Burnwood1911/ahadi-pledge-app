@@ -113,24 +113,24 @@ class _PledgesState extends State<Pledges> {
                                     textStyle:
                                         TextStyle(fontWeight: FontWeight.bold)),
                               ),
-                              Container(
-                                width: 70,
-                                height: 20,
-                                padding: EdgeInsets.all(1),
-                                decoration: BoxDecoration(
-                                    color: Colors.green[500],
-                                    borderRadius: BorderRadius.circular(16)),
-                                child: FittedBox(
-                                  child: Text(
-                                    "PAID",
-                                    style: GoogleFonts.poppins(
-                                        textStyle: TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w300)),
-                                  ),
-                                ),
-                              )
+                              // Container(
+                              //   width: 70,
+                              //   height: 20,
+                              //   padding: EdgeInsets.all(1),
+                              //   decoration: BoxDecoration(
+                              //       color: Colors.green[500],
+                              //       borderRadius: BorderRadius.circular(16)),
+                              //   child: FittedBox(
+                              //     child: Text(
+                              //       "COMPLETE",
+                              //       style: GoogleFonts.poppins(
+                              //           textStyle: TextStyle(
+                              //               fontSize: 12,
+                              //               color: Colors.white,
+                              //               fontWeight: FontWeight.w300)),
+                              //     ),
+                              //   ),
+                              // )
                             ],
                           )
                         ],

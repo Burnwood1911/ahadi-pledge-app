@@ -1,3 +1,4 @@
+import 'package:ahadi_pledge/controllers/user_controller.dart';
 import 'package:ahadi_pledge/di/service_locater.dart';
 import 'package:ahadi_pledge/repos/auth_repo.dart';
 import 'package:ahadi_pledge/screens/home_screen.dart';
@@ -21,6 +22,7 @@ class AuthController extends GetxController {
       Get.offAll(() => const AuthScreen());
     } else {
       Get.offAll(() => const HomeScreen());
+      Get.find<UserController>().fetchUser();
     }
   }
 
