@@ -1,6 +1,5 @@
 import 'package:ahadi_pledge/controllers/payment_controller.dart';
 import 'package:ahadi_pledge/controllers/pledge_controller.dart';
-import 'package:ahadi_pledge/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -230,18 +229,18 @@ class MainScreen extends StatelessWidget {
                             .take(5)
                             .toList()[index];
                         return Container(
-                          margin: EdgeInsets.symmetric(vertical: 4),
+                          margin: const EdgeInsets.symmetric(vertical: 4),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Row(
                                 children: [
-                                  Icon(
+                                  const Icon(
                                     Icons.payment,
                                     size: 38,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 16,
                                   ),
                                   Column(
@@ -255,7 +254,7 @@ class MainScreen extends StatelessWidget {
                                                   payment.pledgeId)
                                               .name!,
                                           style: GoogleFonts.poppins(
-                                              textStyle: TextStyle(
+                                              textStyle: const TextStyle(
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.w400,
                                                   color: Colors.black))),
@@ -265,7 +264,7 @@ class MainScreen extends StatelessWidget {
                                             .toString()
                                             .split(" ")[0],
                                         style: GoogleFonts.poppins(
-                                            textStyle: TextStyle(
+                                            textStyle: const TextStyle(
                                                 fontSize: 13,
                                                 color: Colors.grey)),
                                       )

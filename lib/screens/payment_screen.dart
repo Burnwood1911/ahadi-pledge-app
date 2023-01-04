@@ -61,7 +61,7 @@ class PaymentScreen extends GetView<PaymentController> {
                           labelText: "Receipt", filled: true),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   Padding(
