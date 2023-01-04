@@ -27,19 +27,19 @@ class Payment {
 
 class PaymentElement {
   PaymentElement(
-      {this.id,
-      this.userId,
-      this.typeId,
-      this.pledgeId,
-      this.amount,
-      this.createdAt});
+      {required this.id,
+      required this.userId,
+      required this.typeId,
+      required this.pledgeId,
+      required this.amount,
+      required this.createdAt});
 
-  int? id;
-  int? userId;
-  int? typeId;
-  int? pledgeId;
-  String? amount;
-  DateTime? createdAt;
+  int id;
+  int userId;
+  int typeId;
+  int pledgeId;
+  String amount;
+  DateTime createdAt;
 
   factory PaymentElement.fromJson(Map<String, dynamic> json) => PaymentElement(
         id: json["id"],
@@ -56,6 +56,6 @@ class PaymentElement {
         "type_id": typeId,
         "pledge_id": pledgeId,
         "amount": amount,
-        "created_at": createdAt!.toIso8601String(),
+        "created_at": createdAt.toIso8601String(),
       };
 }

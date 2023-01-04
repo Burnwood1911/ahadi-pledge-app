@@ -54,7 +54,7 @@ class PledgeController extends GetxController {
   int totalPledgeAmount() {
     if (pledges.isNotEmpty) {
       return pledges
-          .map((element) => int.parse(element.amount!))
+          .map((element) => int.parse(element.amount))
           .reduce((value, element) => value + element);
     } else {
       return 0;

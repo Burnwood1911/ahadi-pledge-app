@@ -27,24 +27,24 @@ class Pledge {
 
 class PledgeElement {
   PledgeElement({
-    this.id,
-    this.name,
-    this.description,
-    this.amount,
-    this.deadline,
-    this.status,
-    this.type,
-    this.purpose,
+    required this.id,
+    required this.name,
+    required this.description,
+    required this.amount,
+    required this.deadline,
+    required this.status,
+    required this.type,
+    required this.purpose,
   });
 
-  int? id;
-  String? name;
-  String? description;
-  String? amount;
-  DateTime? deadline;
-  int? status;
-  Type? type;
-  Purpose? purpose;
+  int id;
+  String name;
+  String description;
+  String amount;
+  DateTime deadline;
+  int status;
+  Type type;
+  Purpose purpose;
 
   factory PledgeElement.fromJson(Map<String, dynamic> json) => PledgeElement(
         id: json["id"],
@@ -63,29 +63,29 @@ class PledgeElement {
         "description": description,
         "amount": amount,
         "deadline":
-            "${deadline!.year.toString().padLeft(4, '0')}-${deadline!.month.toString().padLeft(2, '0')}-${deadline!.day.toString().padLeft(2, '0')}",
+            "${deadline.year.toString().padLeft(4, '0')}-${deadline.month.toString().padLeft(2, '0')}-${deadline.day.toString().padLeft(2, '0')}",
         "status": status,
-        "type": type!.toJson(),
-        "purpose": purpose!.toJson(),
+        "type": type.toJson(),
+        "purpose": purpose.toJson(),
       };
 }
 
 class Purpose {
   Purpose({
-    this.id,
-    this.title,
-    this.description,
-    this.startDate,
-    this.endDate,
-    this.status,
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.startDate,
+    required this.endDate,
+    required this.status,
   });
 
-  int? id;
-  String? title;
-  String? description;
-  DateTime? startDate;
-  DateTime? endDate;
-  int? status;
+  int id;
+  String title;
+  String description;
+  DateTime startDate;
+  DateTime endDate;
+  int status;
 
   factory Purpose.fromJson(Map<String, dynamic> json) => Purpose(
         id: json["id"],
@@ -101,21 +101,21 @@ class Purpose {
         "title": title,
         "description": description,
         "start_date":
-            "${startDate!.year.toString().padLeft(4, '0')}-${startDate!.month.toString().padLeft(2, '0')}-${startDate!.day.toString().padLeft(2, '0')}",
+            "${startDate.year.toString().padLeft(4, '0')}-${startDate.month.toString().padLeft(2, '0')}-${startDate.day.toString().padLeft(2, '0')}",
         "end_date":
-            "${endDate!.year.toString().padLeft(4, '0')}-${endDate!.month.toString().padLeft(2, '0')}-${endDate!.day.toString().padLeft(2, '0')}",
+            "${endDate.year.toString().padLeft(4, '0')}-${endDate.month.toString().padLeft(2, '0')}-${endDate.day.toString().padLeft(2, '0')}",
         "status": status,
       };
 }
 
 class Type {
   Type({
-    this.id,
-    this.title,
+    required this.id,
+    required this.title,
   });
 
-  int? id;
-  String? title;
+  int id;
+  String title;
 
   factory Type.fromJson(Map<String, dynamic> json) => Type(
         id: json["id"],

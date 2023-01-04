@@ -82,7 +82,7 @@ class PledgeDetails extends StatelessWidget {
                             Row(
                               children: [
                                 Text(
-                                  "${pledge.amount}",
+                                  pledge.amount,
                                   style: GoogleFonts.poppins(
                                       textStyle: TextStyle(
                                           fontSize: 18,
@@ -146,7 +146,7 @@ class PledgeDetails extends StatelessWidget {
                             Row(
                               children: [
                                 Text(
-                                  "${paymentController.payments.where((element) => element.pledgeId! == pledge.id).isNotEmpty ? (int.parse(pledge.amount!) - paymentController.payments.where((element) => element.pledgeId! == pledge.id).map((e) => int.parse(e.amount!)).reduce((value, element) => value + element)) : pledge.amount}",
+                                  "${paymentController.payments.where((element) => element.pledgeId == pledge.id).isNotEmpty ? (int.parse(pledge.amount) - paymentController.payments.where((element) => element.pledgeId == pledge.id).map((e) => int.parse(e.amount)).reduce((value, element) => value + element)) : pledge.amount}",
                                   style: GoogleFonts.poppins(
                                       textStyle: TextStyle(
                                           fontSize: 18,
@@ -184,15 +184,15 @@ class PledgeDetails extends StatelessWidget {
                     child: Column(
                       children: [
                         StepProgressIndicator(
-                          totalSteps: int.parse(pledge.amount!),
+                          totalSteps: int.parse(pledge.amount),
                           currentStep: paymentController.payments
                                   .where((element) =>
-                                      element.pledgeId! == pledge.id)
+                                      element.pledgeId == pledge.id)
                                   .isNotEmpty
                               ? paymentController.payments
                                   .where((element) =>
-                                      element.pledgeId! == pledge.id)
-                                  .map((e) => int.parse(e.amount!))
+                                      element.pledgeId == pledge.id)
+                                  .map((e) => int.parse(e.amount))
                                   .reduce((value, element) => value + element)
                               : 0,
                           size: 16,
@@ -243,14 +243,14 @@ class PledgeDetails extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(pledge.purpose!.title!,
+                                      Text(pledge.purpose.title,
                                           style: GoogleFonts.poppins(
                                               textStyle: TextStyle(
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.w400,
                                                   color: Colors.black))),
                                       Text(
-                                        payment.createdAt!
+                                        payment.createdAt
                                             .toLocal()
                                             .toString()
                                             .split(" ")[0],

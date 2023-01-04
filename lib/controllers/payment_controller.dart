@@ -43,7 +43,7 @@ class PaymentController extends GetxController {
   int totalPaymentAmount() {
     if (payments.isNotEmpty) {
       return payments
-          .map((element) => int.parse(element.amount!))
+          .map((element) => int.parse(element.amount))
           .reduce((value, element) => value + element);
     } else {
       return 0;

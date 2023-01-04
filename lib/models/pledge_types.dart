@@ -28,12 +28,12 @@ class PledgeType {
 
 class TypePledge {
   TypePledge({
-    this.id,
-    this.title,
+    required this.id,
+    required this.title,
   });
 
-  int? id;
-  String? title;
+  int id;
+  String title;
 
   factory TypePledge.fromJson(Map<String, dynamic> json) => TypePledge(
         id: json["id"],

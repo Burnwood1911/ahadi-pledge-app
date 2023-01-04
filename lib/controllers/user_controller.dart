@@ -12,6 +12,12 @@ class UserController extends GetxController with StateMixin<User> {
   final TextEditingController phone = TextEditingController();
   final TextEditingController email = TextEditingController();
 
+  @override
+  void onReady() {
+    super.onReady();
+    fetchUser();
+  }
+
   Future<void> fetchUser() async {
     change(state, status: RxStatus.loading());
     final result = await userRepository.fetchUser();
@@ -47,11 +53,11 @@ class UserController extends GetxController with StateMixin<User> {
   }
 
   void setValues() {
-    fname.text = state!.fname!;
-    mname.text = state!.mname!;
-    lname.text = state!.lname!;
-    phone.text = state!.phone!;
-    email.text = state!.email!;
+    fname.text = state!.fname;
+    mname.text = state!.mname;
+    lname.text = state!.lname;
+    phone.text = state!.phone;
+    email.text = state!.email;
   }
 
   @override

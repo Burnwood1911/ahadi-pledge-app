@@ -84,7 +84,7 @@ class _CreatePledgeState extends State<CreatePledge> {
                           .map((TypePledge value) {
                         return DropdownMenuItem<String>(
                           value: value.title,
-                          child: Text(value.title!),
+                          child: Text(value.title),
                         );
                       }).toList(),
                       onChanged: (value) {
@@ -114,7 +114,7 @@ class _CreatePledgeState extends State<CreatePledge> {
                         return DropdownMenuItem<String>(
                           value: value.title,
                           child: Text(
-                            value.title!,
+                            value.title,
                             style: TextStyle(color: Colors.black),
                           ),
                         );
@@ -196,7 +196,7 @@ class _CreatePledgeState extends State<CreatePledge> {
                                   name: pledgeController.pledgepurposes
                                       .firstWhere((element) =>
                                           element.id == selectedPledgePurposeId)
-                                      .title!,
+                                      .title,
                                   status: true,
                                   type_id: selectedPledgeTypeId!,
                                   user_id: 2);

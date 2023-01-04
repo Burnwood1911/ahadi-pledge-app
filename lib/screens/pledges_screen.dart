@@ -87,13 +87,13 @@ class _PledgesState extends State<Pledges> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                pledgeController.pledges[index].purpose!.title!,
+                                pledgeController.pledges[index].purpose.title,
                                 style: GoogleFonts.poppins(
                                     textStyle:
                                         TextStyle(fontWeight: FontWeight.bold)),
                               ),
                               Text(
-                                pledgeController.pledges[index].deadline!
+                                pledgeController.pledges[index].deadline
                                     .toLocal()
                                     .toString()
                                     .split(" ")[0],

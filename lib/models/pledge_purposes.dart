@@ -28,18 +28,18 @@ class PledgePurpose {
 
 class PurposePledge {
   PurposePledge({
-    this.id,
-    this.title,
-    this.description,
-    this.startDate,
-    this.endDate,
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.startDate,
+    required this.endDate,
   });
 
-  int? id;
-  String? title;
-  String? description;
-  DateTime? startDate;
-  DateTime? endDate;
+  int id;
+  String title;
+  String description;
+  DateTime startDate;
+  DateTime endDate;
 
   factory PurposePledge.fromJson(Map<String, dynamic> json) => PurposePledge(
         id: json["id"],
@@ -54,8 +54,8 @@ class PurposePledge {
         "title": title,
         "description": description,
         "start_date":
-            "${startDate!.year.toString().padLeft(4, '0')}-${startDate!.month.toString().padLeft(2, '0')}-${startDate!.day.toString().padLeft(2, '0')}",
+            "${startDate.year.toString().padLeft(4, '0')}-${startDate.month.toString().padLeft(2, '0')}-${startDate.day.toString().padLeft(2, '0')}",
         "end_date":
-            "${endDate!.year.toString().padLeft(4, '0')}-${endDate!.month.toString().padLeft(2, '0')}-${endDate!.day.toString().padLeft(2, '0')}",
+            "${endDate.year.toString().padLeft(4, '0')}-${endDate.month.toString().padLeft(2, '0')}-${endDate.day.toString().padLeft(2, '0')}",
       };
 }

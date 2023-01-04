@@ -1,33 +1,39 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:ahadi_pledge/network/dio_client.dart';
-import 'package:ahadi_pledge/network/dio_exception.dart';
 import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:multiple_result/multiple_result.dart';
 
 class AuthRepository {
   final DioClient dio;
   AuthRepository({required this.dio});
 
-  Future<bool> login(String email, String password) async {
-    final response = await dio.post('/token',
-        data: {
-          'email': email,
-          'password': password,
-          'device_name': Platform.isAndroid ? "android" : "ios",
-        },
-        options: Options(headers: {"requiresToken": true}));
+  Future<Result<bool, Exception>> login(String email, String password) async {
+    try {
+      final response = await dio.post('/token',
+          data: {
+            'email': email,
+            'password': password,
+            'device_name': Platform.isAndroid ? "android" : "ios",
+          },
+          options: Options(headers: {"requiresToken": true}));
 
-    if (response.statusCode == 200) {
-      String token = response.data;
-      await GetStorage().write('token', token);
-      return true;
-    } else {
-      return false;
+      if (response.statusCode == 200) {
+        String token = response.data;
+        await GetStorage().write('token', token);
+        return const Success(true);
+      } else {
+        return const Success(false);
+      }
+    } on DioError catch (_) {
+      return Error(Exception("Something went wrong"));
+    } on TypeError catch (_) {
+      return Error(Exception("Type error occured"));
     }
   }
 
-  Future<bool> register(
+  Future<Result<bool, Exception>> register(
     String fname,
     String mname,
     String lname,
@@ -52,12 +58,15 @@ class AuthRepository {
 
     try {
       var response = await dio.post("/register", data: jsonEncode(data));
-      return true;
-    } on DioError catch (e) {
-      final errorMessage = DioExceptions.fromDioError(e).toString();
-      return false;
-    } on TypeError catch (e) {
-      throw Exception({"error": e.toString(), "stacktrace": e.stackTrace});
+      if (response.statusCode == 200) {
+        return const Success(true);
+      } else {
+        return const Success(false);
+      }
+    } on DioError catch (_) {
+      return Error(Exception("Something went wrong"));
+    } on TypeError catch (_) {
+      return Error(Exception("Type error occured"));
     }
   }
 }

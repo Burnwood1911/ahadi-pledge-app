@@ -252,14 +252,14 @@ class MainScreen extends StatelessWidget {
                                               .firstWhere((element) =>
                                                   element.id ==
                                                   payment.pledgeId)
-                                              .name!,
+                                              .name,
                                           style: GoogleFonts.poppins(
                                               textStyle: const TextStyle(
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.w400,
                                                   color: Colors.black))),
                                       Text(
-                                        payment.createdAt!
+                                        payment.createdAt
                                             .toLocal()
                                             .toString()
                                             .split(" ")[0],

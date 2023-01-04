@@ -36,62 +36,62 @@ class AuthScreenWidgetState extends State<AuthScreenWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => authController.isLoading.value
-        ? Scaffold(
-            backgroundColor: Colors.white,
-            body: Center(
-              child: LoadingIndicator(
-                  indicatorType: Indicator.ballClipRotatePulse,
-                  colors: [Colors.blue],
-                  strokeWidth: 3,
-                  backgroundColor: Colors.white,
-                  pathBackgroundColor: Colors.white),
-            ),
-          )
-        : DefaultTabController(
-            length: 2,
-            initialIndex: 0,
-            child: Scaffold(
-              appBar: PreferredSize(
-                preferredSize: Size.fromHeight(160.0), // here th
+    return authController.obx(
+        (state) => DefaultTabController(
+              length: 2,
+              initialIndex: 0,
+              child: Scaffold(
+                appBar: PreferredSize(
+                  preferredSize: Size.fromHeight(180.0), // here th
 
-                child: AppBar(
-                  flexibleSpace: Image.asset(
-                    "assets/logo.png",
-                  ),
-                  elevation: 0,
-                  backgroundColor: Colors.white,
-                  bottom: TabBar(
-                    indicatorColor: Colors.blue,
-                    tabs: [
-                      Tab(
-                        icon: Text(
-                          "Sign Up",
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      ),
-                      Tab(
+                  child: AppBar(
+                    flexibleSpace: Image.asset(
+                      "assets/logo.png",
+                    ),
+                    elevation: 0,
+                    backgroundColor: Colors.white,
+                    bottom: TabBar(
+                      indicatorColor: Colors.blue,
+                      tabs: [
+                        Tab(
                           icon: Text(
-                        "Sign In",
-                        style: TextStyle(color: Colors.black),
-                      )),
+                            "Sign Up",
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        ),
+                        Tab(
+                            icon: Text(
+                          "Sign In",
+                          style: TextStyle(color: Colors.black),
+                        )),
+                      ],
+                    ),
+                  ),
+                ),
+                body: Container(
+                  color: Colors.white,
+                  child: TabBarView(
+                    children: <Widget>[
+                      ListView(
+                        children: <Widget>[_SignUpPage(communityController)],
+                      ),
+                      ListView(children: <Widget>[_SignInPage()]),
                     ],
                   ),
                 ),
               ),
-              body: Container(
-                color: Colors.white,
-                child: TabBarView(
-                  children: <Widget>[
-                    ListView(
-                      children: <Widget>[_SignUpPage(communityController)],
-                    ),
-                    ListView(children: <Widget>[_SignInPage()]),
-                  ],
-                ),
-              ),
             ),
-          ));
+        onLoading: Scaffold(
+          backgroundColor: Colors.white,
+          body: Center(
+            child: LoadingIndicator(
+                indicatorType: Indicator.ballClipRotatePulse,
+                colors: [Colors.blue],
+                strokeWidth: 3,
+                backgroundColor: Colors.white,
+                pathBackgroundColor: Colors.white),
+          ),
+        ));
   }
 }
 
@@ -422,7 +422,7 @@ class _SignInPageState extends State<_SignInPage> {
 
   @override
   void dispose() {
-    _passwordController.dispose();
+    _loginController.dispose();
     _passwordController.dispose();
     super.dispose();
   }

@@ -6,14 +6,14 @@ import 'package:ahadi_pledge/screens/login.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-class AuthController extends GetxController {
+class AuthController extends GetxController with StateMixin {
   final authRepository = getIt.get<AuthRepository>();
-  RxBool isLoading = false.obs;
 
   @override
   void onReady() {
     super.onReady();
     checkAuthState();
+    change(state, status: RxStatus.success());
   }
 
   void checkAuthState() async {
@@ -27,21 +27,22 @@ class AuthController extends GetxController {
   }
 
   void login(String email, String password) async {
-    isLoading(true);
+    change(state, status: RxStatus.loading());
 
-    try {
-      final result = await authRepository.login(email, password);
+    final result = await authRepository.login(email, password);
 
-      if (result) {
+    result.when((success) {
+      change(state, status: RxStatus.success());
+
+      if (success) {
         Get.offAll(() => const HomeScreen());
       } else {
-        Get.snackbar("Login Failed", "Email or Password Incorrect");
+        Get.snackbar("Failed", "Invalid Credentials");
       }
-    } catch (f) {
-      Get.snackbar("Login Failed", "Something went wrong");
-    }
-
-    isLoading(false);
+    }, (error) {
+      change(state, status: RxStatus.success());
+      Get.snackbar("Failed", "Something went wrong");
+    });
   }
 
   void logout() async {
@@ -59,21 +60,21 @@ class AuthController extends GetxController {
       String selectedGender,
       String birth,
       int jumuiyaId) async {
-    isLoading(true);
+    change(state, status: RxStatus.loading());
 
-    try {
-      final result = await authRepository.register(fname, mname, lname, phone,
-          email, password, selectedGender, birth, jumuiyaId);
+    final result = await authRepository.register(fname, mname, lname, phone,
+        email, password, selectedGender, birth, jumuiyaId);
 
-      if (result) {
-        Get.snackbar("Success", "You have been registered");
+    result.when((success) {
+      change(state, status: RxStatus.success());
+      if (success) {
+        Get.snackbar("Success", "Account registered");
       } else {
-        Get.snackbar("Fail", "Your registration failed");
+        Get.snackbar("Failed", "Account failed to register");
       }
-    } catch (f) {
-      Get.snackbar("Login Failed", "Something went wrong");
-    }
-
-    isLoading(false);
+    }, (error) {
+      change(state, status: RxStatus.success());
+      Get.snackbar("Failed", "Something went wrong");
+    });
   }
 }
