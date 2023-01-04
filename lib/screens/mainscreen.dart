@@ -274,7 +274,7 @@ class MainScreen extends StatelessWidget {
                               ),
                               Text(payment.amount.toString(),
                                   style: GoogleFonts.poppins(
-                                      textStyle: TextStyle(
+                                      textStyle: const TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w500)))
                             ],

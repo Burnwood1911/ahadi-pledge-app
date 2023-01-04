@@ -77,7 +77,7 @@ class PaymentScreen extends GetView<PaymentController> {
                                 controller.paymentAmount.text,
                                 pledge.type!.id!,
                                 pledge.id!,
-                                userController.user.value.id!);
+                                userController.state!.id!);
                           }),
                           child: const Text("Submit")),
                     ),

@@ -19,65 +19,65 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.black),
-        backgroundColor: Colors.transparent,
-        title: Text(
-          "Change Password",
-          style: GoogleFonts.poppins(
-              textStyle: const TextStyle(color: Colors.black)),
+        appBar: AppBar(
+          elevation: 0,
+          iconTheme: const IconThemeData(color: Colors.black),
+          backgroundColor: Colors.transparent,
+          title: Text(
+            "Change Password",
+            style: GoogleFonts.poppins(
+                textStyle: const TextStyle(color: Colors.black)),
+          ),
+          centerTitle: true,
         ),
-        centerTitle: true,
-      ),
-      backgroundColor: Colors.white,
-      body: Obx(() {
-        return userController.isLoading.value
-            ? const Center(
-                child: LoadingIndicator(
-                    indicatorType: Indicator.ballClipRotatePulse,
-                    colors: [Colors.blue],
-                    strokeWidth: 3,
-                    backgroundColor: Colors.white,
-                    pathBackgroundColor: Colors.white),
-              )
-            : ListView(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 18.0, right: 18.0, top: 18.0),
-                    child: TextFormField(
-                      controller: oldPassword,
-                      decoration: const InputDecoration(
-                          labelText: "Old Password", filled: true),
-                    ),
+        backgroundColor: Colors.white,
+        body: userController.obx(
+          (state) {
+            return ListView(
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
+                  child: TextFormField(
+                    controller: oldPassword,
+                    decoration: const InputDecoration(
+                        labelText: "Old Password", filled: true),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 18.0, right: 18.0, top: 18.0),
-                    child: TextFormField(
-                      controller: newPassword,
-                      decoration: const InputDecoration(
-                          labelText: "New Password", filled: true),
-                    ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
+                  child: TextFormField(
+                    controller: newPassword,
+                    decoration: const InputDecoration(
+                        labelText: "New Password", filled: true),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 18.0, right: 18.0, top: 18.0),
-                    child: ElevatedButton(
-                        onPressed: () {
-                          userController.changePassword(
-                              oldPassword.text, newPassword.text);
-                        },
-                        child: Text(
-                          "Save",
-                          style: GoogleFonts.poppins(),
-                        )),
-                  ),
-                ],
-              );
-      }),
-    );
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
+                  child: ElevatedButton(
+                      onPressed: () {
+                        userController.changePassword(
+                            oldPassword.text, newPassword.text);
+                      },
+                      child: Text(
+                        "Save",
+                        style: GoogleFonts.poppins(),
+                      )),
+                ),
+              ],
+            );
+          },
+          onLoading: const Center(
+            child: LoadingIndicator(
+                indicatorType: Indicator.ballClipRotatePulse,
+                colors: [Colors.blue],
+                strokeWidth: 3,
+                backgroundColor: Colors.white,
+                pathBackgroundColor: Colors.white),
+          ),
+        ));
   }
 
   @override

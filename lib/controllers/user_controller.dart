@@ -1,39 +1,66 @@
 import 'package:ahadi_pledge/di/service_locater.dart';
 import 'package:ahadi_pledge/models/user.dart';
 import 'package:ahadi_pledge/repos/user_repo.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class UserController extends GetxController {
+class UserController extends GetxController with StateMixin<User> {
   final userRepository = getIt.get<UserRepository>();
-  RxBool isLoading = false.obs;
-  Rx<User> user = User().obs;
+  final TextEditingController fname = TextEditingController();
+  final TextEditingController mname = TextEditingController();
+  final TextEditingController lname = TextEditingController();
+  final TextEditingController phone = TextEditingController();
+  final TextEditingController email = TextEditingController();
 
   Future<void> fetchUser() async {
-    isLoading(true);
+    change(state, status: RxStatus.loading());
     final result = await userRepository.fetchUser();
-    user.value = result;
-    isLoading(false);
+    result.when((user) {
+      change(user, status: RxStatus.success());
+      setValues();
+    }, (error) => change(state, status: RxStatus.error(error.toString())));
   }
 
   Future<void> updateUser(String fname, String mname, String lname,
       String phone, String email) async {
-    isLoading(true);
+    change(state, status: RxStatus.loading());
     final result =
         await userRepository.updateUser(fname, mname, lname, phone, email);
-    user.value = result;
-    isLoading(false);
+    result.when((user) {
+      change(user, status: RxStatus.success());
+      setValues();
+    }, (error) => change(state, status: RxStatus.error(error.toString())));
   }
 
   Future<void> changePassword(String oldPassword, String newPassword) async {
-    isLoading(true);
+    change(state, status: RxStatus.loading());
     final result =
         await userRepository.changePassword(oldPassword, newPassword);
 
-    if (result) {
+    result.when((success) {
       Get.back();
-    } else {
+      Get.snackbar("Success", "Password Changed");
+    }, (error) {
+      Get.back();
       Get.snackbar("Error", "Failed to change password");
-    }
-    isLoading(false);
+    });
+  }
+
+  void setValues() {
+    fname.text = state!.fname!;
+    mname.text = state!.mname!;
+    lname.text = state!.lname!;
+    phone.text = state!.phone!;
+    email.text = state!.email!;
+  }
+
+  @override
+  void dispose() {
+    fname.dispose();
+    mname.dispose();
+    lname.dispose();
+    phone.dispose();
+    email.dispose();
+    super.dispose();
   }
 }
