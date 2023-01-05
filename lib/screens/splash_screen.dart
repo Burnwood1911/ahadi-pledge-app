@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void start() async {
-    await Future.delayed(const Duration(seconds: 4),
+    await Future.delayed(const Duration(seconds: 3),
         () => {controller = Get.find<AuthController>()});
   }
 

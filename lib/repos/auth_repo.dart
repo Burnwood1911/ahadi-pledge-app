@@ -19,15 +19,11 @@ class AuthRepository {
           },
           options: Options(headers: {"requiresToken": true}));
 
-      if (response.statusCode == 200) {
-        String token = response.data;
-        await GetStorage().write('token', token);
-        return const Success(true);
-      } else {
-        return const Success(false);
-      }
+      String token = response.data;
+      await GetStorage().write('token', token);
+      return const Success(true);
     } on DioError catch (_) {
-      return Error(Exception("Something went wrong"));
+      return Error(Exception("credentials are incorrect"));
     } on TypeError catch (_) {
       return Error(Exception("Type error occured"));
     }
@@ -57,14 +53,10 @@ class AuthRepository {
     };
 
     try {
-      var response = await dio.post("/register", data: jsonEncode(data));
-      if (response.statusCode == 200) {
-        return const Success(true);
-      } else {
-        return const Success(false);
-      }
-    } on DioError catch (_) {
-      return Error(Exception("Something went wrong"));
+      await dio.post("/register", data: jsonEncode(data));
+      return const Success(true);
+    } on DioError catch (e) {
+      return Error(e);
     } on TypeError catch (_) {
       return Error(Exception("Type error occured"));
     }

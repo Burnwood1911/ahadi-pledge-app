@@ -58,7 +58,7 @@ class DioClient {
         "└------------------------------------------------------------------------------");
     if (dioError.response?.statusCode == 401) {
       if (getx.Get.currentRoute != "/AuthScreen") {
-        getx.Get.offAll(() => const AuthScreen());
+        getx.Get.offAll(() => AuthScreen());
         getx.Get.showSnackbar(const getx.GetSnackBar(
           title: "Session Expired",
           message: "Your login session has expired please login again",

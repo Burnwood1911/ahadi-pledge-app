@@ -1,3 +1,4 @@
+import 'package:ahadi_pledge/controllers/auth_controller.dart';
 import 'package:ahadi_pledge/controllers/payment_controller.dart';
 import 'package:ahadi_pledge/controllers/pledge_controller.dart';
 import 'package:ahadi_pledge/screens/card_screen.dart';
@@ -26,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    Get.delete<AuthController>();
     _controller = PersistentTabController(initialIndex: 0);
     pledgeController = Get.find<PledgeController>();
     paymentController = Get.find<PaymentController>();

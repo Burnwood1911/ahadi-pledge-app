@@ -6,20 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
-class Pledges extends StatefulWidget {
+class Pledges extends GetView<PledgeController> {
   const Pledges({super.key});
-
-  @override
-  State<Pledges> createState() => _PledgesState();
-}
-
-class _PledgesState extends State<Pledges> {
-  final PledgeController pledgeController = Get.find();
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +23,7 @@ class _PledgesState extends State<Pledges> {
             ),
             centerTitle: true,
           ),
-          body: Obx(() => pledgeController.isLoading.value
+          body: Obx(() => controller.isLoading.value
               ? const Center(
                   child: LoadingIndicator(
                       indicatorType: Indicator.ballClipRotatePulse,
@@ -45,7 +33,7 @@ class _PledgesState extends State<Pledges> {
                       pathBackgroundColor: Colors.white),
                 )
               : ListView.separated(
-                  itemCount: pledgeController.pledges.length,
+                  itemCount: controller.pledges.length,
                   padding: const EdgeInsets.all(16),
                   separatorBuilder: (context, index) => const SizedBox(
                     height: 10,
@@ -54,7 +42,7 @@ class _PledgesState extends State<Pledges> {
                     onTap: () => PersistentNavBarNavigator.pushNewScreen(
                       context,
                       screen: PledgeDetails(
-                        pledge: pledgeController.pledges[index],
+                        pledge: controller.pledges[index],
                       ),
                       withNavBar: false,
                       pageTransitionAnimation:
@@ -86,13 +74,13 @@ class _PledgesState extends State<Pledges> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                pledgeController.pledges[index].purpose.title,
+                                controller.pledges[index].purpose.title,
                                 style: GoogleFonts.poppins(
                                     textStyle: const TextStyle(
                                         fontWeight: FontWeight.bold)),
                               ),
                               Text(
-                                pledgeController.pledges[index].deadline
+                                controller.pledges[index].deadline
                                     .toLocal()
                                     .toString()
                                     .split(" ")[0],
@@ -107,7 +95,7 @@ class _PledgesState extends State<Pledges> {
                           Column(
                             children: [
                               Text(
-                                "${pledgeController.pledges[index].amount}Tsh",
+                                "${controller.pledges[index].amount}Tsh",
                                 style: GoogleFonts.poppins(
                                     textStyle: const TextStyle(
                                         fontWeight: FontWeight.bold)),

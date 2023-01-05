@@ -8,24 +8,8 @@ import 'package:intl/intl.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
 class AuthScreen extends StatelessWidget {
-  const AuthScreen({super.key});
+  AuthScreen({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return const AuthScreenWidget();
-  }
-}
-
-class AuthScreenWidget extends StatefulWidget {
-  const AuthScreenWidget({super.key});
-
-  @override
-  State<StatefulWidget> createState() {
-    return AuthScreenWidgetState();
-  }
-}
-
-class AuthScreenWidgetState extends State<AuthScreenWidget> {
   final AuthController authController = Get.find<AuthController>();
   final CommunityController communityController =
       Get.find<CommunityController>();
@@ -39,7 +23,6 @@ class AuthScreenWidgetState extends State<AuthScreenWidget> {
               child: Scaffold(
                 appBar: PreferredSize(
                   preferredSize: const Size.fromHeight(180.0), // here th
-
                   child: AppBar(
                     flexibleSpace: Image.asset(
                       "assets/logo.png",
@@ -67,11 +50,13 @@ class AuthScreenWidgetState extends State<AuthScreenWidget> {
                 body: Container(
                   color: Colors.white,
                   child: TabBarView(
-                    children: <Widget>[
+                    children: [
                       ListView(
-                        children: <Widget>[_SignUpPage(communityController)],
+                        children: [
+                          _SignUpPage(communityController, authController)
+                        ],
                       ),
-                      ListView(children: const <Widget>[_SignInPage()]),
+                      ListView(children: [_SignInPage(authController)]),
                     ],
                   ),
                 ),
@@ -92,14 +77,13 @@ class AuthScreenWidgetState extends State<AuthScreenWidget> {
 }
 
 class _SignUpPage extends StatefulWidget {
-  const _SignUpPage(this.communityController) : super();
+  const _SignUpPage(this.communityController, this.authController) : super();
 
   final CommunityController communityController;
+  final AuthController authController;
 
   @override
-  State<StatefulWidget> createState() {
-    return _SignUpPageState();
-  }
+  State<StatefulWidget> createState() => _SignUpPageState();
 }
 
 class _SignUpPageState extends State<_SignUpPage> {
@@ -112,9 +96,7 @@ class _SignUpPageState extends State<_SignUpPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   String? selectedGender;
-  AuthController authController = Get.find();
-
-  var passwordVisible = false;
+  bool passwordVisible = false;
 
   @override
   void initState() {
@@ -162,8 +144,10 @@ class _SignUpPageState extends State<_SignUpPage> {
                     const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
                 child: TextFormField(
                   controller: phone,
-                  decoration:
-                      const InputDecoration(labelText: "Phone", filled: true),
+                  decoration: InputDecoration(
+                      errorText: widget.authController.phoneError.value,
+                      labelText: "Phone",
+                      filled: true),
                 ),
               ),
               Padding(
@@ -171,8 +155,10 @@ class _SignUpPageState extends State<_SignUpPage> {
                     const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
                 child: TextFormField(
                   controller: _emailController,
-                  decoration:
-                      const InputDecoration(labelText: "email", filled: true),
+                  decoration: InputDecoration(
+                      errorText: widget.authController.emailError.value,
+                      labelText: "email",
+                      filled: true),
                 ),
               ),
               Padding(
@@ -182,6 +168,7 @@ class _SignUpPageState extends State<_SignUpPage> {
                   controller: _passwordController,
                   obscureText: passwordVisible,
                   decoration: InputDecoration(
+                      errorText: widget.authController.passwordError.value,
                       labelText: "password",
                       filled: true,
                       suffixIcon: IconButton(
@@ -308,7 +295,7 @@ class _SignUpPageState extends State<_SignUpPage> {
                   minWidth: double.infinity,
                   color: Colors.blue,
                   onPressed: () => {
-                    authController.register(
+                    widget.authController.register(
                         fname.text,
                         mname.text,
                         lname.text,
@@ -342,12 +329,12 @@ class _SignUpPageState extends State<_SignUpPage> {
 }
 
 class _SignInPage extends StatefulWidget {
-  const _SignInPage() : super();
+  const _SignInPage(this.authController) : super();
+
+  final AuthController authController;
 
   @override
-  State<StatefulWidget> createState() {
-    return _SignInPageState();
-  }
+  State<StatefulWidget> createState() => _SignInPageState();
 }
 
 class _SignInPageState extends State<_SignInPage> {
@@ -355,8 +342,6 @@ class _SignInPageState extends State<_SignInPage> {
 
   final TextEditingController _loginController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
-  AuthController authController = Get.find();
 
   var passwordVisible = false;
 
@@ -407,8 +392,8 @@ class _SignInPageState extends State<_SignInPage> {
               minWidth: double.infinity,
               color: Colors.blue,
               onPressed: () {
-                authController.login(
-                    _loginController.text, _passwordController.text);
+                widget.authController
+                    .login(_loginController.text, _passwordController.text);
               },
               textColor: Colors.white,
               child: const Text("Log In"),

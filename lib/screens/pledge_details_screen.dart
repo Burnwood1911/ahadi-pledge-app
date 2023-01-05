@@ -241,12 +241,12 @@ class PledgeDetails extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(pledge.purpose.title,
-                                          style: GoogleFonts.poppins(
-                                              textStyle: const TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: Colors.black))),
+                                      // Text(pledge.purpose.title,
+                                      //     style: GoogleFonts.poppins(
+                                      //         textStyle: const TextStyle(
+                                      //             fontSize: 16,
+                                      //             fontWeight: FontWeight.w400,
+                                      //             color: Colors.black))),
                                       Text(
                                         payment.createdAt
                                             .toLocal()

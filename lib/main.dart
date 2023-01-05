@@ -16,7 +16,7 @@ void main() async {
   await GetStorage.init();
   await setup();
 
-  Get.lazyPut(() => AuthController());
+  Get.lazyPut(() => AuthController(), fenix: true);
   Get.lazyPut(() => PledgeController(), fenix: true);
   Get.lazyPut(() => PaymentController(), fenix: true);
   Get.lazyPut(() => CommunityController(), fenix: true);

@@ -1,13 +1,20 @@
+import 'dart:convert';
 import 'package:ahadi_pledge/controllers/user_controller.dart';
 import 'package:ahadi_pledge/di/service_locater.dart';
 import 'package:ahadi_pledge/repos/auth_repo.dart';
 import 'package:ahadi_pledge/screens/home_screen.dart';
 import 'package:ahadi_pledge/screens/login.dart';
+import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class AuthController extends GetxController with StateMixin {
   final authRepository = getIt.get<AuthRepository>();
+
+  //Register errors
+  Rx<String?> phoneError = Rx<String?>(null);
+  Rx<String?> emailError = Rx<String?>(null);
+  Rx<String?> passwordError = Rx<String?>(null);
 
   @override
   void onReady() {
@@ -19,7 +26,7 @@ class AuthController extends GetxController with StateMixin {
   void checkAuthState() async {
     final String? token = GetStorage().read("token");
     if (token == null) {
-      Get.offAll(() => const AuthScreen());
+      Get.offAll(() => AuthScreen());
     } else {
       Get.offAll(() => const HomeScreen());
       Get.find<UserController>().fetchUser();
@@ -33,21 +40,17 @@ class AuthController extends GetxController with StateMixin {
 
     result.when((success) {
       change(state, status: RxStatus.success());
-
-      if (success) {
-        Get.offAll(() => const HomeScreen());
-      } else {
-        Get.snackbar("Failed", "Invalid Credentials");
-      }
+      Get.offAll(() => const HomeScreen());
+      Get.find<UserController>().fetchUser();
     }, (error) {
       change(state, status: RxStatus.success());
-      Get.snackbar("Failed", "Something went wrong");
+      Get.snackbar("Failed", "credentials are incorrect");
     });
   }
 
   void logout() async {
     await GetStorage().remove("token");
-    Get.offAll(() => const AuthScreen());
+    Get.offAll(() => AuthScreen());
   }
 
   void register(
@@ -67,14 +70,27 @@ class AuthController extends GetxController with StateMixin {
 
     result.when((success) {
       change(state, status: RxStatus.success());
-      if (success) {
-        Get.snackbar("Success", "Account registered");
-      } else {
-        Get.snackbar("Failed", "Account failed to register");
-      }
+
+      Get.snackbar("Success", "Account registered");
     }, (error) {
       change(state, status: RxStatus.success());
-      Get.snackbar("Failed", "Something went wrong");
+      var errorResponse = jsonDecode((error as DioError).response.toString());
+      Map<String, dynamic> errors = errorResponse['errors'];
+      errors.forEach((k, v) {
+        switch (k) {
+          case "email":
+            emailError.value = v[0].toString();
+            break;
+          case "phone":
+            phoneError.value = v[0].toString();
+            break;
+          case "password":
+            passwordError.value = v[0].toString();
+            break;
+          default:
+            break;
+        }
+      });
     });
   }
 }
