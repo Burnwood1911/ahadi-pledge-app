@@ -6,23 +6,35 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
-class MainScreen extends StatelessWidget {
-  MainScreen({super.key});
+class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
 
-  final PledgeController pledgeController = Get.find();
-  final PaymentController paymentController = Get.find();
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  PledgeController? pledgeController;
+  PaymentController? paymentController;
+
+  @override
+  void initState() {
+    super.initState();
+    pledgeController = Get.find<PledgeController>();
+    paymentController = Get.find<PaymentController>();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Obx(() => pledgeController.isLoading.value
+      body: Obx(() => pledgeController!.isLoading.value
           ? const Center(
               child: SizedBox(
                 height: 200,
                 child: LoadingIndicator(
                     indicatorType: Indicator.ballClipRotatePulse,
-                    colors: [Colors.blue],
+                    colors: [Colors.black],
                     strokeWidth: 3,
                     backgroundColor: Colors.white,
                     pathBackgroundColor: Colors.white),
@@ -94,7 +106,7 @@ class MainScreen extends StatelessWidget {
                               Row(
                                 children: [
                                   Text(
-                                    "${pledgeController.totalPledgeAmount()}",
+                                    "${pledgeController!.totalPledgeAmount()}",
                                     style: GoogleFonts.poppins(
                                         textStyle: const TextStyle(
                                             fontSize: 18,
@@ -157,7 +169,7 @@ class MainScreen extends StatelessWidget {
                               Row(
                                 children: [
                                   Text(
-                                    "${pledgeController.totalPledgeAmount() - paymentController.totalPaymentAmount()}",
+                                    "${pledgeController!.totalPledgeAmount() - paymentController!.totalPaymentAmount()}",
                                     style: GoogleFonts.poppins(
                                         textStyle: const TextStyle(
                                             fontSize: 18,
@@ -189,15 +201,19 @@ class MainScreen extends StatelessWidget {
                           fontSize: 18, fontWeight: FontWeight.w600)),
                 ),
                 SizedBox(
-                  width: double.infinity,
+                  width: Get.width,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 16.0, horizontal: 0),
                     child: Column(
                       children: [
                         StepProgressIndicator(
-                          totalSteps: pledgeController.totalPledgeAmount(),
-                          currentStep: paymentController.totalPaymentAmount(),
+                          totalSteps: pledgeController!.pledges.isNotEmpty
+                              ? pledgeController!.totalPledgeAmount()
+                              : 100,
+                          currentStep: paymentController!.payments.isNotEmpty
+                              ? paymentController!.totalPaymentAmount()
+                              : 0,
                           size: 16,
                           padding: 0,
                           selectedColor: Colors.green,
@@ -223,10 +239,9 @@ class MainScreen extends StatelessWidget {
                 SizedBox(
                   height: Get.height * 0.30,
                   child: ListView.builder(
-                      itemCount: paymentController.payments.take(5).length,
+                      itemCount: paymentController!.payments.length,
                       itemBuilder: ((context, index) {
-                        final payment = paymentController.payments.reversed
-                            .take(5)
+                        final payment = paymentController!.payments.reversed
                             .toList()[index];
                         return Container(
                           margin: const EdgeInsets.symmetric(vertical: 4),
@@ -248,7 +263,7 @@ class MainScreen extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                          pledgeController.pledges
+                                          pledgeController!.pledges
                                               .firstWhere((element) =>
                                                   element.id ==
                                                   payment.pledgeId)
@@ -256,7 +271,6 @@ class MainScreen extends StatelessWidget {
                                           style: GoogleFonts.poppins(
                                               textStyle: const TextStyle(
                                                   fontSize: 16,
-                                                  fontWeight: FontWeight.w400,
                                                   color: Colors.black))),
                                       Text(
                                         payment.createdAt

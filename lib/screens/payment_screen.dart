@@ -8,9 +8,8 @@ import 'package:loading_indicator/loading_indicator.dart';
 
 class PaymentScreen extends GetView<PaymentController> {
   final PledgeElement pledge;
-  final UserController userController = Get.find();
 
-  PaymentScreen(this.pledge, {super.key});
+  const PaymentScreen(this.pledge, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +33,7 @@ class PaymentScreen extends GetView<PaymentController> {
                   height: 200,
                   child: LoadingIndicator(
                       indicatorType: Indicator.ballClipRotatePulse,
-                      colors: [Colors.blue],
+                      colors: [Colors.black],
                       strokeWidth: 3,
                       backgroundColor: Colors.white,
                       pathBackgroundColor: Colors.white),
@@ -46,6 +45,7 @@ class PaymentScreen extends GetView<PaymentController> {
                     padding: const EdgeInsets.only(
                         left: 18.0, right: 18.0, top: 18.0),
                     child: TextFormField(
+                      keyboardType: TextInputType.number,
                       controller: controller.paymentAmount,
                       decoration: const InputDecoration(
                           labelText: "Amount", filled: true),
@@ -74,10 +74,10 @@ class PaymentScreen extends GetView<PaymentController> {
                               backgroundColor: Colors.black),
                           onPressed: (() {
                             controller.submitPayment(
-                                controller.paymentAmount.text,
-                                pledge.type.id,
-                                pledge.id,
-                                userController.state!.id);
+                              controller.paymentAmount.text,
+                              pledge.type.id,
+                              pledge.id,
+                            );
                           }),
                           child: const Text("Submit")),
                     ),

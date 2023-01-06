@@ -33,12 +33,21 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const LoadingIndicator(
-                  indicatorType: Indicator.ballClipRotatePulse,
-                  colors: [Colors.blue],
-                  strokeWidth: 3,
-                  backgroundColor: Colors.white,
-                  pathBackgroundColor: Colors.white),
+              Image.asset(
+                "assets/logo.png",
+              ),
+              SizedBox(
+                height: 24,
+              ),
+              const SizedBox(
+                height: 200,
+                child: LoadingIndicator(
+                    indicatorType: Indicator.ballClipRotatePulse,
+                    colors: [Colors.black],
+                    strokeWidth: 3,
+                    backgroundColor: Colors.white,
+                    pathBackgroundColor: Colors.white),
+              ),
               Text(
                 "Loading Please Wait...",
                 style: GoogleFonts.poppins(),

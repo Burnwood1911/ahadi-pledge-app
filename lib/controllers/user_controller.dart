@@ -1,6 +1,7 @@
 import 'package:ahadi_pledge/di/service_locater.dart';
 import 'package:ahadi_pledge/models/user.dart';
 import 'package:ahadi_pledge/repos/user_repo.dart';
+import 'package:ahadi_pledge/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,9 +14,9 @@ class UserController extends GetxController with StateMixin<User> {
   final TextEditingController email = TextEditingController();
 
   @override
-  void onReady() {
+  void onReady() async {
     super.onReady();
-    fetchUser();
+    change(state, status: RxStatus.success());
   }
 
   Future<void> fetchUser() async {
@@ -44,11 +45,12 @@ class UserController extends GetxController with StateMixin<User> {
         await userRepository.changePassword(oldPassword, newPassword);
 
     result.when((success) {
+      change(state, status: RxStatus.success());
       Get.back();
       Get.snackbar("Success", "Password Changed");
     }, (error) {
-      Get.back();
-      Get.snackbar("Error", "Failed to change password");
+      change(state, status: RxStatus.success());
+      Get.snackbar("Error", "Old Password Doesn't match!");
     });
   }
 

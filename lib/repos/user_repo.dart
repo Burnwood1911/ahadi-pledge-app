@@ -39,6 +39,20 @@ class UserRepository {
     }
   }
 
+  Future<Result<bool, Exception>> addFcmToken(String token) async {
+    Map<String, dynamic> data = {
+      "fcm_token": token,
+    };
+    try {
+      await dio.post("/user/update", data: jsonEncode(data));
+      return const Success(true);
+    } on DioError catch (_) {
+      return Error(Exception("Something went wrong"));
+    } on TypeError catch (_) {
+      return Error(Exception("Type error occured"));
+    }
+  }
+
   Future<Result<bool, Exception>> changePassword(
       String oldPassword, String newPassword) async {
     Map<String, dynamic> data = {
@@ -46,13 +60,8 @@ class UserRepository {
       "newPassword": newPassword,
     };
     try {
-      var response = await dio.post("/user/password", data: jsonEncode(data));
-
-      if (response.statusCode == 200) {
-        return const Success(true);
-      } else {
-        return Error(Exception("someting went wrong"));
-      }
+      await dio.post("/change-password", data: jsonEncode(data));
+      return const Success(true);
     } on DioError catch (_) {
       return Error(Exception("Something went wrong"));
     } on TypeError catch (_) {

@@ -22,25 +22,27 @@ class AuthScreen extends StatelessWidget {
               initialIndex: 0,
               child: Scaffold(
                 appBar: PreferredSize(
-                  preferredSize: const Size.fromHeight(180.0), // here th
+                  preferredSize: const Size.fromHeight(160.0), // here th
                   child: AppBar(
-                    flexibleSpace: Image.asset(
-                      "assets/logo.png",
+                    flexibleSpace: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Image.asset(
+                        "assets/logo-two.png",
+                      ),
                     ),
                     elevation: 0,
                     backgroundColor: Colors.white,
                     bottom: const TabBar(
-                      indicatorColor: Colors.blue,
                       tabs: [
                         Tab(
                           icon: Text(
-                            "Sign Up",
+                            "Sign In",
                             style: TextStyle(color: Colors.black),
                           ),
                         ),
                         Tab(
                             icon: Text(
-                          "Sign In",
+                          "Sign Up",
                           style: TextStyle(color: Colors.black),
                         )),
                       ],
@@ -51,12 +53,12 @@ class AuthScreen extends StatelessWidget {
                   color: Colors.white,
                   child: TabBarView(
                     children: [
+                      ListView(children: [_SignInPage(authController)]),
                       ListView(
                         children: [
                           _SignUpPage(communityController, authController)
                         ],
                       ),
-                      ListView(children: [_SignInPage(authController)]),
                     ],
                   ),
                 ),
@@ -67,7 +69,7 @@ class AuthScreen extends StatelessWidget {
           body: Center(
             child: LoadingIndicator(
                 indicatorType: Indicator.ballClipRotatePulse,
-                colors: [Colors.blue],
+                colors: [Colors.black],
                 strokeWidth: 3,
                 backgroundColor: Colors.white,
                 pathBackgroundColor: Colors.white),
@@ -157,7 +159,7 @@ class _SignUpPageState extends State<_SignUpPage> {
                   controller: _emailController,
                   decoration: InputDecoration(
                       errorText: widget.authController.emailError.value,
-                      labelText: "email",
+                      labelText: "Email",
                       filled: true),
                 ),
               ),
@@ -169,7 +171,7 @@ class _SignUpPageState extends State<_SignUpPage> {
                   obscureText: passwordVisible,
                   decoration: InputDecoration(
                       errorText: widget.authController.passwordError.value,
-                      labelText: "password",
+                      labelText: "Password",
                       filled: true,
                       suffixIcon: IconButton(
                         icon: Icon(
@@ -182,7 +184,7 @@ class _SignUpPageState extends State<_SignUpPage> {
                             passwordVisible = !passwordVisible;
                           });
                         },
-                        color: Colors.blue,
+                        color: Colors.black,
                       )),
                 ),
               ),
@@ -293,7 +295,8 @@ class _SignUpPageState extends State<_SignUpPage> {
                     const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
                 child: MaterialButton(
                   minWidth: double.infinity,
-                  color: Colors.blue,
+                  color: Colors.black,
+                  textColor: Colors.white,
                   onPressed: () => {
                     widget.authController.register(
                         fname.text,
@@ -306,7 +309,6 @@ class _SignUpPageState extends State<_SignUpPage> {
                         birth.text,
                         widget.communityController.selectedJumuiyaId.value)
                   },
-                  textColor: Colors.white,
                   child: const Text("Register"),
                 ),
               ),
@@ -362,7 +364,7 @@ class _SignInPageState extends State<_SignInPage> {
             child: TextFormField(
               controller: _loginController,
               decoration:
-                  const InputDecoration(labelText: "login", filled: true),
+                  const InputDecoration(labelText: "Login", filled: true),
             ),
           ),
           Padding(
@@ -371,7 +373,7 @@ class _SignInPageState extends State<_SignInPage> {
               controller: _passwordController,
               obscureText: passwordVisible,
               decoration: InputDecoration(
-                  labelText: "password",
+                  labelText: "Password",
                   filled: true,
                   suffixIcon: IconButton(
                     icon: Icon(
@@ -382,7 +384,6 @@ class _SignInPageState extends State<_SignInPage> {
                         passwordVisible = !passwordVisible;
                       });
                     },
-                    color: Colors.blue,
                   )),
             ),
           ),
@@ -390,12 +391,12 @@ class _SignInPageState extends State<_SignInPage> {
             padding: const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
             child: MaterialButton(
               minWidth: double.infinity,
-              color: Colors.blue,
+              color: Colors.black,
+              textColor: Colors.white,
               onPressed: () {
                 widget.authController
                     .login(_loginController.text, _passwordController.text);
               },
-              textColor: Colors.white,
               child: const Text("Log In"),
             ),
           ),

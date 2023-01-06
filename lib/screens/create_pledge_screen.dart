@@ -16,7 +16,7 @@ class CreatePledge extends StatefulWidget {
 }
 
 class _CreatePledgeState extends State<CreatePledge> {
-  final PledgeController pledgeController = Get.find();
+  PledgeController? pledgeController;
 
   TextEditingController? amount;
   TextEditingController? description;
@@ -28,8 +28,9 @@ class _CreatePledgeState extends State<CreatePledge> {
   @override
   void initState() {
     super.initState();
-    selectedPledgeTypeId = pledgeController.pledgetypes[0].id;
-    selectedPledgePurposeId = pledgeController.pledgepurposes[0].id;
+    pledgeController = Get.find<PledgeController>();
+    selectedPledgeTypeId = pledgeController!.pledgetypes[0].id;
+    selectedPledgePurposeId = pledgeController!.pledgepurposes[0].id;
 
     amount = TextEditingController();
     description = TextEditingController();
@@ -42,6 +43,7 @@ class _CreatePledgeState extends State<CreatePledge> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text(
             "Create Pledge",
@@ -53,11 +55,11 @@ class _CreatePledgeState extends State<CreatePledge> {
           backgroundColor: Colors.transparent,
           iconTheme: const IconThemeData(color: Colors.black),
         ),
-        body: Obx((() => pledgeController.isLoading.value
+        body: Obx((() => pledgeController!.isLoading.value
             ? const Center(
                 child: LoadingIndicator(
                     indicatorType: Indicator.ballClipRotatePulse,
-                    colors: [Colors.blue],
+                    colors: [Colors.black],
                     strokeWidth: 3,
                     backgroundColor: Colors.white,
                     pathBackgroundColor: Colors.white),
@@ -68,16 +70,16 @@ class _CreatePledgeState extends State<CreatePledge> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Pledge Type",
+                      "Contribution Form",
                       style: GoogleFonts.poppins(),
                     ),
                     DropdownButton<String>(
-                      value: pledgeController.pledgetypes
+                      value: pledgeController!.pledgetypes
                           .firstWhere(
                               (element) => element.id == selectedPledgeTypeId)
                           .title,
                       isExpanded: true,
-                      items: pledgeController.pledgetypes
+                      items: pledgeController!.pledgetypes
                           .toList()
                           .map((TypePledge value) {
                         return DropdownMenuItem<String>(
@@ -87,7 +89,7 @@ class _CreatePledgeState extends State<CreatePledge> {
                       }).toList(),
                       onChanged: (value) {
                         setState(() {
-                          selectedPledgeTypeId = pledgeController.pledgetypes
+                          selectedPledgeTypeId = pledgeController!.pledgetypes
                               .firstWhere((item) => item.title == value)
                               .id;
                         });
@@ -97,16 +99,16 @@ class _CreatePledgeState extends State<CreatePledge> {
                       height: 8,
                     ),
                     Text(
-                      "Purpose",
+                      "Contribution Purpose",
                       style: GoogleFonts.poppins(),
                     ),
                     DropdownButton<String>(
                       isExpanded: true,
-                      value: pledgeController.pledgepurposes
+                      value: pledgeController!.pledgepurposes
                           .firstWhere((element) =>
                               element.id == selectedPledgePurposeId)
                           .title,
-                      items: pledgeController.pledgepurposes
+                      items: pledgeController!.pledgepurposes
                           .toList()
                           .map((PurposePledge value) {
                         return DropdownMenuItem<String>(
@@ -119,7 +121,7 @@ class _CreatePledgeState extends State<CreatePledge> {
                       }).toList(),
                       onChanged: (value) {
                         setState(() {
-                          selectedPledgePurposeId = pledgeController
+                          selectedPledgePurposeId = pledgeController!
                               .pledgepurposes
                               .firstWhere((item) => item.title == value)
                               .id;
@@ -187,19 +189,18 @@ class _CreatePledgeState extends State<CreatePledge> {
                                 backgroundColor: Colors.black),
                             onPressed: (() {
                               final form = PledgeForm(
-                                  amount: amount!.text,
-                                  deadline: dateInput!.text,
-                                  description: description!.text,
-                                  purpose_id: selectedPledgePurposeId!,
-                                  name: pledgeController.pledgepurposes
-                                      .firstWhere((element) =>
-                                          element.id == selectedPledgePurposeId)
-                                      .title,
-                                  status: true,
-                                  type_id: selectedPledgeTypeId!,
-                                  user_id: 2);
+                                amount: amount!.text,
+                                deadline: dateInput!.text,
+                                description: description!.text,
+                                purpose_id: selectedPledgePurposeId!,
+                                name: pledgeController!.pledgepurposes
+                                    .firstWhere((element) =>
+                                        element.id == selectedPledgePurposeId)
+                                    .title,
+                                type_id: selectedPledgeTypeId!,
+                              );
 
-                              pledgeController.createPledge(form);
+                              pledgeController!.createPledge(form);
                             }),
                             child: const Text("Create")))
                   ],

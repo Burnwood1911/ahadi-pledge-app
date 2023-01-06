@@ -4,8 +4,21 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
-class EditProfileScreen extends GetView<UserController> {
+class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
+
+  @override
+  State<EditProfileScreen> createState() => _EditProfileScreenState();
+}
+
+class _EditProfileScreenState extends State<EditProfileScreen> {
+  UserController? controller;
+  @override
+  void initState() {
+    super.initState();
+    controller = Get.find<UserController>();
+    controller?.fetchUser();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +35,14 @@ class EditProfileScreen extends GetView<UserController> {
         centerTitle: true,
       ),
       backgroundColor: Colors.white,
-      body: controller.obx((state) {
+      body: controller!.obx((state) {
         return ListView(
           children: [
             Padding(
               padding:
                   const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
               child: TextFormField(
-                controller: controller.fname,
+                controller: controller!.fname,
                 decoration: const InputDecoration(
                     labelText: "First Name", filled: true),
               ),
@@ -38,7 +51,7 @@ class EditProfileScreen extends GetView<UserController> {
               padding:
                   const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
               child: TextFormField(
-                controller: controller.mname,
+                controller: controller!.mname,
                 decoration: const InputDecoration(
                     labelText: "Middle Name", filled: true),
               ),
@@ -47,7 +60,7 @@ class EditProfileScreen extends GetView<UserController> {
               padding:
                   const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
               child: TextFormField(
-                controller: controller.lname,
+                controller: controller!.lname,
                 decoration:
                     const InputDecoration(labelText: "Last Name", filled: true),
               ),
@@ -56,7 +69,7 @@ class EditProfileScreen extends GetView<UserController> {
               padding:
                   const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
               child: TextFormField(
-                controller: controller.phone,
+                controller: controller!.phone,
                 decoration:
                     const InputDecoration(labelText: "Phone", filled: true),
               ),
@@ -65,7 +78,7 @@ class EditProfileScreen extends GetView<UserController> {
               padding:
                   const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
               child: TextFormField(
-                controller: controller.email,
+                controller: controller!.email,
                 decoration:
                     const InputDecoration(labelText: "email", filled: true),
               ),
@@ -74,13 +87,15 @@ class EditProfileScreen extends GetView<UserController> {
               padding:
                   const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
               child: ElevatedButton(
+                  style:
+                      ElevatedButton.styleFrom(backgroundColor: Colors.black),
                   onPressed: () {
-                    controller.updateUser(
-                        controller.fname.text,
-                        controller.mname.text,
-                        controller.lname.text,
-                        controller.phone.text,
-                        controller.email.text);
+                    controller!.updateUser(
+                        controller!.fname.text,
+                        controller!.mname.text,
+                        controller!.lname.text,
+                        controller!.phone.text,
+                        controller!.email.text);
                   },
                   child: Text(
                     "Save",
@@ -93,7 +108,7 @@ class EditProfileScreen extends GetView<UserController> {
           onLoading: const Center(
             child: LoadingIndicator(
                 indicatorType: Indicator.ballClipRotatePulse,
-                colors: [Colors.blue],
+                colors: [Colors.black],
                 strokeWidth: 3,
                 backgroundColor: Colors.white,
                 pathBackgroundColor: Colors.white),
@@ -108,7 +123,7 @@ class EditProfileScreen extends GetView<UserController> {
                     ),
                     ElevatedButton(
                         onPressed: () {
-                          controller.fetchUser();
+                          controller!.fetchUser();
                         },
                         child: const Text("Try Again")),
                   ],

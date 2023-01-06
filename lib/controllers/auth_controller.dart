@@ -2,14 +2,17 @@ import 'dart:convert';
 import 'package:ahadi_pledge/controllers/user_controller.dart';
 import 'package:ahadi_pledge/di/service_locater.dart';
 import 'package:ahadi_pledge/repos/auth_repo.dart';
+import 'package:ahadi_pledge/repos/user_repo.dart';
 import 'package:ahadi_pledge/screens/home_screen.dart';
 import 'package:ahadi_pledge/screens/login.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class AuthController extends GetxController with StateMixin {
   final authRepository = getIt.get<AuthRepository>();
+  final userRepository = getIt.get<UserRepository>();
 
   //Register errors
   Rx<String?> phoneError = Rx<String?>(null);
@@ -28,8 +31,7 @@ class AuthController extends GetxController with StateMixin {
     if (token == null) {
       Get.offAll(() => AuthScreen());
     } else {
-      Get.offAll(() => const HomeScreen());
-      Get.find<UserController>().fetchUser();
+      Get.offAll(() => HomeScreen());
     }
   }
 
@@ -38,10 +40,12 @@ class AuthController extends GetxController with StateMixin {
 
     final result = await authRepository.login(email, password);
 
-    result.when((success) {
+    result.when((success) async {
       change(state, status: RxStatus.success());
-      Get.offAll(() => const HomeScreen());
-      Get.find<UserController>().fetchUser();
+
+      var token = await getToken();
+      userRepository.addFcmToken(token);
+      Get.offAll(() => HomeScreen());
     }, (error) {
       change(state, status: RxStatus.success());
       Get.snackbar("Failed", "credentials are incorrect");
@@ -92,5 +96,9 @@ class AuthController extends GetxController with StateMixin {
         }
       });
     });
+  }
+
+  Future<String> getToken() async {
+    return (await FirebaseMessaging.instance.getToken())!;
   }
 }

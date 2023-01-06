@@ -3,6 +3,7 @@ import 'package:ahadi_pledge/controllers/payment_controller.dart';
 import 'package:ahadi_pledge/controllers/pledge_controller.dart';
 import 'package:ahadi_pledge/screens/card_screen.dart';
 import 'package:ahadi_pledge/screens/create_pledge_screen.dart';
+import 'package:ahadi_pledge/screens/event_screen.dart';
 import 'package:ahadi_pledge/screens/mainscreen.dart';
 import 'package:ahadi_pledge/screens/pledges_screen.dart';
 import 'package:ahadi_pledge/screens/settings.dart';
@@ -111,8 +112,8 @@ class _HomeScreenState extends State<HomeScreen> {
         inactiveColorPrimary: CupertinoColors.black,
       ),
       PersistentBottomNavBarItem(
-        icon: const Icon(Icons.card_membership),
-        title: ("Cards"),
+        icon: const Icon(Icons.credit_card),
+        title: ("Card"),
         activeColorPrimary: CupertinoColors.black,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),

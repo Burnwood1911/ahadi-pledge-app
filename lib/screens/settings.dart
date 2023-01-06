@@ -12,6 +12,7 @@ class SettingsScreen extends GetView<AuthController> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
           elevation: 0,
           title: Text("Settings",

@@ -15,7 +15,7 @@ class Pledges extends GetView<PledgeController> {
       child: Scaffold(
           appBar: AppBar(
             elevation: 0,
-            backgroundColor: Colors.transparent,
+            backgroundColor: Colors.white,
             title: Text(
               "Pledges",
               style: GoogleFonts.poppins(
@@ -27,7 +27,7 @@ class Pledges extends GetView<PledgeController> {
               ? const Center(
                   child: LoadingIndicator(
                       indicatorType: Indicator.ballClipRotatePulse,
-                      colors: [Colors.blue],
+                      colors: [Colors.black],
                       strokeWidth: 3,
                       backgroundColor: Colors.white,
                       pathBackgroundColor: Colors.white),

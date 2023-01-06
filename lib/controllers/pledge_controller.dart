@@ -4,6 +4,7 @@ import 'package:ahadi_pledge/models/pledge.dart';
 import 'package:ahadi_pledge/models/pledge_purposes.dart';
 import 'package:ahadi_pledge/models/pledge_types.dart';
 import 'package:ahadi_pledge/repos/pledge_repo.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class PledgeController extends GetxController {
@@ -13,9 +14,11 @@ class PledgeController extends GetxController {
   RxList<TypePledge> pledgetypes = RxList();
   RxList<PurposePledge> pledgepurposes = RxList();
 
+  TextEditingController reminderDate = TextEditingController();
+
   @override
-  void onInit() async {
-    super.onInit();
+  void onReady() async {
+    super.onReady();
     await getPledges();
     await getPledgeTypes();
     await getPledgePurposes();
@@ -48,14 +51,28 @@ class PledgeController extends GetxController {
     if (result == true) {
       Get.back();
     }
+    getPledges();
+    isLoading(false);
+  }
+
+  Future<void> setReminder(int id, String date) async {
+    isLoading(true);
+    final result = await pledgeRepository.setReminder(id, date);
+    reminderDate.text = "";
+    if (result == true) {
+      Get.back();
+      Get.snackbar("Success", "Reminder Set");
+    }
     isLoading(false);
   }
 
   int totalPledgeAmount() {
     if (pledges.isNotEmpty) {
-      return pledges
+      var kapp = pledges
           .map((element) => int.parse(element.amount))
           .reduce((value, element) => value + element);
+
+      return kapp;
     } else {
       return 0;
     }

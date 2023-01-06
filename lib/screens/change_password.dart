@@ -12,9 +12,15 @@ class ChangePasswordScreen extends StatefulWidget {
 }
 
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
-  final UserController userController = Get.find<UserController>();
+  UserController? userController;
   final TextEditingController oldPassword = TextEditingController();
   final TextEditingController newPassword = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    userController = Get.find<UserController>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +37,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           centerTitle: true,
         ),
         backgroundColor: Colors.white,
-        body: userController.obx(
+        body: userController!.obx(
           (state) {
             return ListView(
               children: [
@@ -57,9 +63,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   padding:
                       const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
                   child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black),
                       onPressed: () {
-                        userController.changePassword(
-                            oldPassword.text, newPassword.text);
+                        userController!
+                            .changePassword(oldPassword.text, newPassword.text);
                       },
                       child: Text(
                         "Save",
@@ -72,7 +80,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           onLoading: const Center(
             child: LoadingIndicator(
                 indicatorType: Indicator.ballClipRotatePulse,
-                colors: [Colors.blue],
+                colors: [Colors.black],
                 strokeWidth: 3,
                 backgroundColor: Colors.white,
                 pathBackgroundColor: Colors.white),
