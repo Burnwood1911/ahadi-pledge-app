@@ -39,11 +39,11 @@ class _SplashScreenState extends State<SplashScreen> {
               SizedBox(
                 height: 24,
               ),
-              const SizedBox(
+              SizedBox(
                 height: 200,
                 child: LoadingIndicator(
                     indicatorType: Indicator.ballClipRotatePulse,
-                    colors: [Colors.black],
+                    colors: [Theme.of(context).primaryColor],
                     strokeWidth: 3,
                     backgroundColor: Colors.white,
                     pathBackgroundColor: Colors.white),

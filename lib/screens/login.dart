@@ -64,12 +64,12 @@ class AuthScreen extends StatelessWidget {
                 ),
               ),
             ),
-        onLoading: const Scaffold(
+        onLoading: Scaffold(
           backgroundColor: Colors.white,
           body: Center(
             child: LoadingIndicator(
                 indicatorType: Indicator.ballClipRotatePulse,
-                colors: [Colors.black],
+                colors: [Theme.of(context).primaryColor],
                 strokeWidth: 3,
                 backgroundColor: Colors.white,
                 pathBackgroundColor: Colors.white),
@@ -184,7 +184,7 @@ class _SignUpPageState extends State<_SignUpPage> {
                             passwordVisible = !passwordVisible;
                           });
                         },
-                        color: Colors.black,
+                        color: Theme.of(context).primaryColor,
                       )),
                 ),
               ),
@@ -295,7 +295,7 @@ class _SignUpPageState extends State<_SignUpPage> {
                     const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
                 child: MaterialButton(
                   minWidth: double.infinity,
-                  color: Colors.black,
+                  color: Theme.of(context).primaryColor,
                   textColor: Colors.white,
                   onPressed: () => {
                     widget.authController.register(
@@ -391,8 +391,8 @@ class _SignInPageState extends State<_SignInPage> {
             padding: const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
             child: MaterialButton(
               minWidth: double.infinity,
-              color: Colors.black,
               textColor: Colors.white,
+              color: Theme.of(context).primaryColor,
               onPressed: () {
                 widget.authController
                     .login(_loginController.text, _passwordController.text);

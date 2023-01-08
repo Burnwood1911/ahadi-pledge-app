@@ -87,8 +87,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               padding:
                   const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
               child: ElevatedButton(
-                  style:
-                      ElevatedButton.styleFrom(backgroundColor: Colors.black),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).primaryColor),
                   onPressed: () {
                     controller!.updateUser(
                         controller!.fname.text,
@@ -105,10 +105,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           ],
         );
       },
-          onLoading: const Center(
+          onLoading: Center(
             child: LoadingIndicator(
                 indicatorType: Indicator.ballClipRotatePulse,
-                colors: [Colors.black],
+                colors: [Theme.of(context).primaryColor],
                 strokeWidth: 3,
                 backgroundColor: Colors.white,
                 pathBackgroundColor: Colors.white),

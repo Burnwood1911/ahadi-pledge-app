@@ -29,10 +29,10 @@ void main() async {
 
   // GetStorage().remove("token");
 
-  Get.lazyPut(() => AuthController());
-  Get.lazyPut(() => PledgeController());
-  Get.lazyPut(() => PaymentController());
-  Get.lazyPut(() => CommunityController());
+  Get.lazyPut(() => AuthController(), fenix: true);
+  Get.lazyPut(() => PledgeController(), fenix: true);
+  Get.lazyPut(() => PaymentController(), fenix: true);
+  Get.lazyPut(() => CommunityController(), fenix: true);
   Get.lazyPut(() => UserController(), fenix: true);
   Get.put(NotificationController(), permanent: true);
 
@@ -65,18 +65,18 @@ class MyApp extends StatelessWidget {
   MyApp({super.key});
 
   MaterialColor mycolor = MaterialColor(
-    0xFF000000,
+    0xFF2768B1,
     <int, Color>{
-      50: Color(0xFFE0E0E0),
-      100: Color(0xFFB3B3B3),
-      200: Color(0xFF808080),
-      300: Color(0xFF4D4D4D),
-      400: Color(0xFF262626),
-      500: Color(0xFF000000),
-      600: Color(0xFF000000),
-      700: Color(0xFF000000),
-      800: Color(0xFF000000),
-      900: Color(0xFF000000),
+      50: Color(0xFFE8F0F8),
+      100: Color(0xFFC5DAEE),
+      200: Color(0xFF9EC2E3),
+      300: Color(0xFF77AAD7),
+      400: Color(0xFF5A97CF),
+      500: Color(0xFF3D85C6),
+      600: Color(0xFF377DC0),
+      700: Color(0xFF2F72B9),
+      800: Color(0xFF2768B1),
+      900: Color(0xFF1A55A4),
     },
   );
 

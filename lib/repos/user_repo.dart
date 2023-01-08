@@ -68,4 +68,15 @@ class UserRepository {
       return Error(Exception("Type error occured"));
     }
   }
+
+  Future<Result<bool, Exception>> requestCard() async {
+    try {
+      await dio.get("/request-card");
+      return const Success(true);
+    } on DioError catch (_) {
+      return Error(Exception("Something went wrong"));
+    } on TypeError catch (_) {
+      return Error(Exception("Type error occured"));
+    }
+  }
 }

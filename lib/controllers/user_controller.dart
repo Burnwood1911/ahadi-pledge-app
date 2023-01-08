@@ -1,7 +1,6 @@
 import 'package:ahadi_pledge/di/service_locater.dart';
 import 'package:ahadi_pledge/models/user.dart';
 import 'package:ahadi_pledge/repos/user_repo.dart';
-import 'package:ahadi_pledge/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -51,6 +50,18 @@ class UserController extends GetxController with StateMixin<User> {
     }, (error) {
       change(state, status: RxStatus.success());
       Get.snackbar("Error", "Old Password Doesn't match!");
+    });
+  }
+
+  Future<void> requestCard() async {
+    change(state, status: RxStatus.loading());
+    final result = await userRepository.requestCard();
+    result.when((success) {
+      change(state, status: RxStatus.success());
+      Get.snackbar('Success', 'Your card has been created');
+    }, (error) {
+      change(state, status: RxStatus.error(error.toString()));
+      Get.snackbar('Error', 'Failed to create card');
     });
   }
 

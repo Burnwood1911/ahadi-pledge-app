@@ -56,10 +56,10 @@ class _CreatePledgeState extends State<CreatePledge> {
           iconTheme: const IconThemeData(color: Colors.black),
         ),
         body: Obx((() => pledgeController!.isLoading.value
-            ? const Center(
+            ? Center(
                 child: LoadingIndicator(
                     indicatorType: Indicator.ballClipRotatePulse,
-                    colors: [Colors.black],
+                    colors: [Theme.of(context).primaryColor],
                     strokeWidth: 3,
                     backgroundColor: Colors.white,
                     pathBackgroundColor: Colors.white),
@@ -186,21 +186,29 @@ class _CreatePledgeState extends State<CreatePledge> {
                         width: double.infinity,
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.black),
+                                backgroundColor:
+                                    Theme.of(context).primaryColor),
                             onPressed: (() {
-                              final form = PledgeForm(
-                                amount: amount!.text,
-                                deadline: dateInput!.text,
-                                description: description!.text,
-                                purpose_id: selectedPledgePurposeId!,
-                                name: pledgeController!.pledgepurposes
-                                    .firstWhere((element) =>
-                                        element.id == selectedPledgePurposeId)
-                                    .title,
-                                type_id: selectedPledgeTypeId!,
-                              );
+                              if (amount!.text.isNotEmpty &&
+                                  description!.text.isNotEmpty &&
+                                  dateInput!.text.isNotEmpty) {
+                                final form = PledgeForm(
+                                  amount: amount!.text,
+                                  deadline: dateInput!.text,
+                                  description: description!.text,
+                                  purpose_id: selectedPledgePurposeId!,
+                                  name: pledgeController!.pledgepurposes
+                                      .firstWhere((element) =>
+                                          element.id == selectedPledgePurposeId)
+                                      .title,
+                                  type_id: selectedPledgeTypeId!,
+                                );
 
-                              pledgeController!.createPledge(form);
+                                pledgeController!.createPledge(form);
+                              } else {
+                                Get.snackbar(
+                                    'Error', 'Please fill all fields.');
+                              }
                             }),
                             child: const Text("Create")))
                   ],

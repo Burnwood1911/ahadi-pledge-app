@@ -3,7 +3,6 @@ import 'package:ahadi_pledge/controllers/payment_controller.dart';
 import 'package:ahadi_pledge/controllers/pledge_controller.dart';
 import 'package:ahadi_pledge/screens/card_screen.dart';
 import 'package:ahadi_pledge/screens/create_pledge_screen.dart';
-import 'package:ahadi_pledge/screens/event_screen.dart';
 import 'package:ahadi_pledge/screens/mainscreen.dart';
 import 'package:ahadi_pledge/screens/pledges_screen.dart';
 import 'package:ahadi_pledge/screens/settings.dart';
@@ -87,13 +86,13 @@ class _HomeScreenState extends State<HomeScreen> {
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.home),
         title: ("Home"),
-        activeColorPrimary: CupertinoColors.black,
+        activeColorPrimary: Theme.of(context).primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.list_alt),
         title: ("Pledges"),
-        activeColorPrimary: CupertinoColors.black,
+        activeColorPrimary: Theme.of(context).primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
@@ -108,19 +107,19 @@ class _HomeScreenState extends State<HomeScreen> {
           CupertinoIcons.add,
           color: Colors.white,
         ),
-        activeColorPrimary: CupertinoColors.black,
-        inactiveColorPrimary: CupertinoColors.black,
+        activeColorPrimary: Theme.of(context).primaryColor,
+        inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.credit_card),
         title: ("Card"),
-        activeColorPrimary: CupertinoColors.black,
+        activeColorPrimary: Theme.of(context).primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.settings),
         title: ("Settings"),
-        activeColorPrimary: CupertinoColors.activeBlue,
+        activeColorPrimary: Theme.of(context).primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
     ];

@@ -52,11 +52,6 @@ class AuthController extends GetxController with StateMixin {
     });
   }
 
-  void logout() async {
-    await GetStorage().remove("token");
-    Get.offAll(() => AuthScreen());
-  }
-
   void register(
       String fname,
       String mname,

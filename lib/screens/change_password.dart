@@ -64,7 +64,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black),
+                          backgroundColor: Theme.of(context).primaryColor),
                       onPressed: () {
                         userController!
                             .changePassword(oldPassword.text, newPassword.text);
@@ -77,10 +77,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               ],
             );
           },
-          onLoading: const Center(
+          onLoading: Center(
             child: LoadingIndicator(
                 indicatorType: Indicator.ballClipRotatePulse,
-                colors: [Colors.black],
+                colors: [Theme.of(context).primaryColor],
                 strokeWidth: 3,
                 backgroundColor: Colors.white,
                 pathBackgroundColor: Colors.white),

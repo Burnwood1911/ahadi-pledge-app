@@ -30,11 +30,13 @@ class PaymentRepository {
     }
   }
 
-  Future<bool> submitPayment(String amount, int typeId, int pledgeId) async {
+  Future<bool> submitPayment(
+      String amount, int typeId, int pledgeId, String receipt) async {
     Map<String, dynamic> data = {
       "type_id": typeId,
       "pledge_id": pledgeId,
-      "amount": amount
+      "amount": amount,
+      "receipt": receipt
     };
     try {
       var response = await dio.post("/payment", data: jsonEncode(data));
@@ -44,7 +46,7 @@ class PaymentRepository {
         return false;
       }
     } on DioError catch (e) {
-      throw Exception({"error": e.message});
+      return false;
     } on TypeError catch (e) {
       throw Exception({"error": e.toString(), "stacktrace": e.stackTrace});
     }

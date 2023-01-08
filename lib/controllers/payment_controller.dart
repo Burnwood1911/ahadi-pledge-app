@@ -34,10 +34,13 @@ class PaymentController extends GetxController {
     isLoading(false);
   }
 
-  Future<void> submitPayment(String amount, int typeId, int pledgeId) async {
+  Future<void> submitPayment(
+      String amount, int typeId, int pledgeId, String receipt) async {
     isLoading(true);
     final result =
-        await paymentRepositry.submitPayment(amount, typeId, pledgeId);
+        await paymentRepositry.submitPayment(amount, typeId, pledgeId, receipt);
+    paymentAmount.text = "";
+    paymentReceipt.text = "";
     if (result) {
       await getPayments();
       Get.back();
@@ -52,6 +55,7 @@ class PaymentController extends GetxController {
   int totalPaymentAmount() {
     if (payments.isNotEmpty) {
       var pap = payments
+          .where((p0) => p0.verified == true)
           .map((element) => int.parse(element.amount))
           .reduce((value, element) => value + element);
 

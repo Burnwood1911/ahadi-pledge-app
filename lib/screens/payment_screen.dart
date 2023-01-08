@@ -1,5 +1,4 @@
 import 'package:ahadi_pledge/controllers/payment_controller.dart';
-import 'package:ahadi_pledge/controllers/user_controller.dart';
 import 'package:ahadi_pledge/models/pledge.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,12 +27,12 @@ class PaymentScreen extends GetView<PaymentController> {
       ),
       body: Obx(() {
         return controller.isLoading.value
-            ? const Center(
+            ? Center(
                 child: SizedBox(
                   height: 200,
                   child: LoadingIndicator(
                       indicatorType: Indicator.ballClipRotatePulse,
-                      colors: [Colors.black],
+                      colors: [Theme.of(context).primaryColor],
                       strokeWidth: 3,
                       backgroundColor: Colors.white,
                       pathBackgroundColor: Colors.white),
@@ -71,13 +70,20 @@ class PaymentScreen extends GetView<PaymentController> {
                       height: 45,
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.black),
+                              backgroundColor: Theme.of(context).primaryColor),
                           onPressed: (() {
-                            controller.submitPayment(
-                              controller.paymentAmount.text,
-                              pledge.type.id,
-                              pledge.id,
-                            );
+                            if (controller.paymentAmount.text.isNotEmpty &&
+                                controller.paymentReceipt.text.isNotEmpty) {
+                              controller.submitPayment(
+                                controller.paymentAmount.text,
+                                pledge.type.id,
+                                pledge.id,
+                                controller.paymentReceipt.text,
+                              );
+                            } else {
+                              Get.snackbar(
+                                  "Error", "All field must not be empty");
+                            }
                           }),
                           child: const Text("Submit")),
                     ),

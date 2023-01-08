@@ -13,6 +13,7 @@ class Pledges extends GetView<PledgeController> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+          backgroundColor: Colors.white,
           appBar: AppBar(
             elevation: 0,
             backgroundColor: Colors.white,
@@ -24,10 +25,10 @@ class Pledges extends GetView<PledgeController> {
             centerTitle: true,
           ),
           body: Obx(() => controller.isLoading.value
-              ? const Center(
+              ? Center(
                   child: LoadingIndicator(
                       indicatorType: Indicator.ballClipRotatePulse,
-                      colors: [Colors.black],
+                      colors: [Theme.of(context).primaryColor],
                       strokeWidth: 3,
                       backgroundColor: Colors.white,
                       pathBackgroundColor: Colors.white),

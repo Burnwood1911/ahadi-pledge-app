@@ -1,5 +1,6 @@
 import 'package:ahadi_pledge/controllers/payment_controller.dart';
 import 'package:ahadi_pledge/controllers/pledge_controller.dart';
+import 'package:ahadi_pledge/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,12 +17,15 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   PledgeController? pledgeController;
   PaymentController? paymentController;
+  UserController? userController;
 
   @override
   void initState() {
     super.initState();
     pledgeController = Get.find<PledgeController>();
     paymentController = Get.find<PaymentController>();
+    userController = Get.find<UserController>();
+    userController?.fetchUser();
   }
 
   @override
@@ -29,12 +33,12 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Obx(() => pledgeController!.isLoading.value
-          ? const Center(
+          ? Center(
               child: SizedBox(
                 height: 200,
                 child: LoadingIndicator(
                     indicatorType: Indicator.ballClipRotatePulse,
-                    colors: [Colors.black],
+                    colors: [Theme.of(context).primaryColor],
                     strokeWidth: 3,
                     backgroundColor: Colors.white,
                     pathBackgroundColor: Colors.white),
@@ -48,7 +52,7 @@ class _MainScreenState extends State<MainScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      "Hello Alex!",
+                      "Hello ${userController?.state?.fname}",
                       style: GoogleFonts.poppins(
                         textStyle: const TextStyle(
                             fontSize: 20,
@@ -56,8 +60,8 @@ class _MainScreenState extends State<MainScreen> {
                             color: Colors.black),
                       ),
                     ),
-                    IconButton(
-                        onPressed: () {}, icon: const Icon(Icons.notifications))
+                    // IconButton(
+                    //     onPressed: () {}, icon: const Icon(Icons.notifications))
                   ],
                 ),
                 Container(
@@ -101,7 +105,7 @@ class _MainScreenState extends State<MainScreen> {
                                     textStyle: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w500,
-                                        color: Colors.grey[500])),
+                                        color: Theme.of(context).primaryColor)),
                               ),
                               Row(
                                 children: [
@@ -164,7 +168,7 @@ class _MainScreenState extends State<MainScreen> {
                                     textStyle: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w500,
-                                        color: Colors.grey[500])),
+                                        color: Theme.of(context).primaryColor)),
                               ),
                               Row(
                                 children: [
@@ -216,7 +220,7 @@ class _MainScreenState extends State<MainScreen> {
                               : 0,
                           size: 16,
                           padding: 0,
-                          selectedColor: Colors.green,
+                          selectedColor: Theme.of(context).primaryColor,
                           unselectedColor: Colors.black,
                           roundedEdges: const Radius.circular(10),
                         ),
@@ -251,9 +255,10 @@ class _MainScreenState extends State<MainScreen> {
                             children: [
                               Row(
                                 children: [
-                                  const Icon(
+                                  Icon(
                                     Icons.payment,
                                     size: 38,
+                                    color: Theme.of(context).primaryColor,
                                   ),
                                   const SizedBox(
                                     width: 16,

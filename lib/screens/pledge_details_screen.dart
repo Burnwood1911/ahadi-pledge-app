@@ -149,7 +149,7 @@ class PledgeDetails extends StatelessWidget {
                                   textStyle: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,
-                                      color: Colors.grey[500])),
+                                      color: Theme.of(context).primaryColor)),
                             ),
                             Row(
                               children: [
@@ -213,12 +213,12 @@ class PledgeDetails extends StatelessWidget {
                                   textStyle: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,
-                                      color: Colors.grey[500])),
+                                      color: Theme.of(context).primaryColor)),
                             ),
                             Row(
                               children: [
                                 Text(
-                                  "${paymentController.payments.where((element) => element.pledgeId == pledge.id).isNotEmpty ? (int.parse(pledge.amount) - paymentController.payments.where((element) => element.pledgeId == pledge.id).map((e) => int.parse(e.amount)).reduce((value, element) => value + element)) : pledge.amount}",
+                                  "${paymentController.payments.where((element) => element.pledgeId == pledge.id).isNotEmpty ? (int.parse(pledge.amount) - paymentController.payments.where((element) => element.pledgeId == pledge.id && element.verified == true).map((e) => int.parse(e.amount)).reduce((value, element) => value + element)) : pledge.amount}",
                                   style: GoogleFonts.poppins(
                                       textStyle: const TextStyle(
                                           fontSize: 18,
@@ -263,13 +263,14 @@ class PledgeDetails extends StatelessWidget {
                                   .isNotEmpty
                               ? paymentController.payments
                                   .where((element) =>
-                                      element.pledgeId == pledge.id)
+                                      element.pledgeId == pledge.id &&
+                                      element.verified == true)
                                   .map((e) => int.parse(e.amount))
                                   .reduce((value, element) => value + element)
                               : 0,
                           size: 16,
                           padding: 0,
-                          selectedColor: Colors.green,
+                          selectedColor: Theme.of(context).primaryColor,
                           unselectedColor: Colors.black,
                           roundedEdges: const Radius.circular(10),
                         ),
@@ -304,8 +305,9 @@ class PledgeDetails extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                const Icon(
+                                Icon(
                                   Icons.payment,
+                                  color: Theme.of(context).primaryColor,
                                   size: 38,
                                 ),
                                 const SizedBox(
@@ -334,6 +336,26 @@ class PledgeDetails extends StatelessWidget {
                                 )
                               ],
                             ),
+                            Container(
+                              width: 70,
+                              height: 20,
+                              padding: EdgeInsets.all(1),
+                              decoration: BoxDecoration(
+                                  color: payment.verified
+                                      ? Colors.green[500]
+                                      : Colors.orange,
+                                  borderRadius: BorderRadius.circular(16)),
+                              child: FittedBox(
+                                child: Text(
+                                  payment.verified ? "COMPLETE" : "PENDING",
+                                  style: GoogleFonts.poppins(
+                                      textStyle: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w300)),
+                                ),
+                              ),
+                            ),
                             Text(payment.amount.toString(),
                                 style: GoogleFonts.poppins(
                                     textStyle: const TextStyle(
@@ -351,7 +373,8 @@ class PledgeDetails extends StatelessWidget {
                         height: 45,
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.black),
+                                backgroundColor:
+                                    Theme.of(context).primaryColor),
                             onPressed: (() {
                               Get.to(() => PaymentScreen(pledge));
                             }),

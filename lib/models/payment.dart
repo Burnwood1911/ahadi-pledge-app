@@ -32,6 +32,7 @@ class PaymentElement {
       required this.typeId,
       required this.pledgeId,
       required this.amount,
+      required this.verified,
       required this.createdAt});
 
   int id;
@@ -39,6 +40,7 @@ class PaymentElement {
   int typeId;
   int pledgeId;
   String amount;
+  bool verified;
   DateTime createdAt;
 
   factory PaymentElement.fromJson(Map<String, dynamic> json) => PaymentElement(
@@ -47,6 +49,7 @@ class PaymentElement {
         typeId: json["type_id"],
         pledgeId: json["pledge_id"],
         amount: json["amount"],
+        verified: json["verified"] == 1,
         createdAt: DateTime.parse(json["created_at"]),
       );
 
@@ -56,6 +59,7 @@ class PaymentElement {
         "type_id": typeId,
         "pledge_id": pledgeId,
         "amount": amount,
+        "verified": verified,
         "created_at": createdAt.toIso8601String(),
       };
 }

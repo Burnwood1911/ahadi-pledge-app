@@ -1,4 +1,5 @@
 import 'package:ahadi_pledge/controllers/payment_controller.dart';
+import 'package:ahadi_pledge/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,11 +14,13 @@ class CardScreen extends StatefulWidget {
 
 class _CardScreenState extends State<CardScreen> with TickerProviderStateMixin {
   TabController? _tabController;
+  UserController? userController;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(vsync: this, length: 2);
+    userController = Get.find<UserController>();
   }
 
   @override
@@ -38,12 +41,16 @@ class _CardScreenState extends State<CardScreen> with TickerProviderStateMixin {
               ),
               centerTitle: true,
               actions: [
-                IconButton(onPressed: () {}, icon: const Icon(Icons.add))
+                IconButton(
+                    onPressed: () {
+                      userController!.requestCard();
+                    },
+                    icon: const Icon(Icons.add))
               ],
               bottom: TabBar(
                 controller: _tabController,
                 labelColor: Colors.black,
-                indicatorColor: Colors.black,
+                indicatorColor: Theme.of(context).primaryColor,
                 tabs: const [
                   Tab(
                     text: "Cards",
@@ -69,15 +76,15 @@ class _CardScreenState extends State<CardScreen> with TickerProviderStateMixin {
 class LeftSide extends StatelessWidget {
   LeftSide({super.key});
 
-  final PaymentController controller = Get.find();
+  final PaymentController controller = Get.find<PaymentController>();
 
   @override
   Widget build(BuildContext context) {
     return Obx(() => controller.isLoading.value
-        ? const Center(
+        ? Center(
             child: LoadingIndicator(
                 indicatorType: Indicator.ballClipRotatePulse,
-                colors: [Colors.black],
+                colors: [Theme.of(context).primaryColor],
                 strokeWidth: 3,
                 backgroundColor: Colors.white,
                 pathBackgroundColor: Colors.white),
@@ -92,10 +99,10 @@ class RightSide extends GetView<PaymentController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() => controller.isLoading.value
-        ? const Center(
+        ? Center(
             child: LoadingIndicator(
                 indicatorType: Indicator.ballClipRotatePulse,
-                colors: [Colors.black],
+                colors: [Theme.of(context).primaryColor],
                 strokeWidth: 3,
                 backgroundColor: Colors.white,
                 pathBackgroundColor: Colors.white),
