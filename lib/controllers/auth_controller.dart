@@ -5,6 +5,7 @@ import 'package:ahadi_pledge/repos/auth_repo.dart';
 import 'package:ahadi_pledge/repos/user_repo.dart';
 import 'package:ahadi_pledge/screens/home_screen.dart';
 import 'package:ahadi_pledge/screens/login.dart';
+import 'package:ahadi_pledge/utils/snackbar.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
@@ -48,7 +49,8 @@ class AuthController extends GetxController with StateMixin {
       Get.offAll(() => HomeScreen());
     }, (error) {
       change(state, status: RxStatus.success());
-      Get.snackbar("Failed", "credentials are incorrect");
+
+      showAppSnackbar("Failed", "credentials are incorrect");
     });
   }
 
@@ -69,8 +71,7 @@ class AuthController extends GetxController with StateMixin {
 
     result.when((success) {
       change(state, status: RxStatus.success());
-
-      Get.snackbar("Success", "Account registered");
+      showAppSnackbar("Success", "Account registered");
     }, (error) {
       change(state, status: RxStatus.success());
       var errorResponse = jsonDecode((error as DioError).response.toString());

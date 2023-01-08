@@ -4,6 +4,7 @@ import 'package:ahadi_pledge/models/pledge.dart';
 import 'package:ahadi_pledge/models/pledge_purposes.dart';
 import 'package:ahadi_pledge/models/pledge_types.dart';
 import 'package:ahadi_pledge/repos/pledge_repo.dart';
+import 'package:ahadi_pledge/utils/snackbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -61,7 +62,7 @@ class PledgeController extends GetxController {
     reminderDate.text = "";
     if (result == true) {
       Get.back();
-      Get.snackbar("Success", "Reminder Set");
+      showAppSnackbar("Success", "Reminder Set");
     }
     isLoading(false);
   }

@@ -2,6 +2,7 @@ import 'package:ahadi_pledge/api/pledge_form.dart';
 import 'package:ahadi_pledge/controllers/pledge_controller.dart';
 import 'package:ahadi_pledge/models/pledge_purposes.dart';
 import 'package:ahadi_pledge/models/pledge_types.dart';
+import 'package:ahadi_pledge/utils/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -206,7 +207,7 @@ class _CreatePledgeState extends State<CreatePledge> {
 
                                 pledgeController!.createPledge(form);
                               } else {
-                                Get.snackbar(
+                                showAppSnackbar(
                                     'Error', 'Please fill all fields.');
                               }
                             }),

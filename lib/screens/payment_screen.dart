@@ -1,5 +1,6 @@
 import 'package:ahadi_pledge/controllers/payment_controller.dart';
 import 'package:ahadi_pledge/models/pledge.dart';
+import 'package:ahadi_pledge/utils/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -81,7 +82,7 @@ class PaymentScreen extends GetView<PaymentController> {
                                 controller.paymentReceipt.text,
                               );
                             } else {
-                              Get.snackbar(
+                              showAppSnackbar(
                                   "Error", "All field must not be empty");
                             }
                           }),

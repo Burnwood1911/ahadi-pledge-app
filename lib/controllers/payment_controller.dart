@@ -2,6 +2,7 @@ import 'package:ahadi_pledge/di/service_locater.dart';
 import 'package:ahadi_pledge/models/card_payment.dart' as card;
 import 'package:ahadi_pledge/models/payment.dart';
 import 'package:ahadi_pledge/repos/payment_repo.dart';
+import 'package:ahadi_pledge/utils/snackbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -44,10 +45,10 @@ class PaymentController extends GetxController {
     if (result) {
       await getPayments();
       Get.back();
-      Get.snackbar("Success", "Payment Complete");
+      showAppSnackbar("Success", "Payment Complete");
     } else {
       Get.back();
-      Get.snackbar("Failure", "Payment Failed");
+      showAppSnackbar("Success", "Payment Complete");
     }
     isLoading(false);
   }
