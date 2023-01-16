@@ -2,12 +2,14 @@ import 'package:ahadi_pledge/api/pledge_form.dart';
 import 'package:ahadi_pledge/controllers/pledge_controller.dart';
 import 'package:ahadi_pledge/models/pledge_purposes.dart';
 import 'package:ahadi_pledge/models/pledge_types.dart';
+import 'package:ahadi_pledge/translations/locale_keys.g.dart';
 import 'package:ahadi_pledge/utils/snackbar.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CreatePledge extends StatefulWidget {
   const CreatePledge({super.key});
@@ -47,7 +49,7 @@ class _CreatePledgeState extends State<CreatePledge> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text(
-            "Create Pledge",
+            LocaleKeys.create_pledge_text.tr(),
             style: GoogleFonts.poppins(
                 textStyle: const TextStyle(color: Colors.black)),
           ),
@@ -71,7 +73,7 @@ class _CreatePledgeState extends State<CreatePledge> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Contribution Form",
+                      LocaleKeys.contribution_form_text.tr(),
                       style: GoogleFonts.poppins(),
                     ),
                     DropdownButton<String>(
@@ -100,7 +102,7 @@ class _CreatePledgeState extends State<CreatePledge> {
                       height: 8,
                     ),
                     Text(
-                      "Contribution Purpose",
+                      LocaleKeys.contribution_purpose_text.tr(),
                       style: GoogleFonts.poppins(),
                     ),
                     DropdownButton<String>(
@@ -135,9 +137,9 @@ class _CreatePledgeState extends State<CreatePledge> {
                     TextField(
                       controller: amount,
                       keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Amount',
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        labelText: LocaleKeys.amount_text.tr(),
                       ),
                     ),
                     const SizedBox(
@@ -145,9 +147,9 @@ class _CreatePledgeState extends State<CreatePledge> {
                     ),
                     TextField(
                       controller: description,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Description',
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        labelText: LocaleKeys.description_text.tr(),
                       ),
                     ),
                     const SizedBox(
@@ -156,9 +158,11 @@ class _CreatePledgeState extends State<CreatePledge> {
                     TextField(
                       controller: dateInput,
                       //editing controller of this TextField
-                      decoration: const InputDecoration(
-                          icon: Icon(Icons.calendar_today), //icon of text field
-                          labelText: "Deadline Date" //label text of field
+                      decoration: InputDecoration(
+                          icon: const Icon(
+                              Icons.calendar_today), //icon of text field
+                          labelText: LocaleKeys.deadline_date_text
+                              .tr() //label text of field
                           ),
                       readOnly: true,
                       //set it true, so that user will not able to edit text
@@ -211,7 +215,7 @@ class _CreatePledgeState extends State<CreatePledge> {
                                     'Error', 'Please fill all fields.');
                               }
                             }),
-                            child: const Text("Create")))
+                            child: Text(LocaleKeys.create_text.tr())))
                   ],
                 ),
               ))),

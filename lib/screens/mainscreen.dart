@@ -2,10 +2,12 @@ import 'package:ahadi_pledge/controllers/payment_controller.dart';
 import 'package:ahadi_pledge/controllers/pledge_controller.dart';
 import 'package:ahadi_pledge/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
+import '../translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart' as easy;
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -52,7 +54,7 @@ class _MainScreenState extends State<MainScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      "Hello ${userController?.state?.fname}",
+                      "${LocaleKeys.hello_text.tr()} ${userController?.state?.fname}",
                       style: GoogleFonts.poppins(
                         textStyle: const TextStyle(
                             fontSize: 20,
@@ -100,7 +102,7 @@ class _MainScreenState extends State<MainScreen> {
                                 height: 8,
                               ),
                               Text(
-                                "Total",
+                                LocaleKeys.total_text.tr(),
                                 style: GoogleFonts.poppins(
                                     textStyle: TextStyle(
                                         fontSize: 16,
@@ -163,7 +165,7 @@ class _MainScreenState extends State<MainScreen> {
                                 height: 8,
                               ),
                               Text(
-                                "Remaining",
+                                LocaleKeys.remaining_text.tr(),
                                 style: GoogleFonts.poppins(
                                     textStyle: TextStyle(
                                         fontSize: 16,
@@ -199,7 +201,7 @@ class _MainScreenState extends State<MainScreen> {
                   height: 24,
                 ),
                 Text(
-                  "Goal Progress",
+                  LocaleKeys.goal_progress_text.tr(),
                   style: GoogleFonts.poppins(
                       textStyle: const TextStyle(
                           fontSize: 18, fontWeight: FontWeight.w600)),
@@ -232,7 +234,7 @@ class _MainScreenState extends State<MainScreen> {
                   height: 8,
                 ),
                 Text(
-                  "History",
+                  LocaleKeys.history_text.tr(),
                   style: GoogleFonts.poppins(
                       textStyle: const TextStyle(
                           fontSize: 18, fontWeight: FontWeight.w600)),

@@ -1,11 +1,14 @@
 import 'package:ahadi_pledge/controllers/auth_controller.dart';
+import 'package:ahadi_pledge/screens/change_language.dart';
 import 'package:ahadi_pledge/screens/change_password.dart';
 import 'package:ahadi_pledge/screens/edit_profile_screen.dart';
 import 'package:ahadi_pledge/screens/login.dart';
+import 'package:ahadi_pledge/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class SettingsScreen extends GetView<AuthController> {
   const SettingsScreen({super.key});
@@ -17,7 +20,7 @@ class SettingsScreen extends GetView<AuthController> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           elevation: 0,
-          title: Text("Settings",
+          title: Text(LocaleKeys.settings_text.tr(),
               style: GoogleFonts.poppins(
                   textStyle: const TextStyle(color: Colors.black))),
           centerTitle: true,
@@ -54,19 +57,20 @@ class SettingsScreen extends GetView<AuthController> {
               ),
               Column(
                 children: [
-                  const ListTile(
-                      leading: Icon(Icons.language),
-                      title: Text("Change Language"),
-                      trailing: Icon(Icons.arrow_forward)),
+                  ListTile(
+                      onTap: () => Get.to(() => const ChangeLanguageScreen()),
+                      leading: const Icon(Icons.language),
+                      title: Text(LocaleKeys.change_language_text.tr()),
+                      trailing: const Icon(Icons.arrow_forward)),
                   ListTile(
                       onTap: () => Get.to(() => const EditProfileScreen()),
                       leading: const Icon(Icons.edit),
-                      title: const Text("Edit Profile"),
+                      title: Text(LocaleKeys.edit_profile_text.tr()),
                       trailing: const Icon(Icons.arrow_forward)),
                   ListTile(
                       onTap: () => Get.to(() => const ChangePasswordScreen()),
                       leading: const Icon(Icons.lock),
-                      title: const Text("Change Password"),
+                      title: Text(LocaleKeys.change_password_text.tr()),
                       trailing: const Icon(Icons.arrow_forward)),
                   ListTile(
                       onTap: () async {
@@ -74,7 +78,7 @@ class SettingsScreen extends GetView<AuthController> {
                         Get.offAll(() => AuthScreen());
                       },
                       leading: const Icon(Icons.logout),
-                      title: const Text("Logout"),
+                      title: Text(LocaleKeys.logout_text.tr()),
                       trailing: const Icon(Icons.arrow_forward))
                 ],
               )

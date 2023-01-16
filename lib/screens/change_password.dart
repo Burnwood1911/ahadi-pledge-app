@@ -1,8 +1,10 @@
 import 'package:ahadi_pledge/controllers/user_controller.dart';
+import 'package:ahadi_pledge/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key});
@@ -30,7 +32,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           iconTheme: const IconThemeData(color: Colors.black),
           backgroundColor: Colors.transparent,
           title: Text(
-            "Change Password",
+            LocaleKeys.change_password_text.tr(),
             style: GoogleFonts.poppins(
                 textStyle: const TextStyle(color: Colors.black)),
           ),

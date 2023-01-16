@@ -8,6 +8,8 @@ import 'package:ahadi_pledge/controllers/pledge_controller.dart';
 import 'package:ahadi_pledge/controllers/user_controller.dart';
 import 'package:ahadi_pledge/di/service_locater.dart';
 import 'package:ahadi_pledge/screens/splash_screen.dart';
+import 'package:ahadi_pledge/translations/codegen_loader.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +25,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp();
   await GetStorage.init();
   await setup();
@@ -48,7 +51,13 @@ void main() async {
     sound: true,
   );
 
-  runApp(MyApp());
+  runApp(EasyLocalization(
+    path: 'assets/translations',
+    supportedLocales: [Locale('en'), Locale('sw')],
+    fallbackLocale: Locale('en'),
+    assetLoader: CodegenLoader(),
+    child: MyApp(),
+  ));
 }
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
@@ -83,6 +92,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      supportedLocales: context.supportedLocales,
+      localizationsDelegates: context.localizationDelegates,
+      locale: context.locale,
       theme: ThemeData(primarySwatch: mycolor),
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),

@@ -2,11 +2,13 @@ import 'package:ahadi_pledge/controllers/payment_controller.dart';
 import 'package:ahadi_pledge/controllers/pledge_controller.dart';
 import 'package:ahadi_pledge/models/pledge.dart';
 import 'package:ahadi_pledge/screens/payment_screen.dart';
+import 'package:ahadi_pledge/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class PledgeDetails extends StatelessWidget {
   final PledgeElement pledge;
@@ -27,7 +29,7 @@ class PledgeDetails extends StatelessWidget {
           backgroundColor: Colors.transparent,
           centerTitle: true,
           title: Text(
-            "Details",
+            LocaleKeys.details_header_text.tr(),
             style: GoogleFonts.poppins(
                 textStyle: const TextStyle(color: Colors.black)),
           ),
@@ -39,7 +41,7 @@ class PledgeDetails extends StatelessWidget {
                     builder: (context) {
                       return Obx(() {
                         return AlertDialog(
-                          title: const Text('Choose Date'),
+                          title: Text(LocaleKeys.reminder_date_text.tr()),
                           content: pledgeController.isLoading.value
                               ? const SizedBox(
                                   height: 80,
@@ -52,11 +54,11 @@ class PledgeDetails extends StatelessWidget {
                                   child: TextFormField(
                                     controller: pledgeController.reminderDate,
                                     //editing controller of this TextField
-                                    decoration: const InputDecoration(
-                                        icon: Icon(Icons
+                                    decoration: InputDecoration(
+                                        icon: const Icon(Icons
                                             .calendar_today), //icon of text field
-                                        labelText:
-                                            "Reminder Date" //label text of field
+                                        labelText: LocaleKeys.choose_date_text
+                                            .tr() //label text of field
                                         ),
                                     readOnly: true,
                                     //set it true, so that user will not able to edit text
@@ -82,7 +84,7 @@ class PledgeDetails extends StatelessWidget {
                                 ),
                           actions: <Widget>[
                             TextButton(
-                              child: const Text('CANCEL'),
+                              child: Text(LocaleKeys.cancel_text.tr()),
                               onPressed: () {
                                 Get.back();
                               },
@@ -144,7 +146,7 @@ class PledgeDetails extends StatelessWidget {
                               height: 8,
                             ),
                             Text(
-                              "Total",
+                              LocaleKeys.total_text.tr(),
                               style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
                                       fontSize: 16,
@@ -208,7 +210,7 @@ class PledgeDetails extends StatelessWidget {
                               height: 8,
                             ),
                             Text(
-                              "Remaining",
+                              LocaleKeys.remaining_text.tr(),
                               style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
                                       fontSize: 16,
@@ -243,7 +245,7 @@ class PledgeDetails extends StatelessWidget {
                   height: 24,
                 ),
                 Text(
-                  "Achievement",
+                  LocaleKeys.goal_progress_text.tr(),
                   style: GoogleFonts.poppins(
                       textStyle: const TextStyle(
                           fontSize: 18, fontWeight: FontWeight.w600)),
@@ -281,7 +283,7 @@ class PledgeDetails extends StatelessWidget {
                 const SizedBox(
                   height: 8,
                 ),
-                Text("Payment History",
+                Text(LocaleKeys.payment_history_text.tr(),
                     style: GoogleFonts.poppins(
                         textStyle:
                             const TextStyle(fontWeight: FontWeight.bold))),
@@ -347,7 +349,9 @@ class PledgeDetails extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(16)),
                               child: FittedBox(
                                 child: Text(
-                                  payment.verified ? "COMPLETE" : "PENDING",
+                                  payment.verified
+                                      ? LocaleKeys.complete_text.tr()
+                                      : LocaleKeys.pending_text.tr(),
                                   style: GoogleFonts.poppins(
                                       textStyle: TextStyle(
                                           fontSize: 12,
@@ -378,7 +382,7 @@ class PledgeDetails extends StatelessWidget {
                             onPressed: (() {
                               Get.to(() => PaymentScreen(pledge));
                             }),
-                            child: const Text("Pay")),
+                            child: Text(LocaleKeys.pay_text.tr())),
                       )
               ],
             ),

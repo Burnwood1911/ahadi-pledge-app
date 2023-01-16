@@ -1,10 +1,12 @@
 import 'package:ahadi_pledge/controllers/payment_controller.dart';
 import 'package:ahadi_pledge/models/pledge.dart';
+import 'package:ahadi_pledge/translations/locale_keys.g.dart';
 import 'package:ahadi_pledge/utils/snackbar.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class PaymentScreen extends GetView<PaymentController> {
   final PledgeElement pledge;
@@ -17,7 +19,7 @@ class PaymentScreen extends GetView<PaymentController> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          "Pay",
+          LocaleKeys.pay_text.tr(),
           style: GoogleFonts.poppins(
               textStyle: const TextStyle(color: Colors.black)),
         ),
@@ -47,8 +49,8 @@ class PaymentScreen extends GetView<PaymentController> {
                     child: TextFormField(
                       keyboardType: TextInputType.number,
                       controller: controller.paymentAmount,
-                      decoration: const InputDecoration(
-                          labelText: "Amount", filled: true),
+                      decoration: InputDecoration(
+                          labelText: LocaleKeys.amount_text.tr(), filled: true),
                     ),
                   ),
                   Padding(
@@ -57,8 +59,9 @@ class PaymentScreen extends GetView<PaymentController> {
                     child: TextFormField(
                       maxLines: 10,
                       controller: controller.paymentReceipt,
-                      decoration: const InputDecoration(
-                          labelText: "Receipt", filled: true),
+                      decoration: InputDecoration(
+                          labelText: LocaleKeys.receipt_text.tr(),
+                          filled: true),
                     ),
                   ),
                   const SizedBox(
@@ -86,7 +89,7 @@ class PaymentScreen extends GetView<PaymentController> {
                                   "Error", "All field must not be empty");
                             }
                           }),
-                          child: const Text("Submit")),
+                          child: Text(LocaleKeys.submit_text.tr())),
                     ),
                   )
                 ],

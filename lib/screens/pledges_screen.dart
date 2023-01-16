@@ -1,10 +1,12 @@
 import 'package:ahadi_pledge/controllers/pledge_controller.dart';
 import 'package:ahadi_pledge/screens/pledge_details_screen.dart';
+import 'package:ahadi_pledge/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class Pledges extends GetView<PledgeController> {
   const Pledges({super.key});
@@ -18,7 +20,7 @@ class Pledges extends GetView<PledgeController> {
             elevation: 0,
             backgroundColor: Colors.white,
             title: Text(
-              "Pledges",
+              LocaleKeys.pledges_header_text.tr(),
               style: GoogleFonts.poppins(
                   textStyle: const TextStyle(color: Colors.black)),
             ),

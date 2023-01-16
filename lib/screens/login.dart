@@ -22,12 +22,32 @@ class AuthScreen extends StatelessWidget {
               initialIndex: 0,
               child: Scaffold(
                 appBar: PreferredSize(
-                  preferredSize: const Size.fromHeight(160.0), // here th
+                  preferredSize: const Size.fromHeight(180.0), // here th
                   child: AppBar(
                     flexibleSpace: Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: Image.asset(
-                        "assets/logo-two.png",
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            "assets/logo.png",
+                          ),
+                          const SizedBox(
+                            height: 4,
+                          ),
+                          RichText(
+                              text: TextSpan(
+                                  text: "Ahadi",
+                                  style: TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.blue[400]),
+                                  children: const [
+                                TextSpan(
+                                    text: "Pledge",
+                                    style: TextStyle(color: Colors.red))
+                              ]))
+                        ],
                       ),
                     ),
                     elevation: 0,

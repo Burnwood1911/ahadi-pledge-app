@@ -1,8 +1,10 @@
 import 'package:ahadi_pledge/controllers/user_controller.dart';
+import 'package:ahadi_pledge/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -28,7 +30,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         iconTheme: const IconThemeData(color: Colors.black),
         backgroundColor: Colors.transparent,
         title: Text(
-          "Edit Profile",
+          LocaleKeys.edit_profile_text.tr(),
           style: GoogleFonts.poppins(
               textStyle: const TextStyle(color: Colors.black)),
         ),
@@ -43,8 +45,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
               child: TextFormField(
                 controller: controller!.fname,
-                decoration: const InputDecoration(
-                    labelText: "First Name", filled: true),
+                decoration: InputDecoration(
+                    labelText: LocaleKeys.first_name_text.tr(), filled: true),
               ),
             ),
             Padding(
@@ -52,8 +54,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
               child: TextFormField(
                 controller: controller!.mname,
-                decoration: const InputDecoration(
-                    labelText: "Middle Name", filled: true),
+                decoration: InputDecoration(
+                    labelText: LocaleKeys.second_name_text.tr(), filled: true),
               ),
             ),
             Padding(
@@ -61,8 +63,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
               child: TextFormField(
                 controller: controller!.lname,
-                decoration:
-                    const InputDecoration(labelText: "Last Name", filled: true),
+                decoration: InputDecoration(
+                    labelText: LocaleKeys.last_name_text.tr(), filled: true),
               ),
             ),
             Padding(
@@ -70,8 +72,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
               child: TextFormField(
                 controller: controller!.phone,
-                decoration:
-                    const InputDecoration(labelText: "Phone", filled: true),
+                decoration: InputDecoration(
+                    labelText: LocaleKeys.phone_text.tr(), filled: true),
               ),
             ),
             Padding(
@@ -79,8 +81,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
               child: TextFormField(
                 controller: controller!.email,
-                decoration:
-                    const InputDecoration(labelText: "email", filled: true),
+                decoration: InputDecoration(
+                    labelText: LocaleKeys.email_text.tr(), filled: true),
               ),
             ),
             Padding(
