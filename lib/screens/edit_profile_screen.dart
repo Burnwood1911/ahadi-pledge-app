@@ -100,7 +100,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         controller!.email.text);
                   },
                   child: Text(
-                    "Save",
+                    LocaleKeys.save_text.tr(),
                     style: GoogleFonts.poppins(),
                   )),
             ),

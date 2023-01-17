@@ -48,7 +48,23 @@ class CodegenLoader extends AssetLoader{
   "last_name_text": "Last Name",
   "email_text": "Email",
   "phone_text": "Phone",
-  "password_text": "Password"
+  "password_text": "Password",
+  "home_text": "Home",
+  "card_text": "Card",
+  "old_password_text": "Old Password",
+  "new_password_text": "New Password",
+  "save_text": "Save",
+  "error_text": "Error",
+  "success_text": "Success",
+  "credentials_not_correct_text": "Credentials are incorrect",
+  "account_registered_text": "Account registered",
+  "payment_complete_text": "Payment Complete",
+  "reminder_set_text": "Reminder Set",
+  "password_changed_text": "Password Changed",
+  "old_password_not_match_text": "Old Password Doesn't match",
+  "card_created_text": "Your card has been created",
+  "card_failed_create_text": "Failed to create card",
+  "empty_fields_error_text": "Please fill all fields"
 };
 static const Map<String,dynamic> sw = {
   "hello_text": "Habari",
@@ -84,7 +100,23 @@ static const Map<String,dynamic> sw = {
   "last_name_text": "Jina La Mwisho",
   "email_text": "Barua Pepe",
   "phone_text": "Simu",
-  "password_text": "Neno Siri"
+  "password_text": "Neno Siri",
+  "home_text": "Nyumbani",
+  "card_text": "Kadi",
+  "old_password_text": "Neno Siri La Zamani",
+  "new_password_text": "Neno Siri Jipya",
+  "save_text": "Hifadhi",
+  "error_text": "Hitilafu",
+  "success_text": "Mafanikio",
+  "credentials_not_correct_text": "Kitambulisho si sahihi",
+  "account_registered_text": "Akaunti imesajiliwa",
+  "payment_complete_text": "Malipo Yamekamilika",
+  "reminder_set_text": "Kikumbusho Kimewekwa",
+  "password_changed_text": "Nenosiri Limebadilishwa",
+  "old_password_not_match_text": "Nenosiri la Zamani Hailingani",
+  "card_created_text": "Kadi yako imeundwa",
+  "card_failed_create_text": "Imeshindwa kuunda kadi",
+  "empty_fields_error_text": "Tafadhali jaza sehemu zote"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "sw": sw};
 }

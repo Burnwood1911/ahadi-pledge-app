@@ -6,7 +6,6 @@ import 'package:ahadi_pledge/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -90,7 +89,7 @@ class PledgeDetails extends StatelessWidget {
                               },
                             ),
                             TextButton(
-                              child: const Text('SAVE'),
+                              child: Text(LocaleKeys.save_text.tr()),
                               onPressed: () {
                                 pledgeController.setReminder(pledge.id,
                                     pledgeController.reminderDate.text);

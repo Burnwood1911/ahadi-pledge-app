@@ -85,8 +85,8 @@ class PaymentScreen extends GetView<PaymentController> {
                                 controller.paymentReceipt.text,
                               );
                             } else {
-                              showAppSnackbar(
-                                  "Error", "All field must not be empty");
+                              showAppSnackbar(LocaleKeys.error_text.tr(),
+                                  LocaleKeys.empty_fields_error_text.tr());
                             }
                           }),
                           child: Text(LocaleKeys.submit_text.tr())),

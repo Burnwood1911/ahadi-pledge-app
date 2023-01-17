@@ -2,9 +2,11 @@ import 'package:ahadi_pledge/di/service_locater.dart';
 import 'package:ahadi_pledge/models/card_payment.dart' as card;
 import 'package:ahadi_pledge/models/payment.dart';
 import 'package:ahadi_pledge/repos/payment_repo.dart';
+import 'package:ahadi_pledge/translations/locale_keys.g.dart';
 import 'package:ahadi_pledge/utils/snackbar.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
+import 'package:easy_localization/easy_localization.dart';
 
 class PaymentController extends GetxController {
   final paymentRepositry = getIt.get<PaymentRepository>();
@@ -45,10 +47,12 @@ class PaymentController extends GetxController {
     if (result) {
       await getPayments();
       Get.back();
-      showAppSnackbar("Success", "Payment Complete");
+      showAppSnackbar(
+          LocaleKeys.success_text.tr(), LocaleKeys.payment_complete_text.tr());
     } else {
       Get.back();
-      showAppSnackbar("Success", "Payment Complete");
+      showAppSnackbar(
+          LocaleKeys.success_text.tr(), LocaleKeys.payment_complete_text.tr());
     }
     isLoading(false);
   }

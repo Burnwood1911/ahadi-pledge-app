@@ -1,9 +1,11 @@
 import 'package:ahadi_pledge/di/service_locater.dart';
 import 'package:ahadi_pledge/models/user.dart';
 import 'package:ahadi_pledge/repos/user_repo.dart';
+import 'package:ahadi_pledge/translations/locale_keys.g.dart';
 import 'package:ahadi_pledge/utils/snackbar.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
+import 'package:easy_localization/easy_localization.dart';
 
 class UserController extends GetxController with StateMixin<User> {
   final userRepository = getIt.get<UserRepository>();
@@ -47,10 +49,12 @@ class UserController extends GetxController with StateMixin<User> {
     result.when((success) {
       change(state, status: RxStatus.success());
       Get.back();
-      showAppSnackbar("Success", "Password Changed");
+      showAppSnackbar(
+          LocaleKeys.success_text.tr(), LocaleKeys.password_changed_text.tr());
     }, (error) {
       change(state, status: RxStatus.success());
-      showAppSnackbar("Error", "Old Password Doesn't match!");
+      showAppSnackbar(LocaleKeys.error_text.tr(),
+          LocaleKeys.old_password_not_match_text.tr());
     });
   }
 
@@ -59,10 +63,12 @@ class UserController extends GetxController with StateMixin<User> {
     final result = await userRepository.requestCard();
     result.when((success) {
       change(state, status: RxStatus.success());
-      showAppSnackbar('Success', 'Your card has been created');
+      showAppSnackbar(
+          LocaleKeys.success_text.tr(), LocaleKeys.card_created_text.tr());
     }, (error) {
       change(state, status: RxStatus.error(error.toString()));
-      showAppSnackbar('Error', 'Failed to create card');
+      showAppSnackbar(
+          LocaleKeys.error_text.tr(), LocaleKeys.card_failed_create_text.tr());
     });
   }
 

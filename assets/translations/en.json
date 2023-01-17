@@ -32,5 +32,21 @@
   "last_name_text": "Last Name",
   "email_text": "Email",
   "phone_text": "Phone",
-  "password_text": "Password"
+  "password_text": "Password",
+  "home_text": "Home",
+  "card_text": "Card",
+  "old_password_text": "Old Password",
+  "new_password_text": "New Password",
+  "save_text": "Save",
+  "error_text": "Error",
+  "success_text": "Success",
+  "credentials_not_correct_text": "Credentials are incorrect",
+  "account_registered_text": "Account registered",
+  "payment_complete_text": "Payment Complete",
+  "reminder_set_text": "Reminder Set",
+  "password_changed_text": "Password Changed",
+  "old_password_not_match_text": "Old Password Doesn't match",
+  "card_created_text": "Your card has been created",
+  "card_failed_create_text": "Failed to create card",
+  "empty_fields_error_text": "Please fill all fields"
 }

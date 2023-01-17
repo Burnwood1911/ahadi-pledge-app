@@ -211,11 +211,11 @@ class _CreatePledgeState extends State<CreatePledge> {
 
                                 pledgeController!.createPledge(form);
                               } else {
-                                showAppSnackbar(
-                                    'Error', 'Please fill all fields.');
+                                showAppSnackbar(LocaleKeys.error_text.tr(),
+                                    LocaleKeys.empty_fields_error_text.tr());
                               }
                             }),
-                            child: Text(LocaleKeys.create_text.tr())))
+                            child: Text(LocaleKeys.save_text.tr())))
                   ],
                 ),
               ))),

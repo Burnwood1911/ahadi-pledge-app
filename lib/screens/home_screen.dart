@@ -6,10 +6,12 @@ import 'package:ahadi_pledge/screens/create_pledge_screen.dart';
 import 'package:ahadi_pledge/screens/mainscreen.dart';
 import 'package:ahadi_pledge/screens/pledges_screen.dart';
 import 'package:ahadi_pledge/screens/settings.dart';
+import 'package:ahadi_pledge/translations/locale_keys.g.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -73,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<Widget> _buildScreens() {
     return [
-      MainScreen(),
+      const MainScreen(),
       const Pledges(),
       const CreatePledge(),
       const CardScreen(),
@@ -85,13 +87,13 @@ class _HomeScreenState extends State<HomeScreen> {
     return [
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.home),
-        title: ("Home"),
+        title: (LocaleKeys.home_text.tr()),
         activeColorPrimary: Theme.of(context).primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.list_alt),
-        title: ("Pledges"),
+        title: (LocaleKeys.pledges_header_text.tr()),
         activeColorPrimary: Theme.of(context).primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
@@ -112,13 +114,13 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.credit_card),
-        title: ("Card"),
+        title: (LocaleKeys.card_text.tr()),
         activeColorPrimary: Theme.of(context).primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.settings),
-        title: ("Settings"),
+        title: (LocaleKeys.settings_text.tr()),
         activeColorPrimary: Theme.of(context).primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),

@@ -15,12 +15,16 @@ class ChangePasswordScreen extends StatefulWidget {
 
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   UserController? userController;
-  final TextEditingController oldPassword = TextEditingController();
-  final TextEditingController newPassword = TextEditingController();
+  TextEditingController? oldPassword;
+  TextEditingController? newPassword;
+  GlobalKey<FormState>? _formKey;
 
   @override
   void initState() {
     super.initState();
+    _formKey = GlobalKey<FormState>();
+    oldPassword = TextEditingController();
+    newPassword = TextEditingController();
     userController = Get.find<UserController>();
   }
 
@@ -39,44 +43,64 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           centerTitle: true,
         ),
         backgroundColor: Colors.white,
-        body: userController!.obx(
+        body: userController?.obx(
           (state) {
-            return ListView(
-              children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                  child: TextFormField(
-                    controller: oldPassword,
-                    decoration: const InputDecoration(
-                        labelText: "Old Password", filled: true),
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                  child: TextFormField(
-                    controller: newPassword,
-                    decoration: const InputDecoration(
-                        labelText: "New Password", filled: true),
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(context).primaryColor),
-                      onPressed: () {
-                        userController!
-                            .changePassword(oldPassword.text, newPassword.text);
+            return Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 18.0, right: 18.0, top: 18.0),
+                    child: TextFormField(
+                      controller: oldPassword,
+                      decoration: InputDecoration(
+                          labelText: LocaleKeys.old_password_text.tr(),
+                          filled: true),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "This Field Cant Be Blank";
+                        }
+                        return null;
                       },
-                      child: Text(
-                        "Save",
-                        style: GoogleFonts.poppins(),
-                      )),
-                ),
-              ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 18.0, right: 18.0, top: 18.0),
+                    child: TextFormField(
+                      controller: newPassword,
+                      decoration: InputDecoration(
+                          labelText: LocaleKeys.new_password_text.tr(),
+                          filled: true),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "This Field Cant Be Blank";
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 18.0, right: 18.0, top: 18.0),
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Theme.of(context).primaryColor),
+                        onPressed: () {
+                          if (_formKey!.currentState!.validate()) {
+                            userController?.changePassword(
+                                oldPassword!.text, newPassword!.text);
+                            _formKey!.currentState!.reset();
+                          }
+                        },
+                        child: Text(
+                          LocaleKeys.save_text.tr(),
+                          style: GoogleFonts.poppins(),
+                        )),
+                  ),
+                ],
+              ),
             );
           },
           onLoading: Center(
@@ -92,8 +116,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
   @override
   void dispose() {
-    oldPassword.dispose();
-    newPassword.dispose();
+    oldPassword?.dispose();
+    newPassword?.dispose();
     super.dispose();
   }
 }

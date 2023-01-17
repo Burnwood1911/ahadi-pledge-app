@@ -35,5 +35,21 @@ abstract class  LocaleKeys {
   static const email_text = 'email_text';
   static const phone_text = 'phone_text';
   static const password_text = 'password_text';
+  static const home_text = 'home_text';
+  static const card_text = 'card_text';
+  static const old_password_text = 'old_password_text';
+  static const new_password_text = 'new_password_text';
+  static const save_text = 'save_text';
+  static const error_text = 'error_text';
+  static const success_text = 'success_text';
+  static const credentials_not_correct_text = 'credentials_not_correct_text';
+  static const account_registered_text = 'account_registered_text';
+  static const payment_complete_text = 'payment_complete_text';
+  static const reminder_set_text = 'reminder_set_text';
+  static const password_changed_text = 'password_changed_text';
+  static const old_password_not_match_text = 'old_password_not_match_text';
+  static const card_created_text = 'card_created_text';
+  static const card_failed_create_text = 'card_failed_create_text';
+  static const empty_fields_error_text = 'empty_fields_error_text';
 
 }

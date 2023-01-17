@@ -1,15 +1,16 @@
 import 'dart:convert';
-import 'package:ahadi_pledge/controllers/user_controller.dart';
 import 'package:ahadi_pledge/di/service_locater.dart';
 import 'package:ahadi_pledge/repos/auth_repo.dart';
 import 'package:ahadi_pledge/repos/user_repo.dart';
 import 'package:ahadi_pledge/screens/home_screen.dart';
 import 'package:ahadi_pledge/screens/login.dart';
+import 'package:ahadi_pledge/translations/locale_keys.g.dart';
 import 'package:ahadi_pledge/utils/snackbar.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:get_storage/get_storage.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class AuthController extends GetxController with StateMixin {
   final authRepository = getIt.get<AuthRepository>();
@@ -50,7 +51,8 @@ class AuthController extends GetxController with StateMixin {
     }, (error) {
       change(state, status: RxStatus.success());
 
-      showAppSnackbar("Failed", "credentials are incorrect");
+      showAppSnackbar(LocaleKeys.error_text.tr(),
+          LocaleKeys.credentials_not_correct_text.tr());
     });
   }
 
@@ -71,7 +73,8 @@ class AuthController extends GetxController with StateMixin {
 
     result.when((success) {
       change(state, status: RxStatus.success());
-      showAppSnackbar("Success", "Account registered");
+      showAppSnackbar(LocaleKeys.success_text.tr(),
+          LocaleKeys.account_registered_text.tr());
     }, (error) {
       change(state, status: RxStatus.success());
       var errorResponse = jsonDecode((error as DioError).response.toString());
