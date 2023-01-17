@@ -9,6 +9,7 @@ import 'package:easy_localization/easy_localization.dart';
 
 class UserController extends GetxController with StateMixin<User> {
   final userRepository = getIt.get<UserRepository>();
+  static UserController instance = Get.find<UserController>();
   final TextEditingController fname = TextEditingController();
   final TextEditingController mname = TextEditingController();
   final TextEditingController lname = TextEditingController();
@@ -18,7 +19,7 @@ class UserController extends GetxController with StateMixin<User> {
   @override
   void onReady() async {
     super.onReady();
-    change(state, status: RxStatus.success());
+    change(state, status: RxStatus.empty());
   }
 
   Future<void> fetchUser() async {
@@ -27,7 +28,7 @@ class UserController extends GetxController with StateMixin<User> {
     result.when((user) {
       change(user, status: RxStatus.success());
       setValues();
-    }, (error) => change(state, status: RxStatus.error(error.toString())));
+    }, (error) => change(state, status: RxStatus.error(error.message)));
   }
 
   Future<void> updateUser(String fname, String mname, String lname,
@@ -38,7 +39,7 @@ class UserController extends GetxController with StateMixin<User> {
     result.when((user) {
       change(user, status: RxStatus.success());
       setValues();
-    }, (error) => change(state, status: RxStatus.error(error.toString())));
+    }, (error) => change(state, status: RxStatus.error(error.message)));
   }
 
   Future<void> changePassword(String oldPassword, String newPassword) async {
@@ -66,7 +67,7 @@ class UserController extends GetxController with StateMixin<User> {
       showAppSnackbar(
           LocaleKeys.success_text.tr(), LocaleKeys.card_created_text.tr());
     }, (error) {
-      change(state, status: RxStatus.error(error.toString()));
+      change(state, status: RxStatus.error(error.message));
       showAppSnackbar(
           LocaleKeys.error_text.tr(), LocaleKeys.card_failed_create_text.tr());
     });
@@ -90,3 +91,5 @@ class UserController extends GetxController with StateMixin<User> {
     super.dispose();
   }
 }
+
+final userController = UserController.instance;

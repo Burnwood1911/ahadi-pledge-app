@@ -77,23 +77,8 @@ class AuthController extends GetxController with StateMixin {
           LocaleKeys.account_registered_text.tr());
     }, (error) {
       change(state, status: RxStatus.success());
-      var errorResponse = jsonDecode((error as DioError).response.toString());
-      Map<String, dynamic> errors = errorResponse['errors'];
-      errors.forEach((k, v) {
-        switch (k) {
-          case "email":
-            emailError.value = v[0].toString();
-            break;
-          case "phone":
-            phoneError.value = v[0].toString();
-            break;
-          case "password":
-            passwordError.value = v[0].toString();
-            break;
-          default:
-            break;
-        }
-      });
+      showAppSnackbar("Error", error.message);
+      // var errorResponse = jsonDecode((error as DioError).response.toString());
     });
   }
 

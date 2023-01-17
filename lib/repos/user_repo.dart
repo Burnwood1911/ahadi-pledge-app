@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:ahadi_pledge/models/user.dart';
 import 'package:ahadi_pledge/network/dio_client.dart';
+import 'package:ahadi_pledge/utils/custom_error.dart';
+import 'package:ahadi_pledge/utils/extensions.dart';
 import 'package:dio/dio.dart';
 import 'package:multiple_result/multiple_result.dart';
 
@@ -8,19 +10,30 @@ class UserRepository {
   final DioClient dio;
   UserRepository({required this.dio});
 
-  Future<Result<User, Exception>> fetchUser() async {
+  Future<Result<User, Failure>> fetchUser() async {
     try {
       var response = await dio.get("/user");
 
-      return Success(userFromJson(jsonEncode(response.data)));
-    } on DioError catch (_) {
-      return Error(Exception("Something went wrong"));
+      if (response.statusCode == 200) {
+        return Success(userFromJson(jsonEncode(response.data)));
+      } else {
+        return Error(Failure(
+            message: response.statusMessage!,
+            statusCode: response.statusCode!));
+      }
+    } on DioError catch (e) {
+      if (e.isNoConnectionError) {
+        return Error(
+            Failure(message: "No internet Connection", statusCode: 500));
+      } else {
+        return Error(Failure(message: "Something went wrong", statusCode: 500));
+      }
     } on TypeError catch (_) {
-      return Error(Exception("Type error occured"));
+      return Error(Failure(message: "Received Invalid JSON", statusCode: 500));
     }
   }
 
-  Future<Result<User, Exception>> updateUser(String fname, String mname,
+  Future<Result<User, Failure>> updateUser(String fname, String mname,
       String lname, String phone, String email) async {
     Map<String, dynamic> data = {
       "fname": fname,
@@ -31,52 +44,100 @@ class UserRepository {
     };
     try {
       var response = await dio.post("/user/update", data: jsonEncode(data));
-      return Success(userFromJson(jsonEncode(response.data)));
-    } on DioError catch (_) {
-      return Error(Exception("Something went wrong"));
+
+      if (response.statusCode == 200) {
+        return Success(userFromJson(jsonEncode(response.data)));
+      } else {
+        return Error(Failure(
+            message: response.statusMessage!,
+            statusCode: response.statusCode!));
+      }
+    } on DioError catch (e) {
+      if (e.isNoConnectionError) {
+        return Error(
+            Failure(message: "No internet Connection", statusCode: 500));
+      } else {
+        return Error(Failure(message: "Something went wrong", statusCode: 500));
+      }
     } on TypeError catch (_) {
-      return Error(Exception("Type error occured"));
+      return Error(Failure(message: "Received Invalid JSON", statusCode: 500));
     }
   }
 
-  Future<Result<bool, Exception>> addFcmToken(String token) async {
+  Future<Result<bool, Failure>> addFcmToken(String token) async {
     Map<String, dynamic> data = {
       "fcm_token": token,
     };
     try {
-      await dio.post("/user/update", data: jsonEncode(data));
-      return const Success(true);
-    } on DioError catch (_) {
-      return Error(Exception("Something went wrong"));
+      var response = await dio.post("/user/update", data: jsonEncode(data));
+
+      if (response.statusCode == 200) {
+        return const Success(true);
+      } else {
+        return Error(Failure(
+            message: response.statusMessage!,
+            statusCode: response.statusCode!));
+      }
+    } on DioError catch (e) {
+      if (e.isNoConnectionError) {
+        return Error(
+            Failure(message: "No internet Connection", statusCode: 500));
+      } else {
+        return Error(Failure(message: "Something went wrong", statusCode: 500));
+      }
     } on TypeError catch (_) {
-      return Error(Exception("Type error occured"));
+      return Error(Failure(message: "Received Invalid JSON", statusCode: 500));
     }
   }
 
-  Future<Result<bool, Exception>> changePassword(
+  Future<Result<bool, Failure>> changePassword(
       String oldPassword, String newPassword) async {
     Map<String, dynamic> data = {
       "oldPassword": oldPassword,
       "newPassword": newPassword,
     };
     try {
-      await dio.post("/change-password", data: jsonEncode(data));
-      return const Success(true);
-    } on DioError catch (_) {
-      return Error(Exception("Something went wrong"));
+      var response = await dio.post("/change-password", data: jsonEncode(data));
+
+      if (response.statusCode == 200) {
+        return const Success(true);
+      } else {
+        return Error(Failure(
+            message: response.statusMessage!,
+            statusCode: response.statusCode!));
+      }
+    } on DioError catch (e) {
+      if (e.isNoConnectionError) {
+        return Error(
+            Failure(message: "No internet Connection", statusCode: 500));
+      } else {
+        return Error(Failure(message: "Something went wrong", statusCode: 500));
+      }
     } on TypeError catch (_) {
-      return Error(Exception("Type error occured"));
+      return Error(Failure(message: "Received Invalid JSON", statusCode: 500));
     }
   }
 
-  Future<Result<bool, Exception>> requestCard() async {
+  Future<Result<bool, Failure>> requestCard() async {
     try {
-      await dio.get("/request-card");
-      return const Success(true);
-    } on DioError catch (_) {
-      return Error(Exception("Something went wrong"));
+      var response = await dio.get("/request-card");
+
+      if (response.statusCode == 200) {
+        return const Success(true);
+      } else {
+        return Error(Failure(
+            message: response.statusMessage!,
+            statusCode: response.statusCode!));
+      }
+    } on DioError catch (e) {
+      if (e.isNoConnectionError) {
+        return Error(
+            Failure(message: "No internet Connection", statusCode: 500));
+      } else {
+        return Error(Failure(message: "Something went wrong", statusCode: 500));
+      }
     } on TypeError catch (_) {
-      return Error(Exception("Type error occured"));
+      return Error(Failure(message: "Received Invalid JSON", statusCode: 500));
     }
   }
 }

@@ -14,12 +14,10 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  UserController? controller;
   @override
   void initState() {
     super.initState();
-    controller = Get.find<UserController>();
-    controller?.fetchUser();
+    userController.fetchUser();
   }
 
   @override
@@ -37,14 +35,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         centerTitle: true,
       ),
       backgroundColor: Colors.white,
-      body: controller!.obx((state) {
+      body: userController.obx((state) {
         return ListView(
           children: [
             Padding(
               padding:
                   const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
               child: TextFormField(
-                controller: controller!.fname,
+                controller: userController.fname,
                 decoration: InputDecoration(
                     labelText: LocaleKeys.first_name_text.tr(), filled: true),
               ),
@@ -53,7 +51,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               padding:
                   const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
               child: TextFormField(
-                controller: controller!.mname,
+                controller: userController.mname,
                 decoration: InputDecoration(
                     labelText: LocaleKeys.second_name_text.tr(), filled: true),
               ),
@@ -62,7 +60,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               padding:
                   const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
               child: TextFormField(
-                controller: controller!.lname,
+                controller: userController.lname,
                 decoration: InputDecoration(
                     labelText: LocaleKeys.last_name_text.tr(), filled: true),
               ),
@@ -71,7 +69,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               padding:
                   const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
               child: TextFormField(
-                controller: controller!.phone,
+                controller: userController.phone,
                 decoration: InputDecoration(
                     labelText: LocaleKeys.phone_text.tr(), filled: true),
               ),
@@ -80,7 +78,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               padding:
                   const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
               child: TextFormField(
-                controller: controller!.email,
+                controller: userController.email,
                 decoration: InputDecoration(
                     labelText: LocaleKeys.email_text.tr(), filled: true),
               ),
@@ -92,12 +90,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).primaryColor),
                   onPressed: () {
-                    controller!.updateUser(
-                        controller!.fname.text,
-                        controller!.mname.text,
-                        controller!.lname.text,
-                        controller!.phone.text,
-                        controller!.email.text);
+                    userController.updateUser(
+                        userController.fname.text,
+                        userController.mname.text,
+                        userController.lname.text,
+                        userController.phone.text,
+                        userController.email.text);
                   },
                   child: Text(
                     LocaleKeys.save_text.tr(),
@@ -115,17 +113,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 backgroundColor: Colors.white,
                 pathBackgroundColor: Colors.white),
           ),
+          onEmpty: const Center(
+            child: Text("No user Data"),
+          ),
           onError: ((error) => Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Something went wrong"),
+                    Text(error!),
                     const SizedBox(
                       height: 8,
                     ),
                     ElevatedButton(
                         onPressed: () {
-                          controller!.fetchUser();
+                          userController.fetchUser();
                         },
                         child: const Text("Try Again")),
                   ],

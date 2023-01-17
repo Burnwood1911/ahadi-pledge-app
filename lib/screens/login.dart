@@ -11,8 +11,6 @@ class AuthScreen extends StatelessWidget {
   AuthScreen({super.key});
 
   final AuthController authController = Get.find<AuthController>();
-  final CommunityController communityController =
-      Get.find<CommunityController>();
 
   @override
   Widget build(BuildContext context) {
@@ -75,9 +73,7 @@ class AuthScreen extends StatelessWidget {
                     children: [
                       ListView(children: [_SignInPage(authController)]),
                       ListView(
-                        children: [
-                          _SignUpPage(communityController, authController)
-                        ],
+                        children: [_SignUpPage(authController)],
                       ),
                     ],
                   ),
@@ -99,9 +95,8 @@ class AuthScreen extends StatelessWidget {
 }
 
 class _SignUpPage extends StatefulWidget {
-  const _SignUpPage(this.communityController, this.authController) : super();
+  const _SignUpPage(this.authController) : super();
 
-  final CommunityController communityController;
   final AuthController authController;
 
   @override
@@ -129,212 +124,267 @@ class _SignUpPageState extends State<_SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding:
-                    const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                child: TextFormField(
-                  controller: fname,
-                  decoration: const InputDecoration(
-                      labelText: "First Name", filled: true),
+    return Obx(() => communityController.juimuiyas.isNotEmpty
+        ? Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
+                  child: TextFormField(
+                      controller: fname,
+                      decoration: const InputDecoration(
+                          labelText: "First Name", filled: true),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "This Field Cant Be Blank";
+                        }
+                        return null;
+                      }),
                 ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                child: TextFormField(
-                  controller: mname,
-                  decoration: const InputDecoration(
-                      labelText: "Middle Name", filled: true),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
+                  child: TextFormField(
+                      controller: mname,
+                      decoration: const InputDecoration(
+                          labelText: "Middle Name", filled: true),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "This Field Cant Be Blank";
+                        }
+                        return null;
+                      }),
                 ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                child: TextFormField(
-                  controller: lname,
-                  decoration: const InputDecoration(
-                      labelText: "Last Name", filled: true),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
+                  child: TextFormField(
+                      controller: lname,
+                      decoration: const InputDecoration(
+                          labelText: "Last Name", filled: true),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "This Field Cant Be Blank";
+                        }
+                        return null;
+                      }),
                 ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                child: TextFormField(
-                  controller: phone,
-                  decoration: InputDecoration(
-                      errorText: widget.authController.phoneError.value,
-                      labelText: "Phone",
-                      filled: true),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
+                  child: TextFormField(
+                      controller: phone,
+                      decoration: InputDecoration(
+                          errorText: widget.authController.phoneError.value,
+                          labelText: "Phone",
+                          filled: true),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "This Field Cant Be Blank";
+                        }
+                        return null;
+                      }),
                 ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                child: TextFormField(
-                  controller: _emailController,
-                  decoration: InputDecoration(
-                      errorText: widget.authController.emailError.value,
-                      labelText: "Email",
-                      filled: true),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
+                  child: TextFormField(
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                          errorText: widget.authController.emailError.value,
+                          labelText: "Email",
+                          filled: true),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "This Field Cant Be Blank";
+                        }
+                        return null;
+                      }),
                 ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                child: TextFormField(
-                  controller: _passwordController,
-                  obscureText: passwordVisible,
-                  decoration: InputDecoration(
-                      errorText: widget.authController.passwordError.value,
-                      labelText: "Password",
-                      filled: true,
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          passwordVisible
-                              ? Icons.visibility
-                              : Icons.visibility_off,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            passwordVisible = !passwordVisible;
-                          });
-                        },
-                        color: Theme.of(context).primaryColor,
-                      )),
-                ),
-              ),
-              widget.communityController.juimuiyas.isNotEmpty
-                  ? Padding(
-                      padding: const EdgeInsets.only(
-                          left: 18.0, right: 18.0, top: 18.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Community",
-                            style: GoogleFonts.poppins(),
-                          ),
-                          DropdownButton<String>(
-                            isExpanded: true,
-                            value: widget.communityController.juimuiyas[0].name,
-                            items: widget.communityController.juimuiyas
-                                .toList()
-                                .map((CommunityElement value) {
-                              return DropdownMenuItem<String>(
-                                value: value.name,
-                                child: Text(
-                                  value.name,
-                                  style: const TextStyle(color: Colors.black),
-                                ),
-                              );
-                            }).toList(),
-                            onChanged: (value) {
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
+                  child: TextFormField(
+                      controller: _passwordController,
+                      obscureText: passwordVisible,
+                      decoration: InputDecoration(
+                          errorText: widget.authController.passwordError.value,
+                          labelText: "Password",
+                          filled: true,
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              passwordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                            onPressed: () {
                               setState(() {
-                                widget.communityController.selectedJumuiyaId
-                                        .value =
-                                    widget.communityController.juimuiyas
-                                        .firstWhere(
-                                            (item) => item.name == value)
-                                        .id;
+                                passwordVisible = !passwordVisible;
                               });
                             },
-                          ),
-                        ],
-                      ),
-                    )
-                  : const SizedBox.shrink(),
-              Padding(
-                padding:
-                    const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Gender",
-                      style: GoogleFonts.poppins(),
-                    ),
-                    DropdownButton<String>(
-                      isExpanded: true,
-                      value: selectedGender,
-                      items: ["MALE", "FEMALE"].map((value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(
-                            value,
-                            style: const TextStyle(color: Colors.black),
-                          ),
-                        );
-                      }).toList(),
-                      onChanged: (value) {
-                        setState(() {
-                          selectedGender = value;
-                        });
-                      },
-                    ),
-                  ],
+                            color: Theme.of(context).primaryColor,
+                          )),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "This Field Cant Be Blank";
+                        }
+                        return null;
+                      }),
                 ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                child: TextFormField(
-                  controller: birth,
-                  //editing controller of this TextField
-                  decoration: const InputDecoration(
-                      icon: Icon(Icons.calendar_today), //icon of text field
-                      labelText: "Birth Date" //label text of field
+                communityController.juimuiyas.isNotEmpty
+                    ? Padding(
+                        padding: const EdgeInsets.only(
+                            left: 18.0, right: 18.0, top: 18.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Community",
+                              style: GoogleFonts.poppins(),
+                            ),
+                            DropdownButton<String>(
+                              isExpanded: true,
+                              value: communityController.juimuiyas[0].name,
+                              items: communityController.juimuiyas
+                                  .toList()
+                                  .map((CommunityElement value) {
+                                return DropdownMenuItem<String>(
+                                  value: value.name,
+                                  child: Text(
+                                    value.name,
+                                    style: const TextStyle(color: Colors.black),
+                                  ),
+                                );
+                              }).toList(),
+                              onChanged: (value) {
+                                setState(() {
+                                  communityController.selectedJumuiyaId.value =
+                                      communityController.juimuiyas
+                                          .firstWhere(
+                                              (item) => item.name == value)
+                                          .id;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      )
+                    : const SizedBox.shrink(),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Gender",
+                        style: GoogleFonts.poppins(),
                       ),
-                  readOnly: true,
-                  //set it true, so that user will not able to edit text
-                  onTap: () async {
-                    DateTime? pickedDate = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(1950),
-                        //DateTime.now() - not to allow to choose before today.
-                        lastDate: DateTime(2100));
+                      DropdownButton<String>(
+                        isExpanded: true,
+                        value: selectedGender,
+                        items: ["MALE", "FEMALE"].map((value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              style: const TextStyle(color: Colors.black),
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            selectedGender = value;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
+                  child: TextFormField(
+                    controller: birth,
+                    //editing controller of this TextField
+                    decoration: const InputDecoration(
+                        icon: Icon(Icons.calendar_today), //icon of text field
+                        labelText: "Birth Date" //label text of field
+                        ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "This Field Cant Be Blank";
+                      }
+                      return null;
+                    },
 
-                    if (pickedDate != null) {
-                      String formattedDate =
-                          DateFormat('yyyy-MM-dd').format(pickedDate);
-                      setState(() {
-                        birth.text =
-                            formattedDate; //set output date to TextField value.
-                      });
-                    } else {}
-                  },
+                    readOnly: true,
+                    //set it true, so that user will not able to edit text
+                    onTap: () async {
+                      DateTime? pickedDate = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(1950),
+                          //DateTime.now() - not to allow to choose before today.
+                          lastDate: DateTime(2100));
+
+                      if (pickedDate != null) {
+                        String formattedDate =
+                            DateFormat('yyyy-MM-dd').format(pickedDate);
+                        setState(() {
+                          birth.text =
+                              formattedDate; //set output date to TextField value.
+                        });
+                      } else {}
+                    },
+                  ),
                 ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                child: MaterialButton(
-                  minWidth: double.infinity,
-                  color: Theme.of(context).primaryColor,
-                  textColor: Colors.white,
-                  onPressed: () => {
-                    widget.authController.register(
-                        fname.text,
-                        mname.text,
-                        lname.text,
-                        phone.text,
-                        _emailController.text,
-                        _passwordController.text,
-                        selectedGender!,
-                        birth.text,
-                        widget.communityController.selectedJumuiyaId.value)
-                  },
-                  child: const Text("Register"),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
+                  child: MaterialButton(
+                    minWidth: double.infinity,
+                    color: Theme.of(context).primaryColor,
+                    textColor: Colors.white,
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        widget.authController.register(
+                            fname.text,
+                            mname.text,
+                            lname.text,
+                            phone.text,
+                            _emailController.text,
+                            _passwordController.text,
+                            selectedGender!,
+                            birth.text,
+                            communityController.selectedJumuiyaId.value);
+
+                        _formKey.currentState!.reset();
+                      }
+                    },
+                    child: const Text("Register"),
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ));
+              ],
+            ),
+          )
+        : Padding(
+            padding: const EdgeInsets.only(top: 150),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("Failed to fetch communities"),
+                ElevatedButton(
+                    onPressed: () {
+                      communityController.getJumuiyas();
+                    },
+                    child: const Text("Try Again"))
+              ],
+            ),
+          ));
   }
 
   @override
@@ -382,30 +432,42 @@ class _SignInPageState extends State<_SignInPage> {
           Padding(
             padding: const EdgeInsets.only(left: 18.0, right: 18.0, top: 30.0),
             child: TextFormField(
-              controller: _loginController,
-              decoration:
-                  const InputDecoration(labelText: "Login", filled: true),
-            ),
+                controller: _loginController,
+                decoration:
+                    const InputDecoration(labelText: "Login", filled: true),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "This Field Cant Be Blank";
+                  }
+                  return null;
+                }),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
             child: TextFormField(
-              controller: _passwordController,
-              obscureText: passwordVisible,
-              decoration: InputDecoration(
-                  labelText: "Password",
-                  filled: true,
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      passwordVisible ? Icons.visibility : Icons.visibility_off,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        passwordVisible = !passwordVisible;
-                      });
-                    },
-                  )),
-            ),
+                controller: _passwordController,
+                obscureText: passwordVisible,
+                decoration: InputDecoration(
+                    labelText: "Password",
+                    filled: true,
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        passwordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          passwordVisible = !passwordVisible;
+                        });
+                      },
+                    )),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "This Field Cant Be Blank";
+                  }
+                  return null;
+                }),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
@@ -414,8 +476,12 @@ class _SignInPageState extends State<_SignInPage> {
               textColor: Colors.white,
               color: Theme.of(context).primaryColor,
               onPressed: () {
-                widget.authController
-                    .login(_loginController.text, _passwordController.text);
+                if (_formKey.currentState!.validate()) {
+                  widget.authController
+                      .login(_loginController.text, _passwordController.text);
+
+                  _formKey.currentState!.reset();
+                }
               },
               child: const Text("Log In"),
             ),

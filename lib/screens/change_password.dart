@@ -14,7 +14,6 @@ class ChangePasswordScreen extends StatefulWidget {
 }
 
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
-  UserController? userController;
   TextEditingController? oldPassword;
   TextEditingController? newPassword;
   GlobalKey<FormState>? _formKey;
@@ -25,7 +24,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     _formKey = GlobalKey<FormState>();
     oldPassword = TextEditingController();
     newPassword = TextEditingController();
-    userController = Get.find<UserController>();
   }
 
   @override
@@ -43,7 +41,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           centerTitle: true,
         ),
         backgroundColor: Colors.white,
-        body: userController?.obx(
+        body: userController.obx(
           (state) {
             return Form(
               key: _formKey,
@@ -89,7 +87,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                             backgroundColor: Theme.of(context).primaryColor),
                         onPressed: () {
                           if (_formKey!.currentState!.validate()) {
-                            userController?.changePassword(
+                            userController.changePassword(
                                 oldPassword!.text, newPassword!.text);
                             _formKey!.currentState!.reset();
                           }

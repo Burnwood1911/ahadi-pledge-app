@@ -14,13 +14,11 @@ class CardScreen extends StatefulWidget {
 
 class _CardScreenState extends State<CardScreen> with TickerProviderStateMixin {
   TabController? _tabController;
-  UserController? userController;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(vsync: this, length: 2);
-    userController = Get.find<UserController>();
   }
 
   @override
@@ -43,7 +41,7 @@ class _CardScreenState extends State<CardScreen> with TickerProviderStateMixin {
               actions: [
                 IconButton(
                     onPressed: () {
-                      userController!.requestCard();
+                      userController.requestCard();
                     },
                     icon: const Icon(Icons.add))
               ],

@@ -19,15 +19,13 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   PledgeController? pledgeController;
   PaymentController? paymentController;
-  UserController? userController;
 
   @override
   void initState() {
     super.initState();
     pledgeController = Get.find<PledgeController>();
     paymentController = Get.find<PaymentController>();
-    userController = Get.find<UserController>();
-    userController?.fetchUser();
+    userController.fetchUser();
   }
 
   @override
@@ -54,7 +52,7 @@ class _MainScreenState extends State<MainScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      "${LocaleKeys.hello_text.tr()} ${userController?.state?.fname}",
+                      "${LocaleKeys.hello_text.tr()} ${userController.state?.fname}",
                       style: GoogleFonts.poppins(
                         textStyle: const TextStyle(
                             fontSize: 20,
