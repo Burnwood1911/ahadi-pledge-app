@@ -9,13 +9,27 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-class PledgeDetails extends StatelessWidget {
+class PledgeDetails extends StatefulWidget {
   final PledgeElement pledge;
 
-  final PaymentController paymentController = Get.find();
-  final PledgeController pledgeController = Get.find();
-
   PledgeDetails({super.key, required this.pledge});
+
+  @override
+  State<PledgeDetails> createState() => _PledgeDetailsState();
+}
+
+class _PledgeDetailsState extends State<PledgeDetails> {
+  GlobalKey<FormState>? _formKey;
+  PaymentController? paymentController;
+  PledgeController? pledgeController;
+
+  @override
+  void initState() {
+    super.initState();
+    _formKey = GlobalKey<FormState>();
+    paymentController = Get.find<PaymentController>();
+    pledgeController = Get.find<PledgeController>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,63 +53,76 @@ class PledgeDetails extends StatelessWidget {
                     context: context,
                     builder: (context) {
                       return Obx(() {
-                        return AlertDialog(
-                          title: Text(LocaleKeys.reminder_date_text.tr()),
-                          content: pledgeController.isLoading.value
-                              ? const SizedBox(
-                                  height: 80,
-                                  child: Center(
-                                    child: CircularProgressIndicator(),
+                        return Form(
+                          key: _formKey,
+                          child: AlertDialog(
+                            title: Text(LocaleKeys.reminder_date_text.tr()),
+                            content: pledgeController!.isLoading.value
+                                ? const SizedBox(
+                                    height: 80,
+                                    child: Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                  )
+                                : SizedBox(
+                                    height: 80,
+                                    child: TextFormField(
+                                      controller:
+                                          pledgeController!.reminderDate,
+                                      //editing controller of this TextField
+                                      decoration: InputDecoration(
+                                          icon: const Icon(Icons
+                                              .calendar_today), //icon of text field
+                                          labelText: LocaleKeys.choose_date_text
+                                              .tr() //label text of field
+                                          ),
+                                      readOnly: true,
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return "This Field Cant Be Blank";
+                                        }
+                                        return null;
+                                      },
+                                      //set it true, so that user will not able to edit text
+                                      onTap: () async {
+                                        DateTime? pickedDate = await showDatePicker(
+                                            context: context,
+                                            initialDate: DateTime.now(),
+                                            firstDate: DateTime(1950),
+                                            //DateTime.now() - not to allow to choose before today.
+                                            lastDate: DateTime(2100));
+
+                                        if (pickedDate != null) {
+                                          String formattedDate =
+                                              DateFormat('yyyy-MM-dd')
+                                                  .format(pickedDate);
+
+                                          pledgeController!.reminderDate.text =
+                                              formattedDate; //set output date to TextField value.
+
+                                        } else {}
+                                      },
+                                    ),
                                   ),
-                                )
-                              : SizedBox(
-                                  height: 80,
-                                  child: TextFormField(
-                                    controller: pledgeController.reminderDate,
-                                    //editing controller of this TextField
-                                    decoration: InputDecoration(
-                                        icon: const Icon(Icons
-                                            .calendar_today), //icon of text field
-                                        labelText: LocaleKeys.choose_date_text
-                                            .tr() //label text of field
-                                        ),
-                                    readOnly: true,
-                                    //set it true, so that user will not able to edit text
-                                    onTap: () async {
-                                      DateTime? pickedDate = await showDatePicker(
-                                          context: context,
-                                          initialDate: DateTime.now(),
-                                          firstDate: DateTime(1950),
-                                          //DateTime.now() - not to allow to choose before today.
-                                          lastDate: DateTime(2100));
-
-                                      if (pickedDate != null) {
-                                        String formattedDate =
-                                            DateFormat('yyyy-MM-dd')
-                                                .format(pickedDate);
-
-                                        pledgeController.reminderDate.text =
-                                            formattedDate; //set output date to TextField value.
-
-                                      } else {}
-                                    },
-                                  ),
-                                ),
-                          actions: <Widget>[
-                            TextButton(
-                              child: Text(LocaleKeys.cancel_text.tr()),
-                              onPressed: () {
-                                Get.back();
-                              },
-                            ),
-                            TextButton(
-                              child: Text(LocaleKeys.save_text.tr()),
-                              onPressed: () {
-                                pledgeController.setReminder(pledge.id,
-                                    pledgeController.reminderDate.text);
-                              },
-                            ),
-                          ],
+                            actions: <Widget>[
+                              TextButton(
+                                child: Text(LocaleKeys.cancel_text.tr()),
+                                onPressed: () {
+                                  Get.back();
+                                },
+                              ),
+                              TextButton(
+                                child: Text(LocaleKeys.save_text.tr()),
+                                onPressed: () {
+                                  if (_formKey!.currentState!.validate()) {
+                                    pledgeController!.setReminder(
+                                        widget.pledge.id,
+                                        pledgeController!.reminderDate.text);
+                                  }
+                                },
+                              ),
+                            ],
+                          ),
                         );
                       });
                     },
@@ -155,7 +182,7 @@ class PledgeDetails extends StatelessWidget {
                             Row(
                               children: [
                                 Text(
-                                  pledge.amount,
+                                  widget.pledge.amount,
                                   style: GoogleFonts.poppins(
                                       textStyle: const TextStyle(
                                           fontSize: 18,
@@ -219,7 +246,7 @@ class PledgeDetails extends StatelessWidget {
                             Row(
                               children: [
                                 Text(
-                                  "${paymentController.payments.where((element) => element.pledgeId == pledge.id).isNotEmpty ? (int.parse(pledge.amount) - paymentController.payments.where((element) => element.pledgeId == pledge.id && element.verified == true).map((e) => int.parse(e.amount)).reduce((value, element) => value + element)) : pledge.amount}",
+                                  "${paymentController!.payments.where((element) => element.pledgeId == widget.pledge.id).isNotEmpty ? (int.parse(widget.pledge.amount) - paymentController!.payments.where((element) => element.pledgeId == widget.pledge.id && element.verified == true).map((e) => int.parse(e.amount)).reduce((value, element) => value + element)) : widget.pledge.amount}",
                                   style: GoogleFonts.poppins(
                                       textStyle: const TextStyle(
                                           fontSize: 18,
@@ -257,14 +284,14 @@ class PledgeDetails extends StatelessWidget {
                     child: Column(
                       children: [
                         StepProgressIndicator(
-                          totalSteps: int.parse(pledge.amount),
-                          currentStep: paymentController.payments
+                          totalSteps: int.parse(widget.pledge.amount),
+                          currentStep: paymentController!.payments
                                   .where((element) =>
-                                      element.pledgeId == pledge.id)
+                                      element.pledgeId == widget.pledge.id)
                                   .isNotEmpty
-                              ? paymentController.payments
+                              ? paymentController!.payments
                                   .where((element) =>
-                                      element.pledgeId == pledge.id &&
+                                      element.pledgeId == widget.pledge.id &&
                                       element.verified == true)
                                   .map((e) => int.parse(e.amount))
                                   .reduce((value, element) => value + element)
@@ -291,12 +318,12 @@ class PledgeDetails extends StatelessWidget {
                 ),
                 ListView.builder(
                     shrinkWrap: true,
-                    itemCount: paymentController.payments
-                        .where((p) => p.pledgeId == pledge.id)
+                    itemCount: paymentController!.payments
+                        .where((p) => p.pledgeId == widget.pledge.id)
                         .length,
                     itemBuilder: ((context, index) {
-                      final payment = paymentController.payments
-                          .where((p) => p.pledgeId == pledge.id)
+                      final payment = paymentController!.payments
+                          .where((p) => p.pledgeId == widget.pledge.id)
                           .toList()[index];
                       return Container(
                         margin: const EdgeInsets.symmetric(vertical: 4),
@@ -369,7 +396,7 @@ class PledgeDetails extends StatelessWidget {
                       );
                     })),
                 const Spacer(),
-                pledge.status == 1
+                widget.pledge.status == 1
                     ? const SizedBox.shrink()
                     : SizedBox(
                         width: double.infinity,
@@ -379,7 +406,7 @@ class PledgeDetails extends StatelessWidget {
                                 backgroundColor:
                                     Theme.of(context).primaryColor),
                             onPressed: (() {
-                              Get.to(() => PaymentScreen(pledge));
+                              Get.to(() => PaymentScreen(widget.pledge));
                             }),
                             child: Text(LocaleKeys.pay_text.tr())),
                       )

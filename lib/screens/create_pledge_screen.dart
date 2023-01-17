@@ -20,7 +20,7 @@ class CreatePledge extends StatefulWidget {
 
 class _CreatePledgeState extends State<CreatePledge> {
   PledgeController? pledgeController;
-
+  GlobalKey<FormState>? _formKey;
   TextEditingController? amount;
   TextEditingController? description;
   TextEditingController? dateInput;
@@ -31,6 +31,7 @@ class _CreatePledgeState extends State<CreatePledge> {
   @override
   void initState() {
     super.initState();
+    _formKey = GlobalKey<FormState>();
     pledgeController = Get.find<PledgeController>();
     selectedPledgeTypeId = pledgeController!.pledgetypes[0].id;
     selectedPledgePurposeId = pledgeController!.pledgepurposes[0].id;
@@ -67,156 +68,171 @@ class _CreatePledgeState extends State<CreatePledge> {
                     backgroundColor: Colors.white,
                     pathBackgroundColor: Colors.white),
               )
-            : Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      LocaleKeys.contribution_form_text.tr(),
-                      style: GoogleFonts.poppins(),
-                    ),
-                    DropdownButton<String>(
-                      value: pledgeController!.pledgetypes
-                          .firstWhere(
-                              (element) => element.id == selectedPledgeTypeId)
-                          .title,
-                      isExpanded: true,
-                      items: pledgeController!.pledgetypes
-                          .toList()
-                          .map((TypePledge value) {
-                        return DropdownMenuItem<String>(
-                          value: value.title,
-                          child: Text(value.title),
-                        );
-                      }).toList(),
-                      onChanged: (value) {
-                        setState(() {
-                          selectedPledgeTypeId = pledgeController!.pledgetypes
-                              .firstWhere((item) => item.title == value)
-                              .id;
-                        });
-                      },
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Text(
-                      LocaleKeys.contribution_purpose_text.tr(),
-                      style: GoogleFonts.poppins(),
-                    ),
-                    DropdownButton<String>(
-                      isExpanded: true,
-                      value: pledgeController!.pledgepurposes
-                          .firstWhere((element) =>
-                              element.id == selectedPledgePurposeId)
-                          .title,
-                      items: pledgeController!.pledgepurposes
-                          .toList()
-                          .map((PurposePledge value) {
-                        return DropdownMenuItem<String>(
-                          value: value.title,
-                          child: Text(
-                            value.title,
-                            style: const TextStyle(color: Colors.black),
-                          ),
-                        );
-                      }).toList(),
-                      onChanged: (value) {
-                        setState(() {
-                          selectedPledgePurposeId = pledgeController!
-                              .pledgepurposes
-                              .firstWhere((item) => item.title == value)
-                              .id;
-                        });
-                      },
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    TextField(
-                      controller: amount,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        border: const OutlineInputBorder(),
-                        labelText: LocaleKeys.amount_text.tr(),
+            : Form(
+                key: _formKey,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        LocaleKeys.contribution_form_text.tr(),
+                        style: GoogleFonts.poppins(),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    TextField(
-                      controller: description,
-                      decoration: InputDecoration(
-                        border: const OutlineInputBorder(),
-                        labelText: LocaleKeys.description_text.tr(),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    TextField(
-                      controller: dateInput,
-                      //editing controller of this TextField
-                      decoration: InputDecoration(
-                          icon: const Icon(
-                              Icons.calendar_today), //icon of text field
-                          labelText: LocaleKeys.deadline_date_text
-                              .tr() //label text of field
-                          ),
-                      readOnly: true,
-                      //set it true, so that user will not able to edit text
-                      onTap: () async {
-                        DateTime? pickedDate = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(1950),
-                            //DateTime.now() - not to allow to choose before today.
-                            lastDate: DateTime(2100));
-
-                        if (pickedDate != null) {
-                          String formattedDate =
-                              DateFormat('yyyy-MM-dd').format(pickedDate);
+                      DropdownButton<String>(
+                        value: pledgeController!.pledgetypes
+                            .firstWhere(
+                                (element) => element.id == selectedPledgeTypeId)
+                            .title,
+                        isExpanded: true,
+                        items: pledgeController!.pledgetypes
+                            .toList()
+                            .map((TypePledge value) {
+                          return DropdownMenuItem<String>(
+                            value: value.title,
+                            child: Text(value.title),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
                           setState(() {
-                            dateInput?.text =
-                                formattedDate; //set output date to TextField value.
+                            selectedPledgeTypeId = pledgeController!.pledgetypes
+                                .firstWhere((item) => item.title == value)
+                                .id;
                           });
-                        } else {}
-                      },
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    Theme.of(context).primaryColor),
-                            onPressed: (() {
-                              if (amount!.text.isNotEmpty &&
-                                  description!.text.isNotEmpty &&
-                                  dateInput!.text.isNotEmpty) {
-                                final form = PledgeForm(
-                                  amount: amount!.text,
-                                  deadline: dateInput!.text,
-                                  description: description!.text,
-                                  purpose_id: selectedPledgePurposeId!,
-                                  name: pledgeController!.pledgepurposes
-                                      .firstWhere((element) =>
-                                          element.id == selectedPledgePurposeId)
-                                      .title,
-                                  type_id: selectedPledgeTypeId!,
-                                );
+                        },
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Text(
+                        LocaleKeys.contribution_purpose_text.tr(),
+                        style: GoogleFonts.poppins(),
+                      ),
+                      DropdownButton<String>(
+                        isExpanded: true,
+                        value: pledgeController!.pledgepurposes
+                            .firstWhere((element) =>
+                                element.id == selectedPledgePurposeId)
+                            .title,
+                        items: pledgeController!.pledgepurposes
+                            .toList()
+                            .map((PurposePledge value) {
+                          return DropdownMenuItem<String>(
+                            value: value.title,
+                            child: Text(
+                              value.title,
+                              style: const TextStyle(color: Colors.black),
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            selectedPledgePurposeId = pledgeController!
+                                .pledgepurposes
+                                .firstWhere((item) => item.title == value)
+                                .id;
+                          });
+                        },
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      TextFormField(
+                          controller: amount,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            labelText: LocaleKeys.amount_text.tr(),
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "This Field Cant Be Blank";
+                            }
+                            return null;
+                          }),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      TextFormField(
+                          controller: description,
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            labelText: LocaleKeys.description_text.tr(),
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "This Field Cant Be Blank";
+                            }
+                            return null;
+                          }),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      TextFormField(
+                        controller: dateInput,
+                        //editing controller of this TextField
+                        decoration: InputDecoration(
+                            icon: const Icon(
+                                Icons.calendar_today), //icon of text field
+                            labelText: LocaleKeys.deadline_date_text
+                                .tr() //label text of field
+                            ),
+                        readOnly: true,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "This Field Cant Be Blank";
+                          }
+                          return null;
+                        },
+                        //set it true, so that user will not able to edit text
+                        onTap: () async {
+                          DateTime? pickedDate = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(1950),
+                              //DateTime.now() - not to allow to choose before today.
+                              lastDate: DateTime(2100));
 
-                                pledgeController!.createPledge(form);
-                              } else {
-                                showAppSnackbar(LocaleKeys.error_text.tr(),
-                                    LocaleKeys.empty_fields_error_text.tr());
-                              }
-                            }),
-                            child: Text(LocaleKeys.save_text.tr())))
-                  ],
+                          if (pickedDate != null) {
+                            String formattedDate =
+                                DateFormat('yyyy-MM-dd').format(pickedDate);
+                            setState(() {
+                              dateInput?.text =
+                                  formattedDate; //set output date to TextField value.
+                            });
+                          } else {}
+                        },
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor:
+                                      Theme.of(context).primaryColor),
+                              onPressed: (() {
+                                if (_formKey!.currentState!.validate()) {
+                                  final form = PledgeForm(
+                                    amount: amount!.text,
+                                    deadline: dateInput!.text,
+                                    description: description!.text,
+                                    purpose_id: selectedPledgePurposeId!,
+                                    name: pledgeController!.pledgepurposes
+                                        .firstWhere((element) =>
+                                            element.id ==
+                                            selectedPledgePurposeId)
+                                        .title,
+                                    type_id: selectedPledgeTypeId!,
+                                  );
+
+                                  pledgeController!.createPledge(form);
+                                }
+                              }),
+                              child: Text(LocaleKeys.save_text.tr())))
+                    ],
+                  ),
                 ),
               ))),
       ),
