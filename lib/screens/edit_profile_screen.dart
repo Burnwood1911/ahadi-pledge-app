@@ -113,8 +113,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 backgroundColor: Colors.white,
                 pathBackgroundColor: Colors.white),
           ),
-          onEmpty: const Center(
-            child: Text("No user Data"),
+          onEmpty: Center(
+            child: Text(LocaleKeys.no_data_text.tr()),
           ),
           onError: ((error) => Center(
                 child: Column(
@@ -128,7 +128,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         onPressed: () {
                           userController.fetchUser();
                         },
-                        child: const Text("Try Again")),
+                        child: Text(LocaleKeys.try_again_text.tr())),
                   ],
                 ),
               ))),

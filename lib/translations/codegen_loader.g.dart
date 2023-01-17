@@ -64,7 +64,13 @@ class CodegenLoader extends AssetLoader{
   "old_password_not_match_text": "Old Password Doesn't match",
   "card_created_text": "Your card has been created",
   "card_failed_create_text": "Failed to create card",
-  "empty_fields_error_text": "Please fill all fields"
+  "empty_fields_error_text": "Please fill all fields",
+  "failed_fetch_communities_text": "Failed to fetch communities",
+  "try_again_text": "Try again",
+  "no_data_text": "No data",
+  "no_connection_text": "No internet Connection",
+  "something_went_wrong_text": "Something went wrong",
+  "invalid_json_text": "Received Invalid JSON"
 };
 static const Map<String,dynamic> sw = {
   "hello_text": "Habari",
@@ -116,7 +122,13 @@ static const Map<String,dynamic> sw = {
   "old_password_not_match_text": "Nenosiri la Zamani Hailingani",
   "card_created_text": "Kadi yako imeundwa",
   "card_failed_create_text": "Imeshindwa kuunda kadi",
-  "empty_fields_error_text": "Tafadhali jaza sehemu zote"
+  "empty_fields_error_text": "Tafadhali jaza sehemu zote",
+  "failed_fetch_communities_text": "Imeshindwa kuleta jumuiya",
+  "try_again_text": "Jaribu tena",
+  "no_data_text": "Hakuna Data",
+  "no_connection_text": "Hakuna Muunganisho wa Mtandao",
+  "something_went_wrong_text": "Hitilafu fulani imetokea",
+  "invalid_json_text": "Imepokea JSON Batili"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "sw": sw};
 }

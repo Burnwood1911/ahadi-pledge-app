@@ -70,7 +70,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               filled: true),
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "This Field Cant Be Blank";
+                              return LocaleKeys.empty_fields_error_text.tr();
                             }
                             return null;
                           }),
@@ -86,7 +86,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               filled: true),
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "This Field Cant Be Blank";
+                              return LocaleKeys.empty_fields_error_text.tr();
                             }
                             return null;
                           }),

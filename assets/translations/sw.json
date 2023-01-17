@@ -48,5 +48,11 @@
   "old_password_not_match_text": "Nenosiri la Zamani Hailingani",
   "card_created_text": "Kadi yako imeundwa",
   "card_failed_create_text": "Imeshindwa kuunda kadi",
-  "empty_fields_error_text": "Tafadhali jaza sehemu zote"
+  "empty_fields_error_text": "Tafadhali jaza sehemu zote",
+  "failed_fetch_communities_text": "Imeshindwa kuleta jumuiya",
+  "try_again_text": "Jaribu tena",
+  "no_data_text": "Hakuna Data",
+  "no_connection_text": "Hakuna Muunganisho wa Mtandao",
+  "something_went_wrong_text": "Hitilafu fulani imetokea",
+  "invalid_json_text": "Imepokea JSON Batili"
 }

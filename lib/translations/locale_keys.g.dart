@@ -51,5 +51,11 @@ abstract class  LocaleKeys {
   static const card_created_text = 'card_created_text';
   static const card_failed_create_text = 'card_failed_create_text';
   static const empty_fields_error_text = 'empty_fields_error_text';
+  static const failed_fetch_communities_text = 'failed_fetch_communities_text';
+  static const try_again_text = 'try_again_text';
+  static const no_data_text = 'no_data_text';
+  static const no_connection_text = 'no_connection_text';
+  static const something_went_wrong_text = 'something_went_wrong_text';
+  static const invalid_json_text = 'invalid_json_text';
 
 }

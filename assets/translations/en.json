@@ -48,5 +48,11 @@
   "old_password_not_match_text": "Old Password Doesn't match",
   "card_created_text": "Your card has been created",
   "card_failed_create_text": "Failed to create card",
-  "empty_fields_error_text": "Please fill all fields"
+  "empty_fields_error_text": "Please fill all fields",
+  "failed_fetch_communities_text": "Failed to fetch communities",
+  "try_again_text": "Try again",
+  "no_data_text": "No data",
+  "no_connection_text": "No internet Connection",
+  "something_went_wrong_text": "Something went wrong",
+  "invalid_json_text": "Received Invalid JSON"
 }

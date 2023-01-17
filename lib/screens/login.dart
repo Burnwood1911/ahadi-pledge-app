@@ -1,11 +1,12 @@
 import 'package:ahadi_pledge/controllers/auth_controller.dart';
 import 'package:ahadi_pledge/controllers/community_controller.dart';
 import 'package:ahadi_pledge/models/community.dart';
+import 'package:ahadi_pledge/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class AuthScreen extends StatelessWidget {
   AuthScreen({super.key});
@@ -139,7 +140,7 @@ class _SignUpPageState extends State<_SignUpPage> {
                           labelText: "First Name", filled: true),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "This Field Cant Be Blank";
+                          return LocaleKeys.empty_fields_error_text.tr();
                         }
                         return null;
                       }),
@@ -153,7 +154,7 @@ class _SignUpPageState extends State<_SignUpPage> {
                           labelText: "Middle Name", filled: true),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "This Field Cant Be Blank";
+                          return LocaleKeys.empty_fields_error_text.tr();
                         }
                         return null;
                       }),
@@ -167,7 +168,7 @@ class _SignUpPageState extends State<_SignUpPage> {
                           labelText: "Last Name", filled: true),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "This Field Cant Be Blank";
+                          return LocaleKeys.empty_fields_error_text.tr();
                         }
                         return null;
                       }),
@@ -183,7 +184,7 @@ class _SignUpPageState extends State<_SignUpPage> {
                           filled: true),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "This Field Cant Be Blank";
+                          return LocaleKeys.empty_fields_error_text.tr();
                         }
                         return null;
                       }),
@@ -199,7 +200,7 @@ class _SignUpPageState extends State<_SignUpPage> {
                           filled: true),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "This Field Cant Be Blank";
+                          return LocaleKeys.empty_fields_error_text.tr();
                         }
                         return null;
                       }),
@@ -229,7 +230,7 @@ class _SignUpPageState extends State<_SignUpPage> {
                           )),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "This Field Cant Be Blank";
+                          return LocaleKeys.empty_fields_error_text.tr();
                         }
                         return null;
                       }),
@@ -316,7 +317,7 @@ class _SignUpPageState extends State<_SignUpPage> {
                         ),
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return "This Field Cant Be Blank";
+                        return LocaleKeys.empty_fields_error_text.tr();
                       }
                       return null;
                     },
@@ -376,12 +377,12 @@ class _SignUpPageState extends State<_SignUpPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text("Failed to fetch communities"),
+                Text(LocaleKeys.failed_fetch_communities_text.tr()),
                 ElevatedButton(
                     onPressed: () {
                       communityController.getJumuiyas();
                     },
-                    child: const Text("Try Again"))
+                    child: Text(LocaleKeys.try_again_text.tr()))
               ],
             ),
           ));
@@ -437,7 +438,7 @@ class _SignInPageState extends State<_SignInPage> {
                     const InputDecoration(labelText: "Login", filled: true),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return "This Field Cant Be Blank";
+                    return LocaleKeys.empty_fields_error_text.tr();
                   }
                   return null;
                 }),
@@ -464,7 +465,7 @@ class _SignInPageState extends State<_SignInPage> {
                     )),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return "This Field Cant Be Blank";
+                    return LocaleKeys.empty_fields_error_text.tr();
                   }
                   return null;
                 }),
