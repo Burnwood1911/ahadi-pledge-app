@@ -29,8 +29,7 @@ class _CardScreenState extends State<CardScreen> with TickerProviderStateMixin {
         child: Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
-              elevation: 0,
-              backgroundColor: Colors.transparent,
+              backgroundColor: Colors.white,
               iconTheme: const IconThemeData(color: Colors.black),
               title: Text(
                 "Card",
@@ -87,7 +86,9 @@ class LeftSide extends StatelessWidget {
                 backgroundColor: Colors.white,
                 pathBackgroundColor: Colors.white),
           )
-        : Container());
+        : const Center(
+            child: Text("No Items."),
+          ));
   }
 }
 

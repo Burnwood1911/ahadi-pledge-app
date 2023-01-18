@@ -30,9 +30,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          elevation: 0,
           iconTheme: const IconThemeData(color: Colors.black),
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.white,
           title: Text(
             LocaleKeys.change_password_text.tr(),
             style: GoogleFonts.poppins(

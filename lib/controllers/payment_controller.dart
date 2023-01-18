@@ -59,12 +59,15 @@ class PaymentController extends GetxController {
 
   int totalPaymentAmount() {
     if (payments.isNotEmpty) {
-      var pap = payments
-          .where((p0) => p0.verified == true)
+      var pap = payments.where((p0) => p0.verified == true);
+
+      if (pap.isEmpty) {
+        return 0;
+      }
+
+      return pap
           .map((element) => int.parse(element.amount))
           .reduce((value, element) => value + element);
-
-      return pap;
     } else {
       return 0;
     }

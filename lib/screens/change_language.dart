@@ -11,12 +11,11 @@ class ChangeLanguageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
         title: Text(LocaleKeys.change_language_text.tr(),
             style: GoogleFonts.poppins(
                 textStyle: const TextStyle(color: Colors.black))),
         centerTitle: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         iconTheme: const IconThemeData(color: Colors.black),
       ),
       body: Container(

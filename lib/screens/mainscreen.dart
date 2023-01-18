@@ -242,64 +242,72 @@ class _MainScreenState extends State<MainScreen> {
                 ),
                 SizedBox(
                   height: Get.height * 0.30,
-                  child: ListView.builder(
-                      itemCount: paymentController!.payments.length,
-                      itemBuilder: ((context, index) {
-                        final payment = paymentController!.payments.reversed
-                            .toList()[index];
-                        return Container(
-                          margin: const EdgeInsets.symmetric(vertical: 4),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Row(
+                  child: paymentController!.payments.isEmpty
+                      ? const Padding(
+                          padding: EdgeInsets.only(bottom: 100.0),
+                          child: Center(
+                            child: Text("No Items."),
+                          ),
+                        )
+                      : ListView.builder(
+                          itemCount: paymentController!.payments.length,
+                          itemBuilder: ((context, index) {
+                            final payment = paymentController!.payments.reversed
+                                .toList()[index];
+                            return Container(
+                              margin: const EdgeInsets.symmetric(vertical: 4),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Icon(
-                                    Icons.payment,
-                                    size: 38,
-                                    color: Theme.of(context).primaryColor,
-                                  ),
-                                  const SizedBox(
-                                    width: 16,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                  Row(
                                     children: [
-                                      Text(
-                                          pledgeController!.pledges
-                                              .firstWhere((element) =>
-                                                  element.id ==
-                                                  payment.pledgeId)
-                                              .name,
-                                          style: GoogleFonts.poppins(
-                                              textStyle: const TextStyle(
-                                                  fontSize: 16,
-                                                  color: Colors.black))),
-                                      Text(
-                                        payment.createdAt
-                                            .toLocal()
-                                            .toString()
-                                            .split(" ")[0],
-                                        style: GoogleFonts.poppins(
-                                            textStyle: const TextStyle(
-                                                fontSize: 13,
-                                                color: Colors.grey)),
+                                      Icon(
+                                        Icons.payment,
+                                        size: 38,
+                                        color: Theme.of(context).primaryColor,
+                                      ),
+                                      const SizedBox(
+                                        width: 16,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                              pledgeController!.pledges
+                                                  .firstWhere((element) =>
+                                                      element.id ==
+                                                      payment.pledgeId)
+                                                  .name,
+                                              style: GoogleFonts.poppins(
+                                                  textStyle: const TextStyle(
+                                                      fontSize: 16,
+                                                      color: Colors.black))),
+                                          Text(
+                                            payment.createdAt
+                                                .toLocal()
+                                                .toString()
+                                                .split(" ")[0],
+                                            style: GoogleFonts.poppins(
+                                                textStyle: const TextStyle(
+                                                    fontSize: 13,
+                                                    color: Colors.grey)),
+                                          )
+                                        ],
                                       )
                                     ],
-                                  )
+                                  ),
+                                  Text(payment.amount.toString(),
+                                      style: GoogleFonts.poppins(
+                                          textStyle: const TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w500)))
                                 ],
                               ),
-                              Text(payment.amount.toString(),
-                                  style: GoogleFonts.poppins(
-                                      textStyle: const TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w500)))
-                            ],
-                          ),
-                        );
-                      })),
+                            );
+                          })),
                 )
               ],
             )),

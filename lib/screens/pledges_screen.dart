@@ -17,7 +17,6 @@ class Pledges extends GetView<PledgeController> {
       child: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
-            elevation: 0,
             backgroundColor: Colors.white,
             title: Text(
               LocaleKeys.pledges_header_text.tr(),
@@ -35,99 +34,103 @@ class Pledges extends GetView<PledgeController> {
                       backgroundColor: Colors.white,
                       pathBackgroundColor: Colors.white),
                 )
-              : ListView.separated(
-                  itemCount: controller.pledges.length,
-                  padding: const EdgeInsets.all(16),
-                  separatorBuilder: (context, index) => const SizedBox(
-                    height: 10,
-                  ),
-                  itemBuilder: (context, index) => GestureDetector(
-                    onTap: () => PersistentNavBarNavigator.pushNewScreen(
-                      context,
-                      screen: PledgeDetails(
-                        pledge: controller.pledges[index],
-                      ),
-                      withNavBar: false,
-                      pageTransitionAnimation:
-                          PageTransitionAnimation.cupertino,
-                    ),
-                    child: Container(
+              : controller.pledges.isEmpty
+                  ? const Center(
+                      child: Text("No Items."),
+                    )
+                  : ListView.separated(
+                      itemCount: controller.pledges.length,
                       padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            topRight: Radius.circular(10),
-                            bottomLeft: Radius.circular(10),
-                            bottomRight: Radius.circular(10)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset: const Offset(
-                                0, 3), // changes position of shadow
-                          ),
-                        ],
+                      separatorBuilder: (context, index) => const SizedBox(
+                        height: 10,
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                controller.pledges[index].purpose.title,
-                                style: GoogleFonts.poppins(
-                                    textStyle: const TextStyle(
-                                        fontWeight: FontWeight.bold)),
+                      itemBuilder: (context, index) => GestureDetector(
+                        onTap: () => PersistentNavBarNavigator.pushNewScreen(
+                          context,
+                          screen: PledgeDetails(
+                            pledge: controller.pledges[index],
+                          ),
+                          withNavBar: false,
+                          pageTransitionAnimation:
+                              PageTransitionAnimation.cupertino,
+                        ),
+                        child: Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10),
+                                bottomLeft: Radius.circular(10),
+                                bottomRight: Radius.circular(10)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: const Offset(
+                                    0, 3), // changes position of shadow
                               ),
-                              Text(
-                                controller.pledges[index].deadline
-                                    .toLocal()
-                                    .toString()
-                                    .split(" ")[0],
-                                style: GoogleFonts.poppins(
-                                    textStyle: const TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.grey)),
+                            ],
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    controller.pledges[index].purpose.title,
+                                    style: GoogleFonts.poppins(
+                                        textStyle: const TextStyle(
+                                            fontWeight: FontWeight.bold)),
+                                  ),
+                                  Text(
+                                    controller.pledges[index].deadline
+                                        .toLocal()
+                                        .toString()
+                                        .split(" ")[0],
+                                    style: GoogleFonts.poppins(
+                                        textStyle: const TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.grey)),
+                                  )
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Text(
+                                    "${controller.pledges[index].amount}Tsh",
+                                    style: GoogleFonts.poppins(
+                                        textStyle: const TextStyle(
+                                            fontWeight: FontWeight.bold)),
+                                  ),
+                                  // Container(
+                                  //   width: 70,
+                                  //   height: 20,
+                                  //   padding: EdgeInsets.all(1),
+                                  //   decoration: BoxDecoration(
+                                  //       color: Colors.green[500],
+                                  //       borderRadius: BorderRadius.circular(16)),
+                                  //   child: FittedBox(
+                                  //     child: Text(
+                                  //       "COMPLETE",
+                                  //       style: GoogleFonts.poppins(
+                                  //           textStyle: TextStyle(
+                                  //               fontSize: 12,
+                                  //               color: Colors.white,
+                                  //               fontWeight: FontWeight.w300)),
+                                  //     ),
+                                  //   ),
+                                  // )
+                                ],
                               )
                             ],
                           ),
-                          Column(
-                            children: [
-                              Text(
-                                "${controller.pledges[index].amount}Tsh",
-                                style: GoogleFonts.poppins(
-                                    textStyle: const TextStyle(
-                                        fontWeight: FontWeight.bold)),
-                              ),
-                              // Container(
-                              //   width: 70,
-                              //   height: 20,
-                              //   padding: EdgeInsets.all(1),
-                              //   decoration: BoxDecoration(
-                              //       color: Colors.green[500],
-                              //       borderRadius: BorderRadius.circular(16)),
-                              //   child: FittedBox(
-                              //     child: Text(
-                              //       "COMPLETE",
-                              //       style: GoogleFonts.poppins(
-                              //           textStyle: TextStyle(
-                              //               fontSize: 12,
-                              //               color: Colors.white,
-                              //               fontWeight: FontWeight.w300)),
-                              //     ),
-                              //   ),
-                              // )
-                            ],
-                          )
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                ))),
+                    ))),
     );
   }
 }

@@ -55,8 +55,7 @@ class _CreatePledgeState extends State<CreatePledge> {
                 textStyle: const TextStyle(color: Colors.black)),
           ),
           centerTitle: true,
-          elevation: 0,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.white,
           iconTheme: const IconThemeData(color: Colors.black),
         ),
         body: Obx((() => pledgeController!.isLoading.value

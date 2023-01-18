@@ -19,12 +19,11 @@ class SettingsScreen extends GetView<AuthController> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          elevation: 0,
           title: Text(LocaleKeys.settings_text.tr(),
               style: GoogleFonts.poppins(
                   textStyle: const TextStyle(color: Colors.black))),
           centerTitle: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.white,
           iconTheme: const IconThemeData(color: Colors.black),
         ),
         body: Padding(

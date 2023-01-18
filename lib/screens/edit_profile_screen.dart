@@ -24,9 +24,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
         iconTheme: const IconThemeData(color: Colors.black),
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         title: Text(
           LocaleKeys.edit_profile_text.tr(),
           style: GoogleFonts.poppins(

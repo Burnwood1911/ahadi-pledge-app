@@ -37,9 +37,8 @@ class _PledgeDetailsState extends State<PledgeDetails> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          elevation: 0,
           iconTheme: const IconThemeData(color: Colors.black),
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.white,
           centerTitle: true,
           title: Text(
             LocaleKeys.details_header_text.tr(),
@@ -248,7 +247,7 @@ class _PledgeDetailsState extends State<PledgeDetails> {
                             Row(
                               children: [
                                 Text(
-                                  "${paymentController!.payments.where((element) => element.pledgeId == widget.pledge.id).isNotEmpty ? (int.parse(widget.pledge.amount) - paymentController!.payments.where((element) => element.pledgeId == widget.pledge.id && element.verified == true).map((e) => int.parse(e.amount)).reduce((value, element) => value + element)) : widget.pledge.amount}",
+                                  "${paymentController!.payments.where((element) => element.pledgeId == widget.pledge.id).isNotEmpty ? (int.parse(widget.pledge.amount) - (paymentController!.payments.where((element) => element.pledgeId == widget.pledge.id && element.verified == true).isEmpty ? 0 : paymentController!.payments.where((element) => element.pledgeId == widget.pledge.id && element.verified == true).map((e) => int.parse(e.amount)).reduce((value, element) => value + element))) : widget.pledge.amount}",
                                   style: GoogleFonts.poppins(
                                       textStyle: const TextStyle(
                                           fontSize: 18,
@@ -292,11 +291,20 @@ class _PledgeDetailsState extends State<PledgeDetails> {
                                       element.pledgeId == widget.pledge.id)
                                   .isNotEmpty
                               ? paymentController!.payments
-                                  .where((element) =>
-                                      element.pledgeId == widget.pledge.id &&
-                                      element.verified == true)
-                                  .map((e) => int.parse(e.amount))
-                                  .reduce((value, element) => value + element)
+                                      .where((element) =>
+                                          element.pledgeId ==
+                                              widget.pledge.id &&
+                                          element.verified == true)
+                                      .isEmpty
+                                  ? 0
+                                  : paymentController!.payments
+                                      .where((element) =>
+                                          element.pledgeId ==
+                                              widget.pledge.id &&
+                                          element.verified == true)
+                                      .map((e) => int.parse(e.amount))
+                                      .reduce(
+                                          (value, element) => value + element)
                               : 0,
                           size: 16,
                           padding: 0,
