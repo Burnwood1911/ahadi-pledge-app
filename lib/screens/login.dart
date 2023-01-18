@@ -129,7 +129,6 @@ class _SignUpPageState extends State<_SignUpPage> {
         ? Form(
             key: _formKey,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Padding(
                   padding:
@@ -330,7 +329,7 @@ class _SignUpPageState extends State<_SignUpPage> {
                           initialDate: DateTime.now(),
                           firstDate: DateTime(1950),
                           //DateTime.now() - not to allow to choose before today.
-                          lastDate: DateTime(2100));
+                          lastDate: DateTime(2023));
 
                       if (pickedDate != null) {
                         String formattedDate =

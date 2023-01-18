@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "27082186453",
-    "project_id": "ahadi-pledge",
-    "storage_bucket": "ahadi-pledge.appspot.com"
+    "project_number": "204840727104",
+    "project_id": "ahadi-pledge-a2e18",
+    "storage_bucket": "ahadi-pledge-a2e18.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:27082186453:android:88f50846481499e6194c5c",
+        "mobilesdk_app_id": "1:204840727104:android:08051250bc882b7c8e25a5",
         "android_client_info": {
           "package_name": "tz.co.cits.ahadipledge"
         }
       },
       "oauth_client": [
         {
-          "client_id": "27082186453-n9a3q3l7riqfebdgs5q6qom6cq9begj4.apps.googleusercontent.com",
+          "client_id": "204840727104-onuqfh8e5kbt3r41p9fos300lkihin2b.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCvkLDF2twnVe_nhaAU9uVN_d_dSAHosZc"
+          "current_key": "AIzaSyDL6174SiIGKPymDkaXJBu1pYGLBKN1OkE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "27082186453-n9a3q3l7riqfebdgs5q6qom6cq9begj4.apps.googleusercontent.com",
+              "client_id": "204840727104-onuqfh8e5kbt3r41p9fos300lkihin2b.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -35,7 +35,7 @@ class CodegenLoader extends AssetLoader{
   "create_pledge_text": "Create Pledge",
   "contribution_form_text": "Contribution Form",
   "contribution_purpose_text": "Contribution Purpose",
-  "deadline_date_text": "Deadline Da",
+  "deadline_date_text": "Deadline Date",
   "create_text": "Create",
   "description_text": "Description",
   "change_language_text": "Change Language",

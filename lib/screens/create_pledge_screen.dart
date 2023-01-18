@@ -146,7 +146,7 @@ class _CreatePledgeState extends State<CreatePledge> {
                           ),
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "This Field Cant Be Blank";
+                              return LocaleKeys.empty_fields_error_text.tr();
                             }
                             return null;
                           }),
@@ -161,7 +161,7 @@ class _CreatePledgeState extends State<CreatePledge> {
                           ),
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "This Field Cant Be Blank";
+                              return LocaleKeys.empty_fields_error_text.tr();
                             }
                             return null;
                           }),
@@ -180,7 +180,7 @@ class _CreatePledgeState extends State<CreatePledge> {
                         readOnly: true,
                         validator: (value) {
                           if (value!.isEmpty) {
-                            return "This Field Cant Be Blank";
+                            return LocaleKeys.empty_fields_error_text.tr();
                           }
                           return null;
                         },

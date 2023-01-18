@@ -30,8 +30,6 @@ void main() async {
   await GetStorage.init();
   await setup();
 
-  // GetStorage().remove("token");
-
   Get.lazyPut(() => AuthController(), fenix: true);
   Get.lazyPut(() => PledgeController(), fenix: true);
   Get.lazyPut(() => PaymentController(), fenix: true);
@@ -73,7 +71,7 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 class MyApp extends StatelessWidget {
   MyApp({super.key});
 
-  MaterialColor mycolor = MaterialColor(
+  final MaterialColor mycolor = MaterialColor(
     0xFF2768B1,
     <int, Color>{
       50: Color(0xFFE8F0F8),
