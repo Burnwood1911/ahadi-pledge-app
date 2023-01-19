@@ -1,5 +1,6 @@
 import 'package:ahadi_pledge/network/dio_client.dart';
 import 'package:ahadi_pledge/repos/auth_repo.dart';
+import 'package:ahadi_pledge/repos/card_repo.dart';
 import 'package:ahadi_pledge/repos/community_repo.dart';
 import 'package:ahadi_pledge/repos/payment_repo.dart';
 import 'package:ahadi_pledge/repos/pledge_repo.dart';
@@ -17,4 +18,5 @@ Future<void> setup() async {
   getIt.registerSingleton(AuthRepository(dio: getIt<DioClient>()));
   getIt.registerSingleton(CommunityRepository(dio: getIt<DioClient>()));
   getIt.registerSingleton(UserRepository(dio: getIt<DioClient>()));
+  getIt.registerSingleton(CardRepository(dio: getIt<DioClient>()));
 }

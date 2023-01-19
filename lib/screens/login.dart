@@ -113,9 +113,7 @@ class _SignUpPageState extends State<_SignUpPage> {
   final TextEditingController birth = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
   final TextEditingController placeOfBirth = TextEditingController();
-
   final TextEditingController marriageDate = TextEditingController();
   final TextEditingController partnerName = TextEditingController();
   final TextEditingController placeOfMarriage = TextEditingController();
@@ -338,7 +336,8 @@ class _SignUpPageState extends State<_SignUpPage> {
                     controller: birth,
                     //editing controller of this TextField
                     decoration: const InputDecoration(
-                        icon: Icon(Icons.calendar_today), //icon of text field
+                        suffixIcon:
+                            Icon(Icons.calendar_month), //icon of text field
                         labelText: "Birth Date" //label text of field
                         ),
                     validator: (value) {
@@ -399,9 +398,9 @@ class _SignUpPageState extends State<_SignUpPage> {
                           "Maried",
                           "Single",
                           "Widowed",
-                          "DIvorced"
+                          "Divorced"
                         ][martialStatus],
-                        items: ["Maried", "Single", "Widowed", "DIvorced"]
+                        items: ["Maried", "Single", "Widowed", "Divorced"]
                             .map((value) {
                           return DropdownMenuItem<String>(
                             value: value,
@@ -416,7 +415,7 @@ class _SignUpPageState extends State<_SignUpPage> {
                             "Maried",
                             "Single",
                             "Widowed",
-                            "DIvorced"
+                            "Divorced"
                           ];
                           setState(() {
                             martialStatus = options
@@ -473,8 +472,8 @@ class _SignUpPageState extends State<_SignUpPage> {
                           controller: marriageDate,
                           //editing controller of this TextField
                           decoration: const InputDecoration(
-                              icon: Icon(
-                                  Icons.calendar_today), //icon of text field
+                              suffixIcon: Icon(
+                                  Icons.calendar_month), //icon of text field
                               labelText: "Marriage Date" //label text of field
                               ),
                           validator: (value) {
@@ -758,8 +757,8 @@ class _SignUpPageState extends State<_SignUpPage> {
                           controller: baptizationDate,
                           //editing controller of this TextField
                           decoration: const InputDecoration(
-                              icon: Icon(
-                                  Icons.calendar_today), //icon of text field
+                              suffixIcon: Icon(
+                                  Icons.calendar_month), //icon of text field
                               labelText:
                                   "Baptization Date" //label text of field
                               ),

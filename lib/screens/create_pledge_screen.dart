@@ -171,8 +171,8 @@ class _CreatePledgeState extends State<CreatePledge> {
                         controller: dateInput,
                         //editing controller of this TextField
                         decoration: InputDecoration(
-                            icon: const Icon(
-                                Icons.calendar_today), //icon of text field
+                            suffixIcon: const Icon(
+                                Icons.calendar_month), //icon of text field
                             labelText: LocaleKeys.deadline_date_text
                                 .tr() //label text of field
                             ),

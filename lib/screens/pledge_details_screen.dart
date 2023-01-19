@@ -70,8 +70,8 @@ class _PledgeDetailsState extends State<PledgeDetails> {
                                           pledgeController!.reminderDate,
                                       //editing controller of this TextField
                                       decoration: InputDecoration(
-                                          icon: const Icon(Icons
-                                              .calendar_today), //icon of text field
+                                          suffixIcon: const Icon(Icons
+                                              .calendar_month), //icon of text field
                                           labelText: LocaleKeys.choose_date_text
                                               .tr() //label text of field
                                           ),

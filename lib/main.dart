@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:ahadi_pledge/controllers/auth_controller.dart';
+import 'package:ahadi_pledge/controllers/card_controller.dart';
 import 'package:ahadi_pledge/controllers/community_controller.dart';
 import 'package:ahadi_pledge/controllers/notification_controller.dart';
 import 'package:ahadi_pledge/controllers/payment_controller.dart';
@@ -35,6 +36,7 @@ void main() async {
   Get.lazyPut(() => PaymentController(), fenix: true);
   Get.lazyPut(() => CommunityController(), fenix: true);
   Get.lazyPut(() => UserController(), fenix: true);
+  Get.lazyPut(() => CardController(), fenix: true);
   Get.put(NotificationController(), permanent: true);
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
