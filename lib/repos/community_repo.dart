@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:ahadi_pledge/models/community.dart';
+import 'package:ahadi_pledge/models/subscription.dart';
 
 import 'package:ahadi_pledge/network/dio_client.dart';
 import 'package:ahadi_pledge/translations/locale_keys.g.dart';
@@ -20,6 +21,32 @@ class CommunityRepository {
 
       if (response.statusCode == 200) {
         return Success(communityFromJson(jsonEncode(response.data)));
+      } else {
+        return Error(Failure(
+            message: response.statusMessage!,
+            statusCode: response.statusCode!));
+      }
+    } on DioError catch (e) {
+      if (e.isNoConnectionError) {
+        return Error(Failure(
+            message: LocaleKeys.no_connection_text.tr(), statusCode: 500));
+      } else {
+        return Error(Failure(
+            message: LocaleKeys.something_went_wrong_text.tr(),
+            statusCode: 500));
+      }
+    } on TypeError catch (_) {
+      return Error(
+          Failure(message: LocaleKeys.invalid_json_text.tr(), statusCode: 500));
+    }
+  }
+
+  Future<Result<Subscription, Failure>> getSubscriptions() async {
+    try {
+      var response = await dio.get("/subscriptions");
+
+      if (response.statusCode == 200) {
+        return Success(subscriptionFromJson(jsonEncode(response.data)));
       } else {
         return Error(Failure(
             message: response.statusMessage!,
