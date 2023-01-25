@@ -150,832 +150,863 @@ class _SignUpPageState extends State<_SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => communityController.juimuiyas.isNotEmpty
-        ? Form(
-            key: _formKey,
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                  child: TextFormField(
-                      controller: fname,
-                      decoration: const InputDecoration(
-                          labelText: "First Name", filled: true),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return LocaleKeys.empty_fields_error_text.tr();
-                        }
-                        return null;
-                      }),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                  child: TextFormField(
-                      controller: mname,
-                      decoration: const InputDecoration(
-                          labelText: "Middle Name", filled: true),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return LocaleKeys.empty_fields_error_text.tr();
-                        }
-                        return null;
-                      }),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                  child: TextFormField(
-                      controller: lname,
-                      decoration: const InputDecoration(
-                          labelText: "Last Name", filled: true),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return LocaleKeys.empty_fields_error_text.tr();
-                        }
-                        return null;
-                      }),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                  child: TextFormField(
-                      controller: phone,
-                      decoration: InputDecoration(
-                          errorText: widget.authController.phoneError.value,
-                          labelText: "Phone",
-                          filled: true),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return LocaleKeys.empty_fields_error_text.tr();
-                        }
-                        return null;
-                      }),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                  child: TextFormField(
-                      controller: _emailController,
-                      decoration: InputDecoration(
-                          errorText: widget.authController.emailError.value,
-                          labelText: "Email",
-                          filled: true),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return LocaleKeys.empty_fields_error_text.tr();
-                        }
-                        return null;
-                      }),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                  child: TextFormField(
-                      controller: _passwordController,
-                      obscureText: passwordVisible,
-                      decoration: InputDecoration(
-                          errorText: widget.authController.passwordError.value,
-                          labelText: "Password",
-                          filled: true,
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              passwordVisible
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
+    return Obx(() => communityController.isLoading.value
+        ? Center(
+            child: LoadingIndicator(
+                indicatorType: Indicator.ballClipRotatePulse,
+                colors: [Theme.of(context).primaryColor],
+                strokeWidth: 3,
+                backgroundColor: Colors.white,
+                pathBackgroundColor: Colors.white),
+          )
+        : communityController.juimuiyas.isNotEmpty
+            ? Form(
+                key: _formKey,
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 18.0, right: 18.0, top: 18.0),
+                      child: TextFormField(
+                          controller: fname,
+                          decoration: const InputDecoration(
+                              labelText: "First Name", filled: true),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return LocaleKeys.empty_fields_error_text.tr();
+                            }
+                            return null;
+                          }),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 18.0, right: 18.0, top: 18.0),
+                      child: TextFormField(
+                          controller: mname,
+                          decoration: const InputDecoration(
+                              labelText: "Middle Name", filled: true),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return LocaleKeys.empty_fields_error_text.tr();
+                            }
+                            return null;
+                          }),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 18.0, right: 18.0, top: 18.0),
+                      child: TextFormField(
+                          controller: lname,
+                          decoration: const InputDecoration(
+                              labelText: "Last Name", filled: true),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return LocaleKeys.empty_fields_error_text.tr();
+                            }
+                            return null;
+                          }),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 18.0, right: 18.0, top: 18.0),
+                      child: TextFormField(
+                          controller: phone,
+                          decoration: InputDecoration(
+                              errorText: widget.authController.phoneError.value,
+                              labelText: "Phone",
+                              filled: true),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return LocaleKeys.empty_fields_error_text.tr();
+                            }
+                            return null;
+                          }),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 18.0, right: 18.0, top: 18.0),
+                      child: TextFormField(
+                          controller: _emailController,
+                          decoration: InputDecoration(
+                              errorText: widget.authController.emailError.value,
+                              labelText: "Email",
+                              filled: true),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return LocaleKeys.empty_fields_error_text.tr();
+                            }
+                            return null;
+                          }),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 18.0, right: 18.0, top: 18.0),
+                      child: TextFormField(
+                          controller: _passwordController,
+                          obscureText: passwordVisible,
+                          decoration: InputDecoration(
+                              errorText:
+                                  widget.authController.passwordError.value,
+                              labelText: "Password",
+                              filled: true,
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  passwordVisible
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    passwordVisible = !passwordVisible;
+                                  });
+                                },
+                                color: Theme.of(context).primaryColor,
+                              )),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return LocaleKeys.empty_fields_error_text.tr();
+                            }
+                            return null;
+                          }),
+                    ),
+                    communityController.juimuiyas.isNotEmpty
+                        ? Padding(
+                            padding: const EdgeInsets.only(
+                                left: 18.0, right: 18.0, top: 18.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Community",
+                                  style: GoogleFonts.poppins(),
+                                ),
+                                DropdownButton<String>(
+                                  isExpanded: true,
+                                  value: communityController.juimuiyas[0].name,
+                                  items: communityController.juimuiyas
+                                      .toList()
+                                      .map((CommunityElement value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value.name,
+                                      child: Text(
+                                        value.name,
+                                        style: const TextStyle(
+                                            color: Colors.black),
+                                      ),
+                                    );
+                                  }).toList(),
+                                  onChanged: (value) {
+                                    setState(() {
+                                      communityController
+                                              .selectedJumuiyaId.value =
+                                          communityController.juimuiyas
+                                              .firstWhere(
+                                                  (item) => item.name == value)
+                                              .id;
+                                    });
+                                  },
+                                ),
+                              ],
                             ),
-                            onPressed: () {
+                          )
+                        : const SizedBox.shrink(),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 18.0, right: 18.0, top: 18.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Gender",
+                            style: GoogleFonts.poppins(),
+                          ),
+                          DropdownButton<String>(
+                            isExpanded: true,
+                            value: selectedGender,
+                            items: ["MALE", "FEMALE"].map((value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(
+                                  value,
+                                  style: const TextStyle(color: Colors.black),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (value) {
                               setState(() {
-                                passwordVisible = !passwordVisible;
+                                selectedGender = value;
                               });
                             },
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 18.0, right: 18.0, top: 18.0),
+                      child: TextFormField(
+                        controller: birth,
+                        //editing controller of this TextField
+                        decoration: const InputDecoration(
+                            suffixIcon:
+                                Icon(Icons.calendar_month), //icon of text field
+                            labelText: "Birth Date" //label text of field
+                            ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return LocaleKeys.empty_fields_error_text.tr();
+                          }
+                          return null;
+                        },
+
+                        readOnly: true,
+                        //set it true, so that user will not able to edit text
+                        onTap: () async {
+                          DateTime? pickedDate = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(1950),
+                              //DateTime.now() - not to allow to choose before today.
+                              lastDate: DateTime(2100));
+
+                          if (pickedDate != null) {
+                            String formattedDate =
+                                DateFormat('yyyy-MM-dd').format(pickedDate);
+                            setState(() {
+                              birth.text =
+                                  formattedDate; //set output date to TextField value.
+                            });
+                          } else {}
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 18.0, right: 18.0, top: 18.0),
+                      child: TextFormField(
+                          controller: placeOfBirth,
+                          decoration: const InputDecoration(
+                              labelText: "Place of Birth", filled: true),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return LocaleKeys.empty_fields_error_text.tr();
+                            }
+                            return null;
+                          }),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 18.0, right: 18.0, top: 18.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Martial Status",
+                            style: GoogleFonts.poppins(),
+                          ),
+                          DropdownButton<String>(
+                            isExpanded: true,
+                            value: [
+                              "Maried",
+                              "Single",
+                              "Widowed",
+                              "Divorced"
+                            ][martialStatus],
+                            items: ["Maried", "Single", "Widowed", "Divorced"]
+                                .map((value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(
+                                  value,
+                                  style: const TextStyle(color: Colors.black),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (value) {
+                              var options = [
+                                "Maried",
+                                "Single",
+                                "Widowed",
+                                "Divorced"
+                              ];
+                              setState(() {
+                                martialStatus = options
+                                    .indexWhere((element) => element == value);
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    martialStatus == 0
+                        ? Padding(
+                            padding: const EdgeInsets.only(
+                                left: 18.0, right: 18.0, top: 18.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Marriage Type",
+                                  style: GoogleFonts.poppins(),
+                                ),
+                                DropdownButton<String>(
+                                  isExpanded: true,
+                                  value: [
+                                    "Christian",
+                                    "Other",
+                                  ][marriageType],
+                                  items: ["Christian", "Other"].map((value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(
+                                        value,
+                                        style: const TextStyle(
+                                            color: Colors.black),
+                                      ),
+                                    );
+                                  }).toList(),
+                                  onChanged: (value) {
+                                    var options = ["Christian", "Other"];
+                                    setState(() {
+                                      marriageType = options.indexWhere(
+                                          (element) => element == value);
+                                    });
+                                  },
+                                ),
+                              ],
+                            ),
+                          )
+                        : const SizedBox.shrink(),
+                    martialStatus == 0
+                        ? Padding(
+                            padding: const EdgeInsets.only(
+                                left: 18.0, right: 18.0, top: 18.0),
+                            child: TextFormField(
+                              controller: marriageDate,
+                              //editing controller of this TextField
+                              decoration: const InputDecoration(
+                                  suffixIcon: Icon(Icons
+                                      .calendar_month), //icon of text field
+                                  labelText:
+                                      "Marriage Date" //label text of field
+                                  ),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return LocaleKeys.empty_fields_error_text
+                                      .tr();
+                                }
+                                return null;
+                              },
+
+                              readOnly: true,
+                              //set it true, so that user will not able to edit text
+                              onTap: () async {
+                                DateTime? pickedDate = await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(1950),
+                                    //DateTime.now() - not to allow to choose before today.
+                                    lastDate: DateTime(2100));
+
+                                if (pickedDate != null) {
+                                  String formattedDate =
+                                      DateFormat('yyyy-MM-dd')
+                                          .format(pickedDate);
+                                  setState(() {
+                                    marriageDate.text =
+                                        formattedDate; //set output date to TextField value.
+                                  });
+                                } else {}
+                              },
+                            ),
+                          )
+                        : const SizedBox.shrink(),
+                    martialStatus == 0
+                        ? Padding(
+                            padding: const EdgeInsets.only(
+                                left: 18.0, right: 18.0, top: 18.0),
+                            child: TextFormField(
+                                controller: partnerName,
+                                decoration: const InputDecoration(
+                                    labelText: "Partner Name", filled: true),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return LocaleKeys.empty_fields_error_text
+                                        .tr();
+                                  }
+                                  return null;
+                                }),
+                          )
+                        : const SizedBox.shrink(),
+                    martialStatus == 0
+                        ? Padding(
+                            padding: const EdgeInsets.only(
+                                left: 18.0, right: 18.0, top: 18.0),
+                            child: TextFormField(
+                                controller: placeOfMarriage,
+                                decoration: const InputDecoration(
+                                    labelText: "Place of Marriage",
+                                    filled: true),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return LocaleKeys.empty_fields_error_text
+                                        .tr();
+                                  }
+                                  return null;
+                                }),
+                          )
+                        : const SizedBox.shrink(),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 18.0, right: 18.0, top: 18.0),
+                      child: TextFormField(
+                          controller: oldUsharika,
+                          decoration: const InputDecoration(
+                              labelText: "Usharika Wa Zamani", filled: true),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return LocaleKeys.empty_fields_error_text.tr();
+                            }
+                            return null;
+                          }),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 18.0, right: 18.0, top: 18.0),
+                      child: TextFormField(
+                          controller: fellowshipName,
+                          decoration: const InputDecoration(
+                              labelText: "Fellowship Name", filled: true),
+                          validator: (value) {
+                            // if (value!.isEmpty) {
+                            //   return LocaleKeys.empty_fields_error_text.tr();
+                            // }
+                            return null;
+                          }),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 18.0, right: 18.0, top: 18.0),
+                      child: TextFormField(
+                          controller: deaconName,
+                          decoration: const InputDecoration(
+                              labelText: "Deacon Name", filled: true),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return LocaleKeys.empty_fields_error_text.tr();
+                            }
+                            return null;
+                          }),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 18.0, right: 18.0, top: 18.0),
+                      child: TextFormField(
+                          controller: deaconPhone,
+                          decoration: const InputDecoration(
+                              labelText: "Deacon Phone", filled: true),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return LocaleKeys.empty_fields_error_text.tr();
+                            }
+                            return null;
+                          }),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 18.0, right: 18.0, top: 18.0),
+                      child: TextFormField(
+                          controller: neighborMsharikaName,
+                          decoration: const InputDecoration(
+                              labelText: "Jina Msharika Jirani", filled: true),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return LocaleKeys.empty_fields_error_text.tr();
+                            }
+                            return null;
+                          }),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 18.0, right: 18.0, top: 18.0),
+                      child: TextFormField(
+                          controller: neighborMsharikaPhone,
+                          decoration: const InputDecoration(
+                              labelText: "Simu Msharika Jirani", filled: true),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return LocaleKeys.empty_fields_error_text.tr();
+                            }
+                            return null;
+                          }),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 18.0, right: 18.0, top: 18.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Occupation",
+                            style: GoogleFonts.poppins(),
+                          ),
+                          DropdownButton<String>(
+                            isExpanded: true,
+                            value: [
+                              "Employed",
+                              "Unemployed",
+                              "Student",
+                            ][occupationStatus],
+                            items: [
+                              "Employed",
+                              "Unemployed",
+                              "Student",
+                            ].map((value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(
+                                  value,
+                                  style: const TextStyle(color: Colors.black),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (value) {
+                              var options = [
+                                "Employed",
+                                "Unemployed",
+                                "Student",
+                              ];
+                              setState(() {
+                                occupationStatus = options
+                                    .indexWhere((element) => element == value);
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    occupationStatus == 0
+                        ? Padding(
+                            padding: const EdgeInsets.only(
+                                left: 18.0, right: 18.0, top: 18.0),
+                            child: TextFormField(
+                                controller: placeOfWork,
+                                decoration: const InputDecoration(
+                                    labelText: "Place of Work", filled: true),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return LocaleKeys.empty_fields_error_text
+                                        .tr();
+                                  }
+                                  return null;
+                                }),
+                          )
+                        : const SizedBox.shrink(),
+                    occupationStatus == 0
+                        ? Padding(
+                            padding: const EdgeInsets.only(
+                                left: 18.0, right: 18.0, top: 18.0),
+                            child: TextFormField(
+                                controller: proffession,
+                                decoration: const InputDecoration(
+                                    labelText: "Proffession", filled: true),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return LocaleKeys.empty_fields_error_text
+                                        .tr();
+                                  }
+                                  return null;
+                                }),
+                          )
+                        : const SizedBox.shrink(),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 18.0, right: 18.0, top: 18.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text("Ungependa Kujitolea"),
+                          Switch(
+                              value: canVolunterr,
+                              onChanged: ((value) {
+                                setState(() {
+                                  canVolunterr = value;
+                                });
+                              }))
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 18.0, right: 18.0, top: 18.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text("Unashiriki sacramenti ya meza wa bwana"),
+                          Switch(
+                              value: sacramentiMezaYaBwana,
+                              onChanged: ((value) {
+                                setState(() {
+                                  sacramentiMezaYaBwana = value;
+                                });
+                              }))
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 18.0, right: 18.0, top: 18.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text("Umebatizwa?"),
+                          Switch(
+                              value: baptized,
+                              onChanged: ((value) {
+                                setState(() {
+                                  baptized = value;
+                                });
+                              }))
+                        ],
+                      ),
+                    ),
+                    baptized == true
+                        ? Padding(
+                            padding: const EdgeInsets.only(
+                                left: 18.0, right: 18.0, top: 18.0),
+                            child: TextFormField(
+                              controller: baptizationDate,
+                              //editing controller of this TextField
+                              decoration: const InputDecoration(
+                                  suffixIcon: Icon(Icons
+                                      .calendar_month), //icon of text field
+                                  labelText:
+                                      "Baptization Date" //label text of field
+                                  ),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return LocaleKeys.empty_fields_error_text
+                                      .tr();
+                                }
+                                return null;
+                              },
+
+                              readOnly: true,
+                              //set it true, so that user will not able to edit text
+                              onTap: () async {
+                                DateTime? pickedDate = await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(1950),
+                                    //DateTime.now() - not to allow to choose before today.
+                                    lastDate: DateTime(2100));
+
+                                if (pickedDate != null) {
+                                  String formattedDate =
+                                      DateFormat('yyyy-MM-dd')
+                                          .format(pickedDate);
+                                  setState(() {
+                                    baptizationDate.text =
+                                        formattedDate; //set output date to TextField value.
+                                  });
+                                } else {}
+                              },
+                            ),
+                          )
+                        : const SizedBox.shrink(),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 18.0, right: 18.0, top: 18.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text("Kipaimara?"),
+                          Switch(
+                              value: kipaimara,
+                              onChanged: ((value) {
+                                setState(() {
+                                  kipaimara = value;
+                                });
+                              }))
+                        ],
+                      ),
+                    ),
+                    kipaimara == true
+                        ? Padding(
+                            padding: const EdgeInsets.only(
+                                left: 18.0, right: 18.0, top: 18.0),
+                            child: TextFormField(
+                              controller: kipaimaraDate,
+                              //editing controller of this TextField
+                              decoration: const InputDecoration(
+                                  icon: Icon(Icons
+                                      .calendar_today), //icon of text field
+                                  labelText:
+                                      "Kipaimara Date" //label text of field
+                                  ),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return LocaleKeys.empty_fields_error_text
+                                      .tr();
+                                }
+                                return null;
+                              },
+
+                              readOnly: true,
+                              //set it true, so that user will not able to edit text
+                              onTap: () async {
+                                DateTime? pickedDate = await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(1950),
+                                    //DateTime.now() - not to allow to choose before today.
+                                    lastDate: DateTime(2100));
+
+                                if (pickedDate != null) {
+                                  String formattedDate =
+                                      DateFormat('yyyy-MM-dd')
+                                          .format(pickedDate);
+                                  setState(() {
+                                    kipaimaraDate.text =
+                                        formattedDate; //set output date to TextField value.
+                                  });
+                                } else {}
+                              },
+                            ),
+                          )
+                        : const SizedBox.shrink(),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 18.0, right: 18.0, top: 18.0),
+                      child: Column(
+                        children: [
+                          MaterialButton(
+                            minWidth: double.infinity,
                             color: Theme.of(context).primaryColor,
-                          )),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return LocaleKeys.empty_fields_error_text.tr();
-                        }
-                        return null;
-                      }),
-                ),
-                communityController.juimuiyas.isNotEmpty
-                    ? Padding(
-                        padding: const EdgeInsets.only(
-                            left: 18.0, right: 18.0, top: 18.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Community",
-                              style: GoogleFonts.poppins(),
-                            ),
-                            DropdownButton<String>(
-                              isExpanded: true,
-                              value: communityController.juimuiyas[0].name,
-                              items: communityController.juimuiyas
-                                  .toList()
-                                  .map((CommunityElement value) {
-                                return DropdownMenuItem<String>(
-                                  value: value.name,
-                                  child: Text(
-                                    value.name,
-                                    style: const TextStyle(color: Colors.black),
-                                  ),
-                                );
-                              }).toList(),
-                              onChanged: (value) {
-                                setState(() {
-                                  communityController.selectedJumuiyaId.value =
-                                      communityController.juimuiyas
-                                          .firstWhere(
-                                              (item) => item.name == value)
-                                          .id;
-                                });
-                              },
-                            ),
-                          ],
-                        ),
-                      )
-                    : const SizedBox.shrink(),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Gender",
-                        style: GoogleFonts.poppins(),
+                            textColor: Colors.white,
+                            child: const Text("Chagua Huduma Za Kanisa"),
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    //Here we will build the content of the dialog
+                                    return AlertDialog(
+                                      content: StatefulBuilder(
+                                        builder: (context, setState) {
+                                          return Wrap(
+                                              children: communityController
+                                                  .subscriptions
+                                                  .map((item) {
+                                            return Container(
+                                                padding:
+                                                    const EdgeInsets.all(2.0),
+                                                child: ChoiceChip(
+                                                    selectedColor:
+                                                        Colors.blue[300],
+                                                    label: Text(item.name),
+                                                    selected: selectedSubs
+                                                        .contains(item.id),
+                                                    onSelected: (selected) {
+                                                      setState(() {
+                                                        if (selectedSubs
+                                                            .contains(
+                                                                item.id)) {
+                                                          selectedSubs
+                                                              .remove(item.id);
+                                                        } else {
+                                                          selectedSubs
+                                                              .add(item.id);
+                                                        }
+                                                      });
+                                                    }));
+                                          }).toList());
+                                        },
+                                      ),
+                                      actions: <Widget>[
+                                        MaterialButton(
+                                          minWidth: double.infinity,
+                                          color: Theme.of(context).primaryColor,
+                                          textColor: Colors.white,
+                                          child: const Text("Submit"),
+                                          onPressed: () =>
+                                              Navigator.of(context).pop(),
+                                        )
+                                      ],
+                                    );
+                                  });
+                            },
+                          ),
+                        ],
                       ),
-                      DropdownButton<String>(
-                        isExpanded: true,
-                        value: selectedGender,
-                        items: ["MALE", "FEMALE"].map((value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: const TextStyle(color: Colors.black),
-                            ),
-                          );
-                        }).toList(),
-                        onChanged: (value) {
-                          setState(() {
-                            selectedGender = value;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                  child: TextFormField(
-                    controller: birth,
-                    //editing controller of this TextField
-                    decoration: const InputDecoration(
-                        suffixIcon:
-                            Icon(Icons.calendar_month), //icon of text field
-                        labelText: "Birth Date" //label text of field
-                        ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return LocaleKeys.empty_fields_error_text.tr();
-                      }
-                      return null;
-                    },
-
-                    readOnly: true,
-                    //set it true, so that user will not able to edit text
-                    onTap: () async {
-                      DateTime? pickedDate = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(1950),
-                          //DateTime.now() - not to allow to choose before today.
-                          lastDate: DateTime(2100));
-
-                      if (pickedDate != null) {
-                        String formattedDate =
-                            DateFormat('yyyy-MM-dd').format(pickedDate);
-                        setState(() {
-                          birth.text =
-                              formattedDate; //set output date to TextField value.
-                        });
-                      } else {}
-                    },
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                  child: TextFormField(
-                      controller: placeOfBirth,
-                      decoration: const InputDecoration(
-                          labelText: "Place of Birth", filled: true),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return LocaleKeys.empty_fields_error_text.tr();
-                        }
-                        return null;
-                      }),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Martial Status",
-                        style: GoogleFonts.poppins(),
-                      ),
-                      DropdownButton<String>(
-                        isExpanded: true,
-                        value: [
-                          "Maried",
-                          "Single",
-                          "Widowed",
-                          "Divorced"
-                        ][martialStatus],
-                        items: ["Maried", "Single", "Widowed", "Divorced"]
-                            .map((value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: const TextStyle(color: Colors.black),
-                            ),
-                          );
-                        }).toList(),
-                        onChanged: (value) {
-                          var options = [
-                            "Maried",
-                            "Single",
-                            "Widowed",
-                            "Divorced"
-                          ];
-                          setState(() {
-                            martialStatus = options
-                                .indexWhere((element) => element == value);
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                martialStatus == 0
-                    ? Padding(
-                        padding: const EdgeInsets.only(
-                            left: 18.0, right: 18.0, top: 18.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Marriage Type",
-                              style: GoogleFonts.poppins(),
-                            ),
-                            DropdownButton<String>(
-                              isExpanded: true,
-                              value: [
-                                "Christian",
-                                "Other",
-                              ][marriageType],
-                              items: ["Christian", "Other"].map((value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(
-                                    value,
-                                    style: const TextStyle(color: Colors.black),
-                                  ),
-                                );
-                              }).toList(),
-                              onChanged: (value) {
-                                var options = ["Christian", "Other"];
-                                setState(() {
-                                  marriageType = options.indexWhere(
-                                      (element) => element == value);
-                                });
-                              },
-                            ),
-                          ],
-                        ),
-                      )
-                    : const SizedBox.shrink(),
-                martialStatus == 0
-                    ? Padding(
-                        padding: const EdgeInsets.only(
-                            left: 18.0, right: 18.0, top: 18.0),
-                        child: TextFormField(
-                          controller: marriageDate,
-                          //editing controller of this TextField
-                          decoration: const InputDecoration(
-                              suffixIcon: Icon(
-                                  Icons.calendar_month), //icon of text field
-                              labelText: "Marriage Date" //label text of field
-                              ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return LocaleKeys.empty_fields_error_text.tr();
-                            }
-                            return null;
-                          },
-
-                          readOnly: true,
-                          //set it true, so that user will not able to edit text
-                          onTap: () async {
-                            DateTime? pickedDate = await showDatePicker(
-                                context: context,
-                                initialDate: DateTime.now(),
-                                firstDate: DateTime(1950),
-                                //DateTime.now() - not to allow to choose before today.
-                                lastDate: DateTime(2100));
-
-                            if (pickedDate != null) {
-                              String formattedDate =
-                                  DateFormat('yyyy-MM-dd').format(pickedDate);
-                              setState(() {
-                                marriageDate.text =
-                                    formattedDate; //set output date to TextField value.
-                              });
-                            } else {}
-                          },
-                        ),
-                      )
-                    : const SizedBox.shrink(),
-                martialStatus == 0
-                    ? Padding(
-                        padding: const EdgeInsets.only(
-                            left: 18.0, right: 18.0, top: 18.0),
-                        child: TextFormField(
-                            controller: partnerName,
-                            decoration: const InputDecoration(
-                                labelText: "Partner Name", filled: true),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return LocaleKeys.empty_fields_error_text.tr();
-                              }
-                              return null;
-                            }),
-                      )
-                    : const SizedBox.shrink(),
-                martialStatus == 0
-                    ? Padding(
-                        padding: const EdgeInsets.only(
-                            left: 18.0, right: 18.0, top: 18.0),
-                        child: TextFormField(
-                            controller: placeOfMarriage,
-                            decoration: const InputDecoration(
-                                labelText: "Place of Marriage", filled: true),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return LocaleKeys.empty_fields_error_text.tr();
-                              }
-                              return null;
-                            }),
-                      )
-                    : const SizedBox.shrink(),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                  child: TextFormField(
-                      controller: oldUsharika,
-                      decoration: const InputDecoration(
-                          labelText: "Usharika Wa Zamani", filled: true),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return LocaleKeys.empty_fields_error_text.tr();
-                        }
-                        return null;
-                      }),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                  child: TextFormField(
-                      controller: fellowshipName,
-                      decoration: const InputDecoration(
-                          labelText: "Fellowship Name", filled: true),
-                      validator: (value) {
-                        // if (value!.isEmpty) {
-                        //   return LocaleKeys.empty_fields_error_text.tr();
-                        // }
-                        return null;
-                      }),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                  child: TextFormField(
-                      controller: deaconName,
-                      decoration: const InputDecoration(
-                          labelText: "Deacon Name", filled: true),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return LocaleKeys.empty_fields_error_text.tr();
-                        }
-                        return null;
-                      }),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                  child: TextFormField(
-                      controller: deaconPhone,
-                      decoration: const InputDecoration(
-                          labelText: "Deacon Phone", filled: true),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return LocaleKeys.empty_fields_error_text.tr();
-                        }
-                        return null;
-                      }),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                  child: TextFormField(
-                      controller: neighborMsharikaName,
-                      decoration: const InputDecoration(
-                          labelText: "Jina Msharika Jirani", filled: true),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return LocaleKeys.empty_fields_error_text.tr();
-                        }
-                        return null;
-                      }),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                  child: TextFormField(
-                      controller: neighborMsharikaPhone,
-                      decoration: const InputDecoration(
-                          labelText: "Simu Msharika Jirani", filled: true),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return LocaleKeys.empty_fields_error_text.tr();
-                        }
-                        return null;
-                      }),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Occupation",
-                        style: GoogleFonts.poppins(),
-                      ),
-                      DropdownButton<String>(
-                        isExpanded: true,
-                        value: [
-                          "Employed",
-                          "Unemployed",
-                          "Student",
-                        ][occupationStatus],
-                        items: [
-                          "Employed",
-                          "Unemployed",
-                          "Student",
-                        ].map((value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: const TextStyle(color: Colors.black),
-                            ),
-                          );
-                        }).toList(),
-                        onChanged: (value) {
-                          var options = [
-                            "Employed",
-                            "Unemployed",
-                            "Student",
-                          ];
-                          setState(() {
-                            occupationStatus = options
-                                .indexWhere((element) => element == value);
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                occupationStatus == 0
-                    ? Padding(
-                        padding: const EdgeInsets.only(
-                            left: 18.0, right: 18.0, top: 18.0),
-                        child: TextFormField(
-                            controller: placeOfWork,
-                            decoration: const InputDecoration(
-                                labelText: "Place of Work", filled: true),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return LocaleKeys.empty_fields_error_text.tr();
-                              }
-                              return null;
-                            }),
-                      )
-                    : const SizedBox.shrink(),
-                occupationStatus == 0
-                    ? Padding(
-                        padding: const EdgeInsets.only(
-                            left: 18.0, right: 18.0, top: 18.0),
-                        child: TextFormField(
-                            controller: proffession,
-                            decoration: const InputDecoration(
-                                labelText: "Proffession", filled: true),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return LocaleKeys.empty_fields_error_text.tr();
-                              }
-                              return null;
-                            }),
-                      )
-                    : const SizedBox.shrink(),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text("Ungependa Kujitolea"),
-                      Switch(
-                          value: canVolunterr,
-                          onChanged: ((value) {
-                            setState(() {
-                              canVolunterr = value;
-                            });
-                          }))
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text("Unashiriki sacramenti ya meza wa bwana"),
-                      Switch(
-                          value: sacramentiMezaYaBwana,
-                          onChanged: ((value) {
-                            setState(() {
-                              sacramentiMezaYaBwana = value;
-                            });
-                          }))
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text("Umebatizwa?"),
-                      Switch(
-                          value: baptized,
-                          onChanged: ((value) {
-                            setState(() {
-                              baptized = value;
-                            });
-                          }))
-                    ],
-                  ),
-                ),
-                baptized == true
-                    ? Padding(
-                        padding: const EdgeInsets.only(
-                            left: 18.0, right: 18.0, top: 18.0),
-                        child: TextFormField(
-                          controller: baptizationDate,
-                          //editing controller of this TextField
-                          decoration: const InputDecoration(
-                              suffixIcon: Icon(
-                                  Icons.calendar_month), //icon of text field
-                              labelText:
-                                  "Baptization Date" //label text of field
-                              ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return LocaleKeys.empty_fields_error_text.tr();
-                            }
-                            return null;
-                          },
-
-                          readOnly: true,
-                          //set it true, so that user will not able to edit text
-                          onTap: () async {
-                            DateTime? pickedDate = await showDatePicker(
-                                context: context,
-                                initialDate: DateTime.now(),
-                                firstDate: DateTime(1950),
-                                //DateTime.now() - not to allow to choose before today.
-                                lastDate: DateTime(2100));
-
-                            if (pickedDate != null) {
-                              String formattedDate =
-                                  DateFormat('yyyy-MM-dd').format(pickedDate);
-                              setState(() {
-                                baptizationDate.text =
-                                    formattedDate; //set output date to TextField value.
-                              });
-                            } else {}
-                          },
-                        ),
-                      )
-                    : const SizedBox.shrink(),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text("Kipaimara?"),
-                      Switch(
-                          value: kipaimara,
-                          onChanged: ((value) {
-                            setState(() {
-                              kipaimara = value;
-                            });
-                          }))
-                    ],
-                  ),
-                ),
-                kipaimara == true
-                    ? Padding(
-                        padding: const EdgeInsets.only(
-                            left: 18.0, right: 18.0, top: 18.0),
-                        child: TextFormField(
-                          controller: kipaimaraDate,
-                          //editing controller of this TextField
-                          decoration: const InputDecoration(
-                              icon: Icon(
-                                  Icons.calendar_today), //icon of text field
-                              labelText: "Kipaimara Date" //label text of field
-                              ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return LocaleKeys.empty_fields_error_text.tr();
-                            }
-                            return null;
-                          },
-
-                          readOnly: true,
-                          //set it true, so that user will not able to edit text
-                          onTap: () async {
-                            DateTime? pickedDate = await showDatePicker(
-                                context: context,
-                                initialDate: DateTime.now(),
-                                firstDate: DateTime(1950),
-                                //DateTime.now() - not to allow to choose before today.
-                                lastDate: DateTime(2100));
-
-                            if (pickedDate != null) {
-                              String formattedDate =
-                                  DateFormat('yyyy-MM-dd').format(pickedDate);
-                              setState(() {
-                                kipaimaraDate.text =
-                                    formattedDate; //set output date to TextField value.
-                              });
-                            } else {}
-                          },
-                        ),
-                      )
-                    : const SizedBox.shrink(),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                  child: Column(
-                    children: [
-                      MaterialButton(
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 18.0, right: 18.0, top: 18.0),
+                      child: MaterialButton(
                         minWidth: double.infinity,
                         color: Theme.of(context).primaryColor,
                         textColor: Colors.white,
-                        child: const Text("Chagua Huduma Za Kanisa"),
                         onPressed: () {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                //Here we will build the content of the dialog
-                                return AlertDialog(
-                                  content: StatefulBuilder(
-                                    builder: (context, setState) {
-                                      return Wrap(
-                                          children: communityController
-                                              .subscriptions
-                                              .map((item) {
-                                        return Container(
-                                            padding: const EdgeInsets.all(2.0),
-                                            child: ChoiceChip(
-                                                selectedColor: Colors.blue[300],
-                                                label: Text(item.name),
-                                                selected: selectedSubs
-                                                    .contains(item.id),
-                                                onSelected: (selected) {
-                                                  setState(() {
-                                                    if (selectedSubs
-                                                        .contains(item.id)) {
-                                                      selectedSubs
-                                                          .remove(item.id);
-                                                    } else {
-                                                      selectedSubs.add(item.id);
-                                                    }
-                                                  });
-                                                }));
-                                      }).toList());
-                                    },
-                                  ),
-                                  actions: <Widget>[
-                                    MaterialButton(
-                                      minWidth: double.infinity,
-                                      color: Theme.of(context).primaryColor,
-                                      textColor: Colors.white,
-                                      child: const Text("Submit"),
-                                      onPressed: () =>
-                                          Navigator.of(context).pop(),
-                                    )
-                                  ],
-                                );
-                              });
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-                  child: MaterialButton(
-                    minWidth: double.infinity,
-                    color: Theme.of(context).primaryColor,
-                    textColor: Colors.white,
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        widget.authController.register(
-                            fname: fname.text,
-                            mname: mname.text,
-                            lname: lname.text,
-                            phone: phone.text,
-                            email: _emailController.text,
-                            password: _passwordController.text,
-                            selectedGender: selectedGender!,
-                            birth: birth.text,
-                            jumuiyaId:
-                                communityController.selectedJumuiyaId.value,
-                            martialStatus: martialStatus,
-                            marriageType: marriageType,
-                            occupationStatus: occupationStatus,
-                            canVolunterr: canVolunterr,
-                            baptized: baptized,
-                            kipaimara: kipaimara,
-                            sacramentiMezaYaBwana: sacramentiMezaYaBwana,
-                            placeOfBirth: placeOfBirth.text,
-                            marriageDate: marriageDate.text,
-                            partnerName: partnerName.text,
-                            placeOfMarriage: placeOfMarriage.text,
-                            oldUsharika: oldUsharika.text,
-                            fellowshipName: fellowshipName.text,
-                            neighborMsharikaName: neighborMsharikaName.text,
-                            neighborMsharikaPhone: neighborMsharikaPhone.text,
-                            deaconName: deaconName.text,
-                            deaconPhone: deaconPhone.text,
-                            placeOfWork: placeOfWork.text,
-                            proffession: proffession.text,
-                            baptizationDate: baptizationDate.text,
-                            kipaimaraDate: kipaimaraDate.text,
-                            selectedSubs: selectedSubs);
+                          if (_formKey.currentState!.validate()) {
+                            widget.authController.register(
+                                fname: fname.text,
+                                mname: mname.text,
+                                lname: lname.text,
+                                phone: phone.text,
+                                email: _emailController.text,
+                                password: _passwordController.text,
+                                selectedGender: selectedGender!,
+                                birth: birth.text,
+                                jumuiyaId:
+                                    communityController.selectedJumuiyaId.value,
+                                martialStatus: martialStatus,
+                                marriageType: marriageType,
+                                occupationStatus: occupationStatus,
+                                canVolunterr: canVolunterr,
+                                baptized: baptized,
+                                kipaimara: kipaimara,
+                                sacramentiMezaYaBwana: sacramentiMezaYaBwana,
+                                placeOfBirth: placeOfBirth.text,
+                                marriageDate: marriageDate.text,
+                                partnerName: partnerName.text,
+                                placeOfMarriage: placeOfMarriage.text,
+                                oldUsharika: oldUsharika.text,
+                                fellowshipName: fellowshipName.text,
+                                neighborMsharikaName: neighborMsharikaName.text,
+                                neighborMsharikaPhone:
+                                    neighborMsharikaPhone.text,
+                                deaconName: deaconName.text,
+                                deaconPhone: deaconPhone.text,
+                                placeOfWork: placeOfWork.text,
+                                proffession: proffession.text,
+                                baptizationDate: baptizationDate.text,
+                                kipaimaraDate: kipaimaraDate.text,
+                                selectedSubs: selectedSubs);
 
-                        _formKey.currentState!.reset();
-                      }
-                    },
-                    child: const Text("Register"),
-                  ),
+                            _formKey.currentState!.reset();
+                          }
+                        },
+                        child: const Text("Register"),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          )
-        : Padding(
-            padding: const EdgeInsets.only(top: 150),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(LocaleKeys.failed_fetch_communities_text.tr()),
-                ElevatedButton(
-                    onPressed: () {
-                      communityController.getJumuiyas();
-                      communityController.getSubscriptions();
-                    },
-                    child: Text(LocaleKeys.try_again_text.tr()))
-              ],
-            ),
-          ));
+              )
+            : Padding(
+                padding: const EdgeInsets.only(top: 150),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(LocaleKeys.failed_fetch_communities_text.tr()),
+                    ElevatedButton(
+                        onPressed: () {
+                          communityController.getJumuiyas();
+                          communityController.getSubscriptions();
+                        },
+                        child: Text(LocaleKeys.try_again_text.tr()))
+                  ],
+                ),
+              ));
   }
 
   @override
