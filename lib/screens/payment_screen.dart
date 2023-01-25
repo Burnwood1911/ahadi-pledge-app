@@ -1,4 +1,5 @@
 import 'package:ahadi_pledge/controllers/payment_controller.dart';
+import 'package:ahadi_pledge/models/payment_methods.dart';
 import 'package:ahadi_pledge/models/pledge.dart';
 import 'package:ahadi_pledge/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
@@ -20,10 +21,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
   PaymentController? controller;
   GlobalKey<FormState>? _formKey;
 
+  int? selectedPaymentMethodId;
+
   @override
   void initState() {
     super.initState();
     controller = Get.find<PaymentController>();
+    controller?.getPaymentMethods().then(
+        (value) => selectedPaymentMethodId = controller?.paymentMethods[0].id);
+
     _formKey = GlobalKey<FormState>();
   }
 
@@ -57,7 +63,48 @@ class _PaymentScreenState extends State<PaymentScreen> {
             : Form(
                 key: _formKey,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 18.0, right: 18.0, top: 18.0),
+                      child: Text(
+                        "Payment Methods",
+                        style: GoogleFonts.poppins(
+                            textStyle:
+                                const TextStyle(fontWeight: FontWeight.bold)),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 18.0, right: 18.0, top: 8.0),
+                      child: DropdownButton<String>(
+                        isExpanded: true,
+                        value: controller!
+                            .paymentMethods[controller!.paymentMethods
+                                .indexWhere((element) =>
+                                    element.id == selectedPaymentMethodId)]
+                            .name,
+                        items: controller!.paymentMethods
+                            .toList()
+                            .map((PaymentMethod value) {
+                          return DropdownMenuItem<String>(
+                            value: value.name,
+                            child: Text(
+                              value.name,
+                              style: const TextStyle(color: Colors.black),
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            selectedPaymentMethodId = controller!.paymentMethods
+                                .firstWhere((item) => item.name == value)
+                                .id;
+                          });
+                        },
+                      ),
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(
                           left: 18.0, right: 18.0, top: 18.0),
@@ -106,7 +153,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               if (_formKey!.currentState!.validate()) {
                                 controller!.submitPayment(
                                   controller!.paymentAmount.text,
-                                  widget.pledge.type.id,
+                                  selectedPaymentMethodId!,
                                   widget.pledge.id,
                                   controller!.paymentReceipt.text,
                                 );

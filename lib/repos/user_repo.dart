@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:ahadi_pledge/models/user.dart';
 import 'package:ahadi_pledge/network/dio_client.dart';
 import 'package:ahadi_pledge/translations/locale_keys.g.dart';
@@ -32,7 +33,8 @@ class UserRepository {
             message: LocaleKeys.something_went_wrong_text.tr(),
             statusCode: 500));
       }
-    } on TypeError catch (_) {
+    } on TypeError catch (e) {
+      log(e.stackTrace.toString());
       return Error(
           Failure(message: LocaleKeys.invalid_json_text.tr(), statusCode: 500));
     }
@@ -123,7 +125,8 @@ class UserRepository {
             message: LocaleKeys.no_connection_text.tr(), statusCode: 500));
       } else {
         return Error(Failure(
-            message: LocaleKeys.something_went_wrong_text.tr(),
+            message:
+                e.response?.data["error"].toString() ?? "Some error occured",
             statusCode: 500));
       }
     } on TypeError catch (_) {
@@ -149,7 +152,8 @@ class UserRepository {
             message: LocaleKeys.no_connection_text.tr(), statusCode: 500));
       } else {
         return Error(Failure(
-            message: LocaleKeys.something_went_wrong_text.tr(),
+            message:
+                e.response?.data["error"].toString() ?? "Some error occured",
             statusCode: 500));
       }
     } on TypeError catch (_) {

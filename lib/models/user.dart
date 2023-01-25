@@ -16,7 +16,6 @@ class User {
     required this.lname,
     required this.jumuiya,
     required this.phone,
-    this.profilePicture,
     required this.email,
     required this.dateOfBirth,
     required this.gender,
@@ -28,7 +27,6 @@ class User {
   String lname;
   int jumuiya;
   String phone;
-  String? profilePicture;
   String email;
   DateTime dateOfBirth;
   String gender;
@@ -38,9 +36,8 @@ class User {
         fname: json["fname"],
         mname: json["mname"],
         lname: json["lname"],
-        jumuiya: json["jumuiya"],
+        jumuiya: int.parse(json["jumuiya"]),
         phone: json["phone"],
-        profilePicture: json["profile_picture"],
         email: json["email"],
         dateOfBirth: DateTime.parse(json["date_of_birth"]),
         gender: json["gender"],
@@ -53,7 +50,6 @@ class User {
         "lname": lname,
         "jumuiya": jumuiya,
         "phone": phone,
-        "profile_picture": profilePicture,
         "email": email,
         "date_of_birth":
             "${dateOfBirth.year.toString().padLeft(4, '0')}-${dateOfBirth.month.toString().padLeft(2, '0')}-${dateOfBirth.day.toString().padLeft(2, '0')}",

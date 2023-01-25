@@ -40,74 +40,76 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           centerTitle: true,
         ),
         backgroundColor: Colors.white,
-        body: userController.obx(
-          (state) {
-            return Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 18.0, right: 18.0, top: 18.0),
-                    child: TextFormField(
-                      controller: oldPassword,
-                      decoration: InputDecoration(
-                          labelText: LocaleKeys.old_password_text.tr(),
-                          filled: true),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return LocaleKeys.empty_fields_error_text.tr();
-                        }
-                        return null;
-                      },
+        body: Obx(
+          () {
+            return userController.isLoading.value
+                ? Center(
+                    child: LoadingIndicator(
+                        indicatorType: Indicator.ballClipRotatePulse,
+                        colors: [Theme.of(context).primaryColor],
+                        strokeWidth: 3,
+                        backgroundColor: Colors.white,
+                        pathBackgroundColor: Colors.white),
+                  )
+                : Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 18.0, right: 18.0, top: 18.0),
+                          child: TextFormField(
+                            controller: oldPassword,
+                            decoration: InputDecoration(
+                                labelText: LocaleKeys.old_password_text.tr(),
+                                filled: true),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return LocaleKeys.empty_fields_error_text.tr();
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 18.0, right: 18.0, top: 18.0),
+                          child: TextFormField(
+                            controller: newPassword,
+                            decoration: InputDecoration(
+                                labelText: LocaleKeys.new_password_text.tr(),
+                                filled: true),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return LocaleKeys.empty_fields_error_text.tr();
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 18.0, right: 18.0, top: 18.0),
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor:
+                                      Theme.of(context).primaryColor),
+                              onPressed: () {
+                                if (_formKey!.currentState!.validate()) {
+                                  userController.changePassword(
+                                      oldPassword!.text, newPassword!.text);
+                                  _formKey!.currentState!.reset();
+                                }
+                              },
+                              child: Text(
+                                LocaleKeys.save_text.tr(),
+                                style: GoogleFonts.poppins(),
+                              )),
+                        ),
+                      ],
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 18.0, right: 18.0, top: 18.0),
-                    child: TextFormField(
-                      controller: newPassword,
-                      decoration: InputDecoration(
-                          labelText: LocaleKeys.new_password_text.tr(),
-                          filled: true),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return LocaleKeys.empty_fields_error_text.tr();
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 18.0, right: 18.0, top: 18.0),
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context).primaryColor),
-                        onPressed: () {
-                          if (_formKey!.currentState!.validate()) {
-                            userController.changePassword(
-                                oldPassword!.text, newPassword!.text);
-                            _formKey!.currentState!.reset();
-                          }
-                        },
-                        child: Text(
-                          LocaleKeys.save_text.tr(),
-                          style: GoogleFonts.poppins(),
-                        )),
-                  ),
-                ],
-              ),
-            );
+                  );
           },
-          onLoading: Center(
-            child: LoadingIndicator(
-                indicatorType: Indicator.ballClipRotatePulse,
-                colors: [Theme.of(context).primaryColor],
-                strokeWidth: 3,
-                backgroundColor: Colors.white,
-                pathBackgroundColor: Colors.white),
-          ),
         ));
   }
 

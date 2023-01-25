@@ -42,9 +42,9 @@ class CardElement {
 
   factory CardElement.fromJson(Map<String, dynamic> json) => CardElement(
         id: json["id"],
-        userId: json["user_id"],
-        cardNo: json["card_no"],
-        status: json["status"],
+        userId: int.tryParse(json["user_id"]) ?? json["user_id"],
+        cardNo: int.tryParse(json["card_no"]) ?? json["card_no"],
+        status: int.tryParse(json["status"]) ?? json["status"],
         card: CardCard.fromJson(json["card"]),
       );
 
@@ -71,7 +71,7 @@ class CardCard {
   factory CardCard.fromJson(Map<String, dynamic> json) => CardCard(
         id: json["id"],
         cardNo: json["card_no"],
-        status: json["status"],
+        status: int.tryParse(json["status"]) ?? json["status"],
       );
 
   Map<String, dynamic> toJson() => {

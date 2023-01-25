@@ -52,7 +52,7 @@ class PledgeElement {
         description: json["description"],
         amount: json["amount"],
         deadline: DateTime.parse(json["deadline"]),
-        status: json["status"],
+        status: int.parse(json["status"]),
         type: Type.fromJson(json["type"]),
         purpose: Purpose.fromJson(json["purpose"]),
       );
@@ -93,7 +93,7 @@ class Purpose {
         description: json["description"],
         startDate: DateTime.parse(json["start_date"]),
         endDate: DateTime.parse(json["end_date"]),
-        status: json["status"],
+        status: int.parse(json["status"]),
       );
 
   Map<String, dynamic> toJson() => {

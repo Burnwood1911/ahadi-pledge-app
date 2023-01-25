@@ -1,5 +1,6 @@
 import 'package:ahadi_pledge/di/service_locater.dart';
 import 'package:ahadi_pledge/models/payment.dart';
+import 'package:ahadi_pledge/models/payment_methods.dart';
 import 'package:ahadi_pledge/repos/payment_repo.dart';
 import 'package:ahadi_pledge/translations/locale_keys.g.dart';
 import 'package:ahadi_pledge/utils/snackbar.dart';
@@ -11,6 +12,7 @@ class PaymentController extends GetxController {
   final paymentRepositry = getIt.get<PaymentRepository>();
   RxBool isLoading = false.obs;
   RxList<PaymentElement> payments = RxList();
+  RxList<PaymentMethod> paymentMethods = RxList();
   TextEditingController paymentAmount = TextEditingController();
   TextEditingController paymentReceipt = TextEditingController();
 
@@ -27,6 +29,20 @@ class PaymentController extends GetxController {
     isLoading(false);
   }
 
+  Future<void> getPaymentMethods() async {
+    isLoading(true);
+    final result = await paymentRepositry.getPaymentMethods();
+
+    result.when((methods) async {
+      paymentMethods.value = methods;
+    }, (error) {
+      showAppSnackbar(
+          LocaleKeys.error_text.tr(), "Failed to get payment methods.");
+    });
+
+    isLoading(false);
+  }
+
   Future<void> submitPayment(
       String amount, int typeId, int pledgeId, String receipt) async {
     isLoading(true);
@@ -34,17 +50,18 @@ class PaymentController extends GetxController {
         await paymentRepositry.submitPayment(amount, typeId, pledgeId, receipt);
     paymentAmount.text = "";
     paymentReceipt.text = "";
-    if (result) {
+
+    result.when((success) async {
       await getPayments();
+      isLoading(false);
       Get.back();
       showAppSnackbar(
           LocaleKeys.success_text.tr(), LocaleKeys.payment_complete_text.tr());
-    } else {
+    }, (error) {
+      isLoading(false);
       Get.back();
-      showAppSnackbar(
-          LocaleKeys.success_text.tr(), LocaleKeys.payment_complete_text.tr());
-    }
-    isLoading(false);
+      showAppSnackbar(LocaleKeys.error_text.tr(), error.message);
+    });
   }
 
   int totalPaymentAmount() {

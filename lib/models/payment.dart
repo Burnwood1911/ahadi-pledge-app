@@ -45,11 +45,11 @@ class PaymentElement {
 
   factory PaymentElement.fromJson(Map<String, dynamic> json) => PaymentElement(
         id: json["id"],
-        userId: json["user_id"],
-        typeId: json["type_id"],
-        pledgeId: json["pledge_id"],
+        userId: int.tryParse(json["user_id"]) ?? json["user_id"],
+        typeId: int.tryParse(json["type_id"]) ?? json["type_id"],
+        pledgeId: int.tryParse(json["pledge_id"]) ?? json["pledge_id"],
         amount: json["amount"],
-        verified: json["verified"] == 1,
+        verified: int.parse(json["verified"]) == 1 ? true : false,
         createdAt: DateTime.parse(json["created_at"]),
       );
 

@@ -52,9 +52,10 @@ class PledgeController extends GetxController {
     isLoading(true);
     final result = await pledgeRepository.createPledge(form);
     if (result == true) {
+      await getPledges();
       Get.back();
     }
-    getPledges();
+
     isLoading(false);
   }
 

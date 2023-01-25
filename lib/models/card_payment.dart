@@ -31,22 +31,19 @@ class Payment {
       {required this.id,
       required this.cardMember,
       required this.amount,
-      required this.createdBy,
       required this.card,
       required this.formattedDate});
 
   final int id;
   final int cardMember;
   final int amount;
-  final int createdBy;
   final Card card;
   final String formattedDate;
 
   factory Payment.fromJson(Map<String, dynamic> json) => Payment(
         id: json["id"],
-        cardMember: json["card_member"],
-        amount: json["amount"],
-        createdBy: json["created_by"],
+        cardMember: int.tryParse(json["card_member"]) ?? json["card_member"],
+        amount: int.tryParse(json["amount"]) ?? json["amount"],
         formattedDate: json["formattedDate"],
         card: Card.fromJson(json["card"]),
       );
@@ -55,7 +52,6 @@ class Payment {
         "id": id,
         "card_member": cardMember,
         "amount": amount,
-        "created_by": createdBy,
         "formattedDate": formattedDate,
         "card": card.toJson(),
       };
@@ -76,9 +72,9 @@ class Card {
 
   factory Card.fromJson(Map<String, dynamic> json) => Card(
         id: json["id"],
-        userId: json["user_id"],
-        cardNo: json["card_no"],
-        status: json["status"],
+        userId: int.tryParse(json["user_id"]) ?? json["user_id"],
+        cardNo: int.tryParse(json["card_no"]) ?? json["card_no"],
+        status: int.tryParse(json["status"]) ?? json["status"],
       );
 
   Map<String, dynamic> toJson() => {

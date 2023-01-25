@@ -34,103 +34,114 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         centerTitle: true,
       ),
       backgroundColor: Colors.white,
-      body: userController.obx((state) {
-        return ListView(
-          children: [
-            Padding(
-              padding:
-                  const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-              child: TextFormField(
-                controller: userController.fname,
-                decoration: InputDecoration(
-                    labelText: LocaleKeys.first_name_text.tr(), filled: true),
-              ),
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-              child: TextFormField(
-                controller: userController.mname,
-                decoration: InputDecoration(
-                    labelText: LocaleKeys.second_name_text.tr(), filled: true),
-              ),
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-              child: TextFormField(
-                controller: userController.lname,
-                decoration: InputDecoration(
-                    labelText: LocaleKeys.last_name_text.tr(), filled: true),
-              ),
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-              child: TextFormField(
-                controller: userController.phone,
-                decoration: InputDecoration(
-                    labelText: LocaleKeys.phone_text.tr(), filled: true),
-              ),
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-              child: TextFormField(
-                controller: userController.email,
-                decoration: InputDecoration(
-                    labelText: LocaleKeys.email_text.tr(), filled: true),
-              ),
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).primaryColor),
-                  onPressed: () {
-                    userController.updateUser(
-                        userController.fname.text,
-                        userController.mname.text,
-                        userController.lname.text,
-                        userController.phone.text,
-                        userController.email.text);
-                  },
-                  child: Text(
-                    LocaleKeys.save_text.tr(),
-                    style: GoogleFonts.poppins(),
-                  )),
-            ),
-          ],
-        );
-      },
-          onLoading: Center(
-            child: LoadingIndicator(
-                indicatorType: Indicator.ballClipRotatePulse,
-                colors: [Theme.of(context).primaryColor],
-                strokeWidth: 3,
-                backgroundColor: Colors.white,
-                pathBackgroundColor: Colors.white),
-          ),
-          onEmpty: Center(
-            child: Text(LocaleKeys.no_data_text.tr()),
-          ),
-          onError: ((error) => Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(error!),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    ElevatedButton(
-                        onPressed: () {
-                          userController.fetchUser();
-                        },
-                        child: Text(LocaleKeys.try_again_text.tr())),
-                  ],
-                ),
-              ))),
+      body: Obx(
+        () {
+          return userController.isLoading.value
+              ? Center(
+                  child: LoadingIndicator(
+                      indicatorType: Indicator.ballClipRotatePulse,
+                      colors: [Theme.of(context).primaryColor],
+                      strokeWidth: 3,
+                      backgroundColor: Colors.white,
+                      pathBackgroundColor: Colors.white),
+                )
+              : userController.user.value == null
+                  ? Center(
+                      child: Text(LocaleKeys.no_data_text.tr()),
+                    )
+                  : userController.error.value.isNotEmpty
+                      ? Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(userController.error.value),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              ElevatedButton(
+                                  onPressed: () {
+                                    userController.fetchUser();
+                                  },
+                                  child: Text(LocaleKeys.try_again_text.tr())),
+                            ],
+                          ),
+                        )
+                      : ListView(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 18.0, right: 18.0, top: 18.0),
+                              child: TextFormField(
+                                controller: userController.fname,
+                                decoration: InputDecoration(
+                                    labelText: LocaleKeys.first_name_text.tr(),
+                                    filled: true),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 18.0, right: 18.0, top: 18.0),
+                              child: TextFormField(
+                                controller: userController.mname,
+                                decoration: InputDecoration(
+                                    labelText: LocaleKeys.second_name_text.tr(),
+                                    filled: true),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 18.0, right: 18.0, top: 18.0),
+                              child: TextFormField(
+                                controller: userController.lname,
+                                decoration: InputDecoration(
+                                    labelText: LocaleKeys.last_name_text.tr(),
+                                    filled: true),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 18.0, right: 18.0, top: 18.0),
+                              child: TextFormField(
+                                controller: userController.phone,
+                                decoration: InputDecoration(
+                                    labelText: LocaleKeys.phone_text.tr(),
+                                    filled: true),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 18.0, right: 18.0, top: 18.0),
+                              child: TextFormField(
+                                controller: userController.email,
+                                decoration: InputDecoration(
+                                    labelText: LocaleKeys.email_text.tr(),
+                                    filled: true),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 18.0, right: 18.0, top: 18.0),
+                              child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor:
+                                          Theme.of(context).primaryColor),
+                                  onPressed: () {
+                                    userController.updateUser(
+                                        userController.fname.text,
+                                        userController.mname.text,
+                                        userController.lname.text,
+                                        userController.phone.text,
+                                        userController.email.text);
+                                  },
+                                  child: Text(
+                                    LocaleKeys.save_text.tr(),
+                                    style: GoogleFonts.poppins(),
+                                  )),
+                            ),
+                          ],
+                        );
+        },
+      ),
     );
   }
 }

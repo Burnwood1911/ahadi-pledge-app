@@ -52,7 +52,7 @@ class _MainScreenState extends State<MainScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      "${LocaleKeys.hello_text.tr()} ${userController.state?.fname}",
+                      "${LocaleKeys.hello_text.tr()} ${userController.user.value?.fname}",
                       style: GoogleFonts.poppins(
                         textStyle: const TextStyle(
                             fontSize: 20,
@@ -262,6 +262,8 @@ class _MainScreenState extends State<MainScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Icon(
                                         Icons.payment,
@@ -275,16 +277,20 @@ class _MainScreenState extends State<MainScreen> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text(
-                                              pledgeController!.pledges
-                                                  .firstWhere((element) =>
-                                                      element.id ==
-                                                      payment.pledgeId)
-                                                  .name,
-                                              style: GoogleFonts.poppins(
-                                                  textStyle: const TextStyle(
-                                                      fontSize: 16,
-                                                      color: Colors.black))),
+                                          SizedBox(
+                                            width: 200,
+                                            child: Text(
+                                                pledgeController!.pledges
+                                                    .firstWhere((element) =>
+                                                        element.id ==
+                                                        payment.pledgeId)
+                                                    .name,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: GoogleFonts.poppins(
+                                                    textStyle: const TextStyle(
+                                                        fontSize: 16,
+                                                        color: Colors.black))),
+                                          ),
                                           Text(
                                             payment.createdAt
                                                 .toLocal()
