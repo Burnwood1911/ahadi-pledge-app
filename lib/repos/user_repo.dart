@@ -33,8 +33,7 @@ class UserRepository {
             message: LocaleKeys.something_went_wrong_text.tr(),
             statusCode: 500));
       }
-    } on TypeError catch (e) {
-      log(e.stackTrace.toString());
+    } on TypeError catch (_) {
       return Error(
           Failure(message: LocaleKeys.invalid_json_text.tr(), statusCode: 500));
     }

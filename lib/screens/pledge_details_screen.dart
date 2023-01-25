@@ -134,304 +134,316 @@ class _PledgeDetailsState extends State<PledgeDetails> {
                 icon: const Icon(Icons.notification_add))
           ],
         ),
-        body: Obx(() {
-          return Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: RefreshIndicator(
-              onRefresh: () => paymentController!.getPayments(),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        body: RefreshIndicator(
+          onRefresh: () => paymentController!.getPayments(),
+          child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height,
+              child: Obx(() {
+                return Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10),
-                                bottomLeft: Radius.circular(10),
-                                bottomRight: Radius.circular(10)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 5,
-                                blurRadius: 7,
-                                offset: const Offset(
-                                    0, 3), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Image.asset(
-                                "assets/salary.png",
-                                height: 20,
-                                width: 20,
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Text(
-                                LocaleKeys.total_text.tr(),
-                                style: GoogleFonts.poppins(
-                                    textStyle: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500,
-                                        color: Theme.of(context).primaryColor)),
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    widget.pledge.amount,
-                                    style: GoogleFonts.poppins(
-                                        textStyle: const TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600)),
-                                  ),
-                                  Text(
-                                    "Tsh",
-                                    style: GoogleFonts.poppins(
-                                        textStyle: const TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600)),
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 16,
-                      ),
-                      Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10),
-                                bottomLeft: Radius.circular(10),
-                                bottomRight: Radius.circular(10)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 5,
-                                blurRadius: 7,
-                                offset: const Offset(
-                                    0, 3), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Image.asset(
-                                "assets/coin.png",
-                                height: 20,
-                                width: 20,
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Text(
-                                LocaleKeys.remaining_text.tr(),
-                                style: GoogleFonts.poppins(
-                                    textStyle: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500,
-                                        color: Theme.of(context).primaryColor)),
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    "${paymentController!.payments.where((element) => element.pledgeId == widget.pledge.id).isNotEmpty ? (int.parse(widget.pledge.amount) - (paymentController!.payments.where((element) => element.pledgeId == widget.pledge.id && element.verified == true).isEmpty ? 0 : paymentController!.payments.where((element) => element.pledgeId == widget.pledge.id && element.verified == true).map((e) => int.parse(e.amount)).reduce((value, element) => value + element))) : widget.pledge.amount}",
-                                    style: GoogleFonts.poppins(
-                                        textStyle: const TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600)),
-                                  ),
-                                  Text(
-                                    "Tsh",
-                                    style: GoogleFonts.poppins(
-                                        textStyle: const TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600)),
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  Text(
-                    LocaleKeys.goal_progress_text.tr(),
-                    style: GoogleFonts.poppins(
-                        textStyle: const TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w600)),
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 16.0, horizontal: 0),
-                      child: Column(
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          StepProgressIndicator(
-                            totalSteps: int.parse(widget.pledge.amount),
-                            currentStep: paymentController!.payments
-                                    .where((element) =>
-                                        element.pledgeId == widget.pledge.id)
-                                    .isNotEmpty
-                                ? paymentController!.payments
-                                        .where((element) =>
-                                            element.pledgeId ==
-                                                widget.pledge.id &&
-                                            element.verified == true)
-                                        .isEmpty
-                                    ? 0
-                                    : paymentController!.payments
-                                        .where((element) =>
-                                            element.pledgeId ==
-                                                widget.pledge.id &&
-                                            element.verified == true)
-                                        .map((e) => int.parse(e.amount))
-                                        .reduce(
-                                            (value, element) => value + element)
-                                : 0,
-                            size: 16,
-                            padding: 0,
-                            selectedColor: Theme.of(context).primaryColor,
-                            unselectedColor: Colors.black,
-                            roundedEdges: const Radius.circular(10),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Text(LocaleKeys.payment_history_text.tr(),
-                      style: GoogleFonts.poppins(
-                          textStyle:
-                              const TextStyle(fontWeight: FontWeight.bold))),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: paymentController!.payments
-                          .where((p) => p.pledgeId == widget.pledge.id)
-                          .length,
-                      itemBuilder: ((context, index) {
-                        final payment = paymentController!.payments
-                            .where((p) => p.pledgeId == widget.pledge.id)
-                            .toList()[index];
-
-                        log(payment.verified.toString());
-                        return Container(
-                          margin: const EdgeInsets.symmetric(vertical: 4),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Row(
+                          Expanded(
+                            child: Container(
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10),
+                                    bottomLeft: Radius.circular(10),
+                                    bottomRight: Radius.circular(10)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 5,
+                                    blurRadius: 7,
+                                    offset: const Offset(
+                                        0, 3), // changes position of shadow
+                                  ),
+                                ],
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Icon(
-                                    Icons.payment,
-                                    color: Theme.of(context).primaryColor,
-                                    size: 38,
+                                  Image.asset(
+                                    "assets/salary.png",
+                                    height: 20,
+                                    width: 20,
                                   ),
                                   const SizedBox(
-                                    width: 16,
+                                    height: 8,
                                   ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                  Text(
+                                    LocaleKeys.total_text.tr(),
+                                    style: GoogleFonts.poppins(
+                                        textStyle: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                            color: Theme.of(context)
+                                                .primaryColor)),
+                                  ),
+                                  Row(
                                     children: [
-                                      // Text(pledge.purpose.title,
-                                      //     style: GoogleFonts.poppins(
-                                      //         textStyle: const TextStyle(
-                                      //             fontSize: 16,
-                                      //             fontWeight: FontWeight.w400,
-                                      //             color: Colors.black))),
                                       Text(
-                                        payment.createdAt
-                                            .toLocal()
-                                            .toString()
-                                            .split(" ")[0],
+                                        widget.pledge.amount,
                                         style: GoogleFonts.poppins(
                                             textStyle: const TextStyle(
-                                                fontSize: 13,
-                                                color: Colors.grey)),
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w600)),
+                                      ),
+                                      Text(
+                                        "Tsh",
+                                        style: GoogleFonts.poppins(
+                                            textStyle: const TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600)),
                                       )
                                     ],
                                   )
                                 ],
                               ),
-                              Container(
-                                width: 70,
-                                height: 20,
-                                padding: EdgeInsets.all(1),
-                                decoration: BoxDecoration(
-                                    color: payment.verified
-                                        ? Colors.green[500]
-                                        : Colors.orange,
-                                    borderRadius: BorderRadius.circular(16)),
-                                child: FittedBox(
-                                  child: Text(
-                                    payment.verified
-                                        ? LocaleKeys.complete_text.tr()
-                                        : LocaleKeys.pending_text.tr(),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 16,
+                          ),
+                          Expanded(
+                            child: Container(
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10),
+                                    bottomLeft: Radius.circular(10),
+                                    bottomRight: Radius.circular(10)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 5,
+                                    blurRadius: 7,
+                                    offset: const Offset(
+                                        0, 3), // changes position of shadow
+                                  ),
+                                ],
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Image.asset(
+                                    "assets/coin.png",
+                                    height: 20,
+                                    width: 20,
+                                  ),
+                                  const SizedBox(
+                                    height: 8,
+                                  ),
+                                  Text(
+                                    LocaleKeys.remaining_text.tr(),
                                     style: GoogleFonts.poppins(
                                         textStyle: TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w300)),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                            color: Theme.of(context)
+                                                .primaryColor)),
                                   ),
-                                ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "${paymentController!.payments.where((element) => element.pledgeId == widget.pledge.id).isNotEmpty ? (int.parse(widget.pledge.amount) - (paymentController!.payments.where((element) => element.pledgeId == widget.pledge.id && element.verified == true).isEmpty ? 0 : paymentController!.payments.where((element) => element.pledgeId == widget.pledge.id && element.verified == true).map((e) => int.parse(e.amount)).reduce((value, element) => value + element))) : widget.pledge.amount}",
+                                        style: GoogleFonts.poppins(
+                                            textStyle: const TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w600)),
+                                      ),
+                                      Text(
+                                        "Tsh",
+                                        style: GoogleFonts.poppins(
+                                            textStyle: const TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600)),
+                                      )
+                                    ],
+                                  )
+                                ],
                               ),
-                              Text(payment.amount.toString(),
-                                  style: GoogleFonts.poppins(
-                                      textStyle: const TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w500)))
+                            ),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      Text(
+                        LocaleKeys.goal_progress_text.tr(),
+                        style: GoogleFonts.poppins(
+                            textStyle: const TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w600)),
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 16.0, horizontal: 0),
+                          child: Column(
+                            children: [
+                              StepProgressIndicator(
+                                totalSteps: int.parse(widget.pledge.amount),
+                                currentStep: paymentController!.payments
+                                        .where((element) =>
+                                            element.pledgeId ==
+                                            widget.pledge.id)
+                                        .isNotEmpty
+                                    ? paymentController!.payments
+                                            .where((element) =>
+                                                element.pledgeId ==
+                                                    widget.pledge.id &&
+                                                element.verified == true)
+                                            .isEmpty
+                                        ? 0
+                                        : paymentController!.payments
+                                            .where((element) =>
+                                                element.pledgeId ==
+                                                    widget.pledge.id &&
+                                                element.verified == true)
+                                            .map((e) => int.parse(e.amount))
+                                            .reduce((value, element) =>
+                                                value + element)
+                                    : 0,
+                                size: 16,
+                                padding: 0,
+                                selectedColor: Theme.of(context).primaryColor,
+                                unselectedColor: Colors.black,
+                                roundedEdges: const Radius.circular(10),
+                              ),
                             ],
                           ),
-                        );
-                      })),
-                  const Spacer(),
-                  widget.pledge.status == 1
-                      ? const SizedBox.shrink()
-                      : SizedBox(
-                          width: double.infinity,
-                          height: 45,
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      Theme.of(context).primaryColor),
-                              onPressed: (() {
-                                Get.to(() => PaymentScreen(widget.pledge));
-                              }),
-                              child: Text(LocaleKeys.pay_text.tr())),
-                        )
-                ],
-              ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Text(LocaleKeys.payment_history_text.tr(),
+                          style: GoogleFonts.poppins(
+                              textStyle: const TextStyle(
+                                  fontWeight: FontWeight.bold))),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: paymentController!.payments
+                              .where((p) => p.pledgeId == widget.pledge.id)
+                              .length,
+                          itemBuilder: ((context, index) {
+                            final payment = paymentController!.payments
+                                .where((p) => p.pledgeId == widget.pledge.id)
+                                .toList()[index];
+
+                            return Container(
+                              margin: const EdgeInsets.symmetric(vertical: 4),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.payment,
+                                        color: Theme.of(context).primaryColor,
+                                        size: 38,
+                                      ),
+                                      const SizedBox(
+                                        width: 16,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          // Text(pledge.purpose.title,
+                                          //     style: GoogleFonts.poppins(
+                                          //         textStyle: const TextStyle(
+                                          //             fontSize: 16,
+                                          //             fontWeight: FontWeight.w400,
+                                          //             color: Colors.black))),
+                                          Text(
+                                            payment.createdAt
+                                                .toLocal()
+                                                .toString()
+                                                .split(" ")[0],
+                                            style: GoogleFonts.poppins(
+                                                textStyle: const TextStyle(
+                                                    fontSize: 13,
+                                                    color: Colors.grey)),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                  Container(
+                                    width: 70,
+                                    height: 20,
+                                    padding: EdgeInsets.all(1),
+                                    decoration: BoxDecoration(
+                                        color: payment.verified
+                                            ? Colors.green[500]
+                                            : Colors.orange,
+                                        borderRadius:
+                                            BorderRadius.circular(16)),
+                                    child: FittedBox(
+                                      child: Text(
+                                        payment.verified
+                                            ? LocaleKeys.complete_text.tr()
+                                            : LocaleKeys.pending_text.tr(),
+                                        style: GoogleFonts.poppins(
+                                            textStyle: TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w300)),
+                                      ),
+                                    ),
+                                  ),
+                                  Text(payment.amount.toString(),
+                                      style: GoogleFonts.poppins(
+                                          textStyle: const TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w500)))
+                                ],
+                              ),
+                            );
+                          })),
+                      SizedBox(
+                        height: 24,
+                      ),
+                      widget.pledge.status == 1
+                          ? const SizedBox.shrink()
+                          : SizedBox(
+                              width: double.infinity,
+                              height: 45,
+                              child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor:
+                                          Theme.of(context).primaryColor),
+                                  onPressed: (() {
+                                    Get.to(() => PaymentScreen(widget.pledge));
+                                  }),
+                                  child: Text(LocaleKeys.pay_text.tr())),
+                            )
+                    ],
+                  ),
+                );
+              }),
             ),
-          );
-        }),
+          ),
+        ),
       ),
     );
   }

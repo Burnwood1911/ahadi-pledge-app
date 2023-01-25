@@ -64,8 +64,6 @@ class CardRepository {
             statusCode: 500));
       }
     } on TypeError catch (e) {
-      log(e.stackTrace.toString());
-
       return Error(
           Failure(message: LocaleKeys.invalid_json_text.tr(), statusCode: 500));
     }

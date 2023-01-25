@@ -94,6 +94,7 @@ flutter:
     - assets/logo-two.png
     - assets/gb.png
     - assets/tz.png
+    - assets/google_fonts/
   
 
   # An image asset can refer to one or more resolution-specific "variants", see
