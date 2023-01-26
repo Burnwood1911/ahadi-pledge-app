@@ -1,6 +1,6 @@
 # Ahadi Pledge Documentation
 
-This is the documentation for the setup and building of the ahadi pledge mobile app [Shoket Official website](https://developers.shoket.co/).
+This is the documentation for the setup and building of the ahadi pledge mobile app.
 
 ## Getting Started
 
