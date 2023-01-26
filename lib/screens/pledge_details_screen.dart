@@ -350,77 +350,101 @@ class _PledgeDetailsState extends State<PledgeDetails> {
                             return Container(
                               margin: const EdgeInsets.symmetric(vertical: 4),
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.payment,
-                                        color: Theme.of(context).primaryColor,
-                                        size: 38,
-                                      ),
-                                      const SizedBox(
-                                        width: 16,
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                  SizedBox(
+                                    width: Get.width * 0.35,
+                                    child: FittedBox(
+                                      child: Row(
                                         children: [
-                                          // Text(pledge.purpose.title,
-                                          //     style: GoogleFonts.poppins(
-                                          //         textStyle: const TextStyle(
-                                          //             fontSize: 16,
-                                          //             fontWeight: FontWeight.w400,
-                                          //             color: Colors.black))),
-                                          Text(
-                                            payment.createdAt
-                                                .toLocal()
-                                                .toString()
-                                                .split(" ")[0],
-                                            style: GoogleFonts.poppins(
-                                                textStyle: const TextStyle(
-                                                    fontSize: 13,
-                                                    color: Colors.grey)),
+                                          Icon(
+                                            Icons.payment,
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            size: 38,
+                                          ),
+                                          const SizedBox(
+                                            width: 16,
+                                          ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              // Text(pledge.purpose.title,
+                                              //     style: GoogleFonts.poppins(
+                                              //         textStyle: const TextStyle(
+                                              //             fontSize: 16,
+                                              //             fontWeight: FontWeight.w400,
+                                              //             color: Colors.black))),
+                                              Text(
+                                                payment.createdAt
+                                                    .toLocal()
+                                                    .toString()
+                                                    .split(" ")[0],
+                                                style: GoogleFonts.poppins(
+                                                    textStyle: const TextStyle(
+                                                        fontSize: 13,
+                                                        color: Colors.grey)),
+                                              )
+                                            ],
                                           )
                                         ],
-                                      )
-                                    ],
-                                  ),
-                                  Container(
-                                    width: 70,
-                                    height: 20,
-                                    padding: EdgeInsets.all(1),
-                                    decoration: BoxDecoration(
-                                        color: payment.verified
-                                            ? Colors.green[500]
-                                            : Colors.orange,
-                                        borderRadius:
-                                            BorderRadius.circular(16)),
-                                    child: FittedBox(
-                                      child: Text(
-                                        payment.verified
-                                            ? LocaleKeys.complete_text.tr()
-                                            : LocaleKeys.pending_text.tr(),
-                                        style: GoogleFonts.poppins(
-                                            textStyle: TextStyle(
-                                                fontSize: 12,
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.w300)),
                                       ),
                                     ),
                                   ),
-                                  Text(payment.amount.toString(),
-                                      style: GoogleFonts.poppins(
-                                          textStyle: const TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w500)))
+                                  SizedBox(
+                                    width: Get.width * 0.30,
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: FittedBox(
+                                        child: Container(
+                                          width: 70,
+                                          height: 20,
+                                          padding: const EdgeInsets.all(1),
+                                          decoration: BoxDecoration(
+                                              color: payment.verified
+                                                  ? Colors.green[500]
+                                                  : Colors.orange,
+                                              borderRadius:
+                                                  BorderRadius.circular(16)),
+                                          child: FittedBox(
+                                            child: Text(
+                                              payment.verified
+                                                  ? LocaleKeys.complete_text
+                                                      .tr()
+                                                  : LocaleKeys.pending_text
+                                                      .tr(),
+                                              style: GoogleFonts.poppins(
+                                                  textStyle: const TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.w300)),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: Get.width * 0.25,
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: FittedBox(
+                                        child: Text(payment.amount.toString(),
+                                            style: GoogleFonts.poppins(
+                                                textStyle: const TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight:
+                                                        FontWeight.w500))),
+                                      ),
+                                    ),
+                                  )
                                 ],
                               ),
                             );
                           })),
-                      SizedBox(
+                      const SizedBox(
                         height: 24,
                       ),
                       widget.pledge.status == 1
