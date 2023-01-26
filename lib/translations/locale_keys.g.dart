@@ -57,5 +57,6 @@ abstract class  LocaleKeys {
   static const no_connection_text = 'no_connection_text';
   static const something_went_wrong_text = 'something_went_wrong_text';
   static const invalid_json_text = 'invalid_json_text';
+  static const amount_exceed_error_text = 'amount_exceed_error_text';
 
 }

@@ -62,7 +62,7 @@ class LeftSide extends StatelessWidget {
                 pathBackgroundColor: Colors.white),
           )
         : ListView.builder(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             itemCount: cardController.cards.length,
             itemBuilder: ((context, index) {
               return GestureDetector(
@@ -72,7 +72,7 @@ class LeftSide extends StatelessWidget {
 
                   cardController.getCardPayments();
 
-                  Get.to(() => CardPaymentsScreen());
+                  Get.to(() => const CardPaymentsScreen());
                 },
                 child: Container(
                   padding: const EdgeInsets.all(16),
@@ -97,9 +97,7 @@ class LeftSide extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        cardController.cards[index].card.cardNo +
-                            "/" +
-                            cardController.cards[index].userId.toString(),
+                        "${cardController.cards[index].card.cardNo}/${cardController.cards[index].userId}",
                         style: GoogleFonts.poppins(
                             textStyle:
                                 const TextStyle(fontWeight: FontWeight.bold)),
@@ -107,7 +105,7 @@ class LeftSide extends StatelessWidget {
                       Container(
                         width: 70,
                         height: 20,
-                        padding: EdgeInsets.all(1),
+                        padding: const EdgeInsets.all(1),
                         decoration: BoxDecoration(
                             color: cardController.cards[index].card.status == 1
                                 ? Colors.green[500]
@@ -119,7 +117,7 @@ class LeftSide extends StatelessWidget {
                                 ? "Active"
                                 : "Inactive",
                             style: GoogleFonts.poppins(
-                                textStyle: TextStyle(
+                                textStyle: const TextStyle(
                                     fontSize: 12,
                                     color: Colors.white,
                                     fontWeight: FontWeight.w300)),
@@ -145,7 +143,7 @@ class CardPaymentsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
         backgroundColor: Colors.white,
         title: Text(
           "Card Payments",
@@ -196,8 +194,7 @@ class CardPaymentsScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          cardController.payments[index].amount.toString() +
-                              " TSH",
+                          "${cardController.payments[index].amount} TSH",
                           style: GoogleFonts.poppins(),
                         ),
                         Text(cardController.payments[index].formattedDate)

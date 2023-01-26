@@ -123,8 +123,8 @@ class UserRepository {
             message: LocaleKeys.no_connection_text.tr(), statusCode: 500));
       } else {
         return Error(Failure(
-            message:
-                e.response?.data["error"].toString() ?? "Some error occured",
+            message: e.response?.data["error"].toString() ??
+                LocaleKeys.something_went_wrong_text.tr(),
             statusCode: 500));
       }
     } on TypeError catch (_) {
@@ -150,8 +150,8 @@ class UserRepository {
             message: LocaleKeys.no_connection_text.tr(), statusCode: 500));
       } else {
         return Error(Failure(
-            message:
-                e.response?.data["error"].toString() ?? "Some error occured",
+            message: e.response?.data["error"].toString() ??
+                LocaleKeys.something_went_wrong_text.tr(),
             statusCode: 500));
       }
     } on TypeError catch (_) {

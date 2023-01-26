@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:ahadi_pledge/di/service_locater.dart';
 import 'package:ahadi_pledge/repos/auth_repo.dart';
 import 'package:ahadi_pledge/repos/user_repo.dart';
@@ -6,7 +5,6 @@ import 'package:ahadi_pledge/screens/home_screen.dart';
 import 'package:ahadi_pledge/screens/login.dart';
 import 'package:ahadi_pledge/translations/locale_keys.g.dart';
 import 'package:ahadi_pledge/utils/snackbar.dart';
-import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:get_storage/get_storage.dart';
@@ -33,7 +31,7 @@ class AuthController extends GetxController with StateMixin {
     if (token == null) {
       Get.offAll(() => AuthScreen());
     } else {
-      Get.offAll(() => HomeScreen());
+      Get.offAll(() => const HomeScreen());
     }
   }
 
@@ -47,7 +45,7 @@ class AuthController extends GetxController with StateMixin {
 
       var token = await getToken();
       userRepository.addFcmToken(token);
-      Get.offAll(() => HomeScreen());
+      Get.offAll(() => const HomeScreen());
     }, (error) {
       change(state, status: RxStatus.success());
 

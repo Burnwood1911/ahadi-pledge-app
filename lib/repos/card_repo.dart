@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:ahadi_pledge/models/card.dart' as card;
 import 'package:ahadi_pledge/models/card_payment.dart';
 import 'package:ahadi_pledge/network/dio_client.dart';
@@ -63,7 +62,7 @@ class CardRepository {
             message: LocaleKeys.something_went_wrong_text.tr(),
             statusCode: 500));
       }
-    } on TypeError catch (e) {
+    } on TypeError catch (_) {
       return Error(
           Failure(message: LocaleKeys.invalid_json_text.tr(), statusCode: 500));
     }

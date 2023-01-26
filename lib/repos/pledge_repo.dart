@@ -57,10 +57,10 @@ class PledgeRepository {
     };
 
     try {
-      var response = await dio.post("/pledge", data: jsonEncode(data));
+      await dio.post("/pledge", data: jsonEncode(data));
       return true;
-    } on DioError catch (e) {
-      final errorMessage = DioExceptions.fromDioError(e).toString();
+    } on DioError catch (_) {
+      //final errorMessage = DioExceptions.fromDioError(e).toString();
       return false;
     } on TypeError catch (e) {
       throw Exception({"error": e.toString(), "stacktrace": e.stackTrace});
@@ -74,10 +74,10 @@ class PledgeRepository {
     };
 
     try {
-      var response = await dio.post("/pledge/reminder", data: jsonEncode(data));
+      await dio.post("/pledge/reminder", data: jsonEncode(data));
       return true;
-    } on DioError catch (e) {
-      final errorMessage = DioExceptions.fromDioError(e).toString();
+    } on DioError catch (_) {
+      // final errorMessage = DioExceptions.fromDioError(e).toString();
       return false;
     } on TypeError catch (e) {
       throw Exception({"error": e.toString(), "stacktrace": e.stackTrace});

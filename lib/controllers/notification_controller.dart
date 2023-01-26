@@ -16,10 +16,10 @@ class NotificationController extends GetxController {
   void onInit() async {
     super.onInit();
 
-    var initializationSettingsAndroid =
-        AndroidInitializationSettings('ic_launcher');
+    // var initializationSettingsAndroid =
+    //     const AndroidInitializationSettings('ic_launcher');
     var initialzationSettingsAndroid =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
+        const AndroidInitializationSettings('@mipmap/ic_launcher');
     var initializationSettings =
         InitializationSettings(android: initialzationSettingsAndroid);
     flutterLocalNotificationsPlugin.initialize(initializationSettings);
@@ -38,7 +38,7 @@ class NotificationController extends GetxController {
                 channel.name,
                 channelDescription: channel.description,
                 color: Colors.blue,
-                // TODO add a proper drawable resource to android, for now using
+                //  add a proper drawable resource to android, for now using
                 //      one that already exists in example app.
                 icon: "@mipmap/ic_launcher",
               ),

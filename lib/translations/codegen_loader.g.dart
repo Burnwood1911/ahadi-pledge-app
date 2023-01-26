@@ -70,7 +70,8 @@ class CodegenLoader extends AssetLoader{
   "no_data_text": "No data",
   "no_connection_text": "No internet Connection",
   "something_went_wrong_text": "Something went wrong",
-  "invalid_json_text": "Received Invalid JSON"
+  "invalid_json_text": "Received Invalid JSON",
+  "amount_exceed_error_text": "Amount exceeds remaining amount"
 };
 static const Map<String,dynamic> sw = {
   "hello_text": "Habari",
@@ -128,7 +129,8 @@ static const Map<String,dynamic> sw = {
   "no_data_text": "Hakuna Data",
   "no_connection_text": "Hakuna Muunganisho wa Mtandao",
   "something_went_wrong_text": "Hitilafu fulani imetokea",
-  "invalid_json_text": "Imepokea JSON Batili"
+  "invalid_json_text": "Imepokea JSON Batili",
+  "amount_exceed_error_text": "Kiasi kinazidi kiasi kilichobaki"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "sw": sw};
 }

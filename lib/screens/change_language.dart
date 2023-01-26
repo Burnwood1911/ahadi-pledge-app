@@ -18,17 +18,18 @@ class ChangeLanguageScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         iconTheme: const IconThemeData(color: Colors.black),
       ),
-      body: Container(
+      body: SizedBox(
         width: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ElevatedButton(
-                style: ElevatedButton.styleFrom(padding: EdgeInsets.all(8)),
+                style:
+                    ElevatedButton.styleFrom(padding: const EdgeInsets.all(8)),
                 onPressed: () async {
-                  await context.setLocale(Locale('en'));
-                  Get.updateLocale(Locale('en'));
+                  await context.setLocale(const Locale('en'));
+                  Get.updateLocale(const Locale('en'));
                 },
                 child: Column(
                   children: [
@@ -37,17 +38,18 @@ class ChangeLanguageScreen extends StatelessWidget {
                       height: 100,
                       width: 100,
                     ),
-                    Text("English"),
+                    const Text("English"),
                   ],
                 )),
-            SizedBox(
+            const SizedBox(
               height: 24,
             ),
             ElevatedButton(
-                style: ElevatedButton.styleFrom(padding: EdgeInsets.all(8)),
+                style:
+                    ElevatedButton.styleFrom(padding: const EdgeInsets.all(8)),
                 onPressed: () async {
-                  await context.setLocale(Locale('sw'));
-                  Get.updateLocale(Locale('sw'));
+                  await context.setLocale(const Locale('sw'));
+                  Get.updateLocale(const Locale('sw'));
                 },
                 child: Column(
                   children: [
@@ -56,7 +58,7 @@ class ChangeLanguageScreen extends StatelessWidget {
                       height: 100,
                       width: 100,
                     ),
-                    Text("Swahili"),
+                    const Text("Swahili"),
                   ],
                 ))
           ],

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:ahadi_pledge/controllers/payment_controller.dart';
 import 'package:ahadi_pledge/controllers/pledge_controller.dart';
 import 'package:ahadi_pledge/models/pledge.dart';
@@ -14,7 +12,7 @@ import 'package:easy_localization/easy_localization.dart';
 class PledgeDetails extends StatefulWidget {
   final PledgeElement pledge;
 
-  PledgeDetails({super.key, required this.pledge});
+  const PledgeDetails({super.key, required this.pledge});
 
   @override
   State<PledgeDetails> createState() => _PledgeDetailsState();

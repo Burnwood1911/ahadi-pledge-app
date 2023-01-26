@@ -48,10 +48,10 @@ class PaymentRepository {
       var response = await dio.post("/payment", data: jsonEncode(data));
 
       if (response.statusCode == 200) {
-        return Success(true);
+        return const Success(true);
       } else {
         return Error(Failure(
-            message: "Amount exceeds remaining amount",
+            message: LocaleKeys.amount_exceed_error_text.tr(),
             statusCode: response.statusCode!));
       }
     } on DioError catch (e) {
@@ -60,7 +60,8 @@ class PaymentRepository {
             message: LocaleKeys.no_connection_text.tr(), statusCode: 500));
       } else {
         return Error(Failure(
-            message: "Amount exceeds remaining amount", statusCode: 500));
+            message: LocaleKeys.amount_exceed_error_text.tr(),
+            statusCode: 500));
       }
     } on TypeError catch (_) {
       return Error(
