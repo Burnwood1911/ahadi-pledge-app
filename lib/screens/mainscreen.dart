@@ -4,7 +4,6 @@ import 'package:ahadi_pledge/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import '../translations/locale_keys.g.dart';
@@ -251,84 +250,81 @@ class _MainScreenState extends State<MainScreen> {
                 const SizedBox(
                   height: 8,
                 ),
-                Expanded(
-                  child: paymentController!.payments.isEmpty
-                      ? Padding(
-                          padding: const EdgeInsets.only(bottom: 100.0),
-                          child: Center(
-                            child: Text(LocaleKeys.no_items_text.tr()),
-                          ),
-                        )
-                      : ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: 10,
-                          itemBuilder: ((context, index) {
-                            final payment = paymentController!.payments.reversed
-                                .toList()[index];
-                            return Container(
-                              margin: const EdgeInsets.symmetric(vertical: 4),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Icon(
-                                        Icons.payment,
-                                        size: 38,
-                                        color: Theme.of(context).primaryColor,
-                                      ),
-                                      const SizedBox(
-                                        width: 16,
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(
-                                            width: 200,
-                                            child: Text(
-                                                pledgeController!.pledges
-                                                    .firstWhere((element) =>
-                                                        element.id ==
-                                                        payment.pledgeId)
-                                                    .name,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: GoogleFonts.poppins(
-                                                    textStyle: const TextStyle(
-                                                        fontSize: 16,
-                                                        color: Colors.black))),
-                                          ),
-                                          Text(
-                                            payment.createdAt
-                                                .toLocal()
-                                                .toString()
-                                                .split(" ")[0],
-                                            style: GoogleFonts.poppins(
-                                                textStyle: const TextStyle(
-                                                    fontSize: 13,
-                                                    color: Colors.grey)),
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  Text(
-                                      currencyFormatter
-                                          .format(int.parse(payment.amount)),
-                                      style: GoogleFonts.poppins(
-                                          textStyle: const TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w500)))
-                                ],
-                              ),
-                            );
-                          })),
-                )
+                paymentController!.payments.isEmpty
+                    ? Padding(
+                        padding: const EdgeInsets.only(bottom: 100.0),
+                        child: Center(
+                          child: Text(LocaleKeys.no_items_text.tr()),
+                        ),
+                      )
+                    : ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: 10,
+                        itemBuilder: ((context, index) {
+                          final payment =
+                              paymentController!.payments.toList()[index];
+                          return Container(
+                            margin: const EdgeInsets.symmetric(vertical: 4),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Icon(
+                                      Icons.payment,
+                                      size: 38,
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                                    const SizedBox(
+                                      width: 16,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          width: 200,
+                                          child: Text(
+                                              pledgeController!.pledges
+                                                  .firstWhere((element) =>
+                                                      element.id ==
+                                                      payment.pledgeId)
+                                                  .name,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: GoogleFonts.poppins(
+                                                  textStyle: const TextStyle(
+                                                      fontSize: 16,
+                                                      color: Colors.black))),
+                                        ),
+                                        Text(
+                                          payment.createdAt
+                                              .toLocal()
+                                              .toString()
+                                              .split(" ")[0],
+                                          style: GoogleFonts.poppins(
+                                              textStyle: const TextStyle(
+                                                  fontSize: 13,
+                                                  color: Colors.grey)),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                Text(
+                                    currencyFormatter
+                                        .format(int.parse(payment.amount)),
+                                    style: GoogleFonts.poppins(
+                                        textStyle: const TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w500)))
+                              ],
+                            ),
+                          );
+                        }))
               ],
             )),
     );

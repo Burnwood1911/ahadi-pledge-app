@@ -257,26 +257,8 @@ class _PledgeDetailsState extends State<PledgeDetails> {
                                   Row(
                                     children: [
                                       Text(
-                                        currencyFormatter.format(paymentController!.payments
-                                                .where((element) =>
-                                                    element.pledgeId ==
-                                                    widget.pledge.id)
-                                                .isNotEmpty
-                                            ? (int.parse(widget.pledge.amount) -
-                                                (paymentController!.payments
-                                                        .where((element) =>
-                                                            element.pledgeId ==
-                                                                widget.pledge
-                                                                    .id &&
-                                                            element.verified ==
-                                                                true)
-                                                        .isEmpty
-                                                    ? 0
-                                                    : paymentController!.payments
-                                                        .where((element) => element.pledgeId == widget.pledge.id && element.verified == true)
-                                                        .map((e) => int.parse(e.amount))
-                                                        .reduce((value, element) => value + element)))
-                                            : widget.pledge.amount),
+                                        currencyFormatter
+                                            .format(getPledgeRemainingAmount()),
                                         style: GoogleFonts.poppins(
                                             textStyle: const TextStyle(
                                                 fontSize: 18,
@@ -485,5 +467,27 @@ class _PledgeDetailsState extends State<PledgeDetails> {
         ),
       ),
     );
+  }
+
+  int getPledgeRemainingAmount() {
+    var pledgePayments = paymentController!.payments
+        .where((element) => element.pledgeId == widget.pledge.id);
+
+    if (pledgePayments.isNotEmpty) {
+      var verifiedPayments = paymentController!.payments.where((element) =>
+          element.pledgeId == widget.pledge.id && element.verified == true);
+
+      if (verifiedPayments.isNotEmpty) {
+        var total = verifiedPayments
+            .map((e) => int.parse(e.amount))
+            .reduce((value, element) => value + element);
+
+        return int.parse(widget.pledge.amount) - total;
+      } else {
+        return 0;
+      }
+    } else {
+      return int.parse(widget.pledge.amount);
+    }
   }
 }

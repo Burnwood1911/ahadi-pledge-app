@@ -30,7 +30,9 @@ class PledgeController extends GetxController {
   Future<void> getPledges() async {
     isLoading(true);
     final result = await pledgeRepository.getPledges();
-    pledges.value = result.pledges!;
+    var pledgesToSort = result.pledges!;
+    pledgesToSort.sort((a, b) => b.deadline.compareTo(a.deadline));
+    pledges.value = pledgesToSort;
     isLoading(false);
   }
 

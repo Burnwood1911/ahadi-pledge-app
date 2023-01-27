@@ -25,7 +25,9 @@ class PaymentController extends GetxController {
   Future<void> getPayments() async {
     isLoading(true);
     final result = await paymentRepositry.getPayments();
-    payments.value = result.payments;
+    var paymentsToSort = result.payments;
+    paymentsToSort.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+    payments.value = paymentsToSort;
     isLoading(false);
   }
 
