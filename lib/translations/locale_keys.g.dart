@@ -58,5 +58,8 @@ abstract class  LocaleKeys {
   static const something_went_wrong_text = 'something_went_wrong_text';
   static const invalid_json_text = 'invalid_json_text';
   static const amount_exceed_error_text = 'amount_exceed_error_text';
+  static const fulfilled_text = 'fulfilled_text';
+  static const unfulfilled_text = 'unfulfilled_text';
+  static const no_items_text = 'no_items_text';
 
 }

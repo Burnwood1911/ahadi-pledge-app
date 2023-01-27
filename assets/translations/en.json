@@ -55,5 +55,8 @@
   "no_connection_text": "No internet Connection",
   "something_went_wrong_text": "Something went wrong",
   "invalid_json_text": "Received Invalid JSON",
-  "amount_exceed_error_text": "Amount exceeds remaining amount"
+  "amount_exceed_error_text": "Amount exceeds remaining amount",
+  "fulfilled_text": "Fulfilled ",
+  "unfulfilled_text": "Unfulfilled",
+  "no_items_text": "No Items"
 }

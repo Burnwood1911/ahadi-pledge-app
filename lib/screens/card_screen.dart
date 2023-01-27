@@ -1,9 +1,13 @@
 import 'package:ahadi_pledge/controllers/card_controller.dart';
 import 'package:ahadi_pledge/controllers/user_controller.dart';
+import 'package:ahadi_pledge/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:easy_localization/easy_localization.dart';
+
+import '../utils/common.dart';
 
 class CardScreen extends StatefulWidget {
   const CardScreen({super.key});
@@ -162,8 +166,8 @@ class CardPaymentsScreen extends StatelessWidget {
                   pathBackgroundColor: Colors.white),
             )
           : cardController.payments.isEmpty
-              ? const Center(
-                  child: Text("No items."),
+              ? Center(
+                  child: Text(LocaleKeys.no_items_text.tr()),
                 )
               : ListView.separated(
                   itemCount: cardController.payments.length,
@@ -194,7 +198,7 @@ class CardPaymentsScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "${cardController.payments[index].amount} TSH",
+                          "${currencyFormatter.format(cardController.payments[index].amount)} TSH",
                           style: GoogleFonts.poppins(),
                         ),
                         Text(cardController.payments[index].formattedDate)

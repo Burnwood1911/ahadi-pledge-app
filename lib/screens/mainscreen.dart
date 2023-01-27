@@ -4,10 +4,13 @@ import 'package:ahadi_pledge/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import '../translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart' as easy;
+
+import '../utils/common.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -107,23 +110,26 @@ class _MainScreenState extends State<MainScreen> {
                                         fontWeight: FontWeight.w500,
                                         color: Theme.of(context).primaryColor)),
                               ),
-                              Row(
-                                children: [
-                                  Text(
-                                    "${pledgeController!.totalPledgeAmount()}",
-                                    style: GoogleFonts.poppins(
-                                        textStyle: const TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600)),
-                                  ),
-                                  Text(
-                                    "Tsh",
-                                    style: GoogleFonts.poppins(
-                                        textStyle: const TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600)),
-                                  )
-                                ],
+                              FittedBox(
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      currencyFormatter.format(pledgeController!
+                                          .totalPledgeAmount()),
+                                      style: GoogleFonts.poppins(
+                                          textStyle: const TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w600)),
+                                    ),
+                                    Text(
+                                      "Tsh",
+                                      style: GoogleFonts.poppins(
+                                          textStyle: const TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600)),
+                                    )
+                                  ],
+                                ),
                               )
                             ],
                           ),
@@ -170,23 +176,28 @@ class _MainScreenState extends State<MainScreen> {
                                         fontWeight: FontWeight.w500,
                                         color: Theme.of(context).primaryColor)),
                               ),
-                              Row(
-                                children: [
-                                  Text(
-                                    "${pledgeController!.totalPledgeAmount() - paymentController!.totalPaymentAmount()}",
-                                    style: GoogleFonts.poppins(
-                                        textStyle: const TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600)),
-                                  ),
-                                  Text(
-                                    "Tsh",
-                                    style: GoogleFonts.poppins(
-                                        textStyle: const TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600)),
-                                  )
-                                ],
+                              FittedBox(
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      currencyFormatter.format(pledgeController!
+                                              .totalPledgeAmount() -
+                                          paymentController!
+                                              .totalPaymentAmount()),
+                                      style: GoogleFonts.poppins(
+                                          textStyle: const TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w600)),
+                                    ),
+                                    Text(
+                                      "Tsh",
+                                      style: GoogleFonts.poppins(
+                                          textStyle: const TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600)),
+                                    )
+                                  ],
+                                ),
                               )
                             ],
                           ),
@@ -240,17 +251,18 @@ class _MainScreenState extends State<MainScreen> {
                 const SizedBox(
                   height: 8,
                 ),
-                SizedBox(
-                  height: Get.height * 0.30,
+                Expanded(
                   child: paymentController!.payments.isEmpty
-                      ? const Padding(
-                          padding: EdgeInsets.only(bottom: 100.0),
+                      ? Padding(
+                          padding: const EdgeInsets.only(bottom: 100.0),
                           child: Center(
-                            child: Text("No Items."),
+                            child: Text(LocaleKeys.no_items_text.tr()),
                           ),
                         )
                       : ListView.builder(
-                          itemCount: paymentController!.payments.length,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: 10,
                           itemBuilder: ((context, index) {
                             final payment = paymentController!.payments.reversed
                                 .toList()[index];
@@ -305,7 +317,9 @@ class _MainScreenState extends State<MainScreen> {
                                       )
                                     ],
                                   ),
-                                  Text(payment.amount.toString(),
+                                  Text(
+                                      currencyFormatter
+                                          .format(int.parse(payment.amount)),
                                       style: GoogleFonts.poppins(
                                           textStyle: const TextStyle(
                                               fontSize: 18,

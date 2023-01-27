@@ -55,5 +55,8 @@
   "no_connection_text": "Hakuna Muunganisho wa Mtandao",
   "something_went_wrong_text": "Hitilafu fulani imetokea",
   "invalid_json_text": "Imepokea JSON Batili",
-  "amount_exceed_error_text": "Kiasi kinazidi kiasi kilichobaki"
+  "amount_exceed_error_text": "Kiasi kinazidi kiasi kilichobaki",
+  "fulfilled_text": "Imetimia",
+  "unfulfilled_text": "Bado",
+  "no_items_text": "Hakuna Kitu"
 }

@@ -3,6 +3,7 @@ import 'package:ahadi_pledge/controllers/pledge_controller.dart';
 import 'package:ahadi_pledge/models/pledge.dart';
 import 'package:ahadi_pledge/screens/payment_screen.dart';
 import 'package:ahadi_pledge/translations/locale_keys.g.dart';
+import 'package:ahadi_pledge/utils/common.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:google_fonts/google_fonts.dart';
@@ -190,7 +191,8 @@ class _PledgeDetailsState extends State<PledgeDetails> {
                                   Row(
                                     children: [
                                       Text(
-                                        widget.pledge.amount,
+                                        currencyFormatter.format(
+                                            int.parse(widget.pledge.amount)),
                                         style: GoogleFonts.poppins(
                                             textStyle: const TextStyle(
                                                 fontSize: 18,
@@ -255,7 +257,26 @@ class _PledgeDetailsState extends State<PledgeDetails> {
                                   Row(
                                     children: [
                                       Text(
-                                        "${paymentController!.payments.where((element) => element.pledgeId == widget.pledge.id).isNotEmpty ? (int.parse(widget.pledge.amount) - (paymentController!.payments.where((element) => element.pledgeId == widget.pledge.id && element.verified == true).isEmpty ? 0 : paymentController!.payments.where((element) => element.pledgeId == widget.pledge.id && element.verified == true).map((e) => int.parse(e.amount)).reduce((value, element) => value + element))) : widget.pledge.amount}",
+                                        currencyFormatter.format(paymentController!.payments
+                                                .where((element) =>
+                                                    element.pledgeId ==
+                                                    widget.pledge.id)
+                                                .isNotEmpty
+                                            ? (int.parse(widget.pledge.amount) -
+                                                (paymentController!.payments
+                                                        .where((element) =>
+                                                            element.pledgeId ==
+                                                                widget.pledge
+                                                                    .id &&
+                                                            element.verified ==
+                                                                true)
+                                                        .isEmpty
+                                                    ? 0
+                                                    : paymentController!.payments
+                                                        .where((element) => element.pledgeId == widget.pledge.id && element.verified == true)
+                                                        .map((e) => int.parse(e.amount))
+                                                        .reduce((value, element) => value + element)))
+                                            : widget.pledge.amount),
                                         style: GoogleFonts.poppins(
                                             textStyle: const TextStyle(
                                                 fontSize: 18,
@@ -423,7 +444,9 @@ class _PledgeDetailsState extends State<PledgeDetails> {
                                     child: Align(
                                       alignment: Alignment.centerRight,
                                       child: FittedBox(
-                                        child: Text(payment.amount.toString(),
+                                        child: Text(
+                                            currencyFormatter.format(
+                                                int.parse(payment.amount)),
                                             style: GoogleFonts.poppins(
                                                 textStyle: const TextStyle(
                                                     fontSize: 18,

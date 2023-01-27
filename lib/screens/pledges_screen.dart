@@ -9,6 +9,8 @@ import 'package:loading_indicator/loading_indicator.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+import '../utils/common.dart';
+
 class Pledges extends GetView<PledgeController> {
   const Pledges({super.key});
 
@@ -36,8 +38,8 @@ class Pledges extends GetView<PledgeController> {
                       pathBackgroundColor: Colors.white),
                 )
               : controller.pledges.isEmpty
-                  ? const Center(
-                      child: Text("No Items."),
+                  ? Center(
+                      child: Text(LocaleKeys.no_items_text.tr()),
                     )
                   : RefreshIndicator(
                       onRefresh: () async {
@@ -107,7 +109,7 @@ class Pledges extends GetView<PledgeController> {
                                 Column(
                                   children: [
                                     Text(
-                                      "${controller.pledges[index].amount}Tsh",
+                                      "${currencyFormatter.format(int.parse(controller.pledges[index].amount))}Tsh",
                                       style: GoogleFonts.poppins(
                                           textStyle: const TextStyle(
                                               fontWeight: FontWeight.bold)),
@@ -131,8 +133,9 @@ class Pledges extends GetView<PledgeController> {
                                                       index) >=
                                                   int.parse(controller
                                                       .pledges[index].amount)
-                                              ? "PAID"
-                                              : "UNPAID",
+                                              ? LocaleKeys.fulfilled_text.tr()
+                                              : LocaleKeys.unfulfilled_text
+                                                  .tr(),
                                           style: GoogleFonts.poppins(
                                               textStyle: const TextStyle(
                                                   fontSize: 12,
