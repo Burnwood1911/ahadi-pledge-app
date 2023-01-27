@@ -62,8 +62,15 @@ class _MainScreenState extends State<MainScreen> {
                             color: Colors.black),
                       ),
                     ),
-                    // IconButton(
-                    //     onPressed: () {}, icon: const Icon(Icons.notifications))
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Image.asset(
+                          "assets/flex-logo.png",
+                          height: 30,
+                        ),
+                      ),
+                    )
                   ],
                 ),
                 Container(
