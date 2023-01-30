@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:ahadi_pledge/controllers/auth_controller.dart';
 import 'package:ahadi_pledge/controllers/card_controller.dart';
 import 'package:ahadi_pledge/controllers/community_controller.dart';
@@ -53,10 +51,10 @@ void main() async {
 
   runApp(EasyLocalization(
     path: 'assets/translations',
-    supportedLocales: [Locale('en'), Locale('sw')],
-    fallbackLocale: Locale('en'),
-    assetLoader: CodegenLoader(),
-    child: MyApp(),
+    supportedLocales: const [Locale('en'), Locale('sw')],
+    fallbackLocale: const Locale('en'),
+    assetLoader: const CodegenLoader(),
+    child: const MyApp(),
   ));
 }
 
@@ -71,9 +69,9 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  const MyApp({super.key});
 
-  final MaterialColor mycolor = MaterialColor(
+  final MaterialColor mycolor = const MaterialColor(
     0xFF2768B1,
     <int, Color>{
       50: Color(0xFFE8F0F8),
@@ -97,7 +95,7 @@ class MyApp extends StatelessWidget {
       locale: context.locale,
       theme: ThemeData(primarySwatch: mycolor),
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: const SplashScreen(),
     );
   }
 }
